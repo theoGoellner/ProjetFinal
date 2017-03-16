@@ -1,5 +1,6 @@
 package com.bourse.facades;
 
+import com.bourse.entities.Contrat;
 import com.bourse.entities.PERP;
 import java.util.Date;
 import java.util.List;
@@ -22,6 +23,6 @@ public interface PERPFacadeLocal {
 
     int count();
 
-    PERP creerPERP(Date dateOuverture, Date dateFermeture);
+    PERP creerPERP(Date dateOuverture, Date dateFermeture, Double montantInitial, Contrat contrat);
     
 }

@@ -1,5 +1,6 @@
 package com.bourse.facades;
 
+import com.bourse.entities.Contrat;
 import com.bourse.entities.PEA;
 import java.util.Date;
 import javax.ejb.Stateless;
@@ -22,9 +23,11 @@ public class PEAFacade extends AbstractFacade<PEA> implements PEAFacadeLocal {
     }
 
     @Override
-    public PEA creerPEA(Date dateOuverture) {
+    public PEA creerPEA(Date dateOuverture,  Double montantInitial, Contrat contrat) {
         PEA pea = new PEA();
         pea.setDateOuverture(dateOuverture);
+        pea.setMontantInitial(montantInitial);
+        pea.setLeContrat(contrat);
         em.persist(pea);
         return pea;
     }

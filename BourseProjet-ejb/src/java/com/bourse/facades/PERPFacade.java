@@ -1,5 +1,6 @@
 package com.bourse.facades;
 
+import com.bourse.entities.Contrat;
 import com.bourse.entities.PERP;
 import java.util.Date;
 import javax.ejb.Stateless;
@@ -22,10 +23,12 @@ public class PERPFacade extends AbstractFacade<PERP> implements PERPFacadeLocal 
     }
 
     @Override
-    public PERP creerPERP(Date dateOuverture, Date dateFermeture) {
+    public PERP creerPERP(Date dateOuverture, Date dateFermeture,  Double montantInitial, Contrat contrat) {
         PERP perp = new PERP();
         perp.setDateOuverture(dateOuverture);
         perp.setDateFermeture(dateFermeture);
+        perp.setMontantInitial(montantInitial);
+        perp.setLeContrat(contrat);
         em.persist(perp);
         return perp;
     }

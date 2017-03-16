@@ -2,6 +2,6 @@ package com.bourse.enumeration;
 
 public enum EnumTypeGestCompteClassique {
     Libre, 
-    Guidée,
+    Guidee,
     Passive;
 }

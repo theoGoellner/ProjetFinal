@@ -1,5 +1,6 @@
 package com.bourse.facades;
 
+import com.bourse.entities.Contrat;
 import com.bourse.entities.PEA;
 import java.util.Date;
 import java.util.List;
@@ -22,6 +23,6 @@ public interface PEAFacadeLocal {
 
     int count();
 
-    PEA creerPEA(Date dateOuverture);
+    PEA creerPEA(Date dateOuverture, Double montantInitial, Contrat contrat);
     
 }

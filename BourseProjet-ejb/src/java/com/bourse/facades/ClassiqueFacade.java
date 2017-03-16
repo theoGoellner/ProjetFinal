@@ -2,7 +2,7 @@ package com.bourse.facades;
 
 import com.bourse.entities.Classique;
 import com.bourse.entities.Contrat;
-import com.bourse.enumeration.EnumNiveauGestionCompteCalssique;
+import com.bourse.enumeration.EnumNiveauGestionCompteClassique;
 import com.bourse.enumeration.EnumTypeGestCompteClassique;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -24,7 +24,7 @@ public class ClassiqueFacade extends AbstractFacade<Classique> implements Classi
     }   
 
     @Override
-    public Classique creerClassique(EnumTypeGestCompteClassique typeClassique, EnumNiveauGestionCompteCalssique niveauGestion, 
+    public Classique creerClassique(EnumTypeGestCompteClassique typeClassique, EnumNiveauGestionCompteClassique niveauGestion, 
             String nomCharge, Double valeurMax, Double pourcMax, Double montantInitial, Contrat contrat) {
         Classique classiq = new Classique();
         classiq.setType(typeClassique);

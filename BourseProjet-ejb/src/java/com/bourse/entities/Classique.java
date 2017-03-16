@@ -1,6 +1,6 @@
 package com.bourse.entities;
 
-import com.bourse.enumeration.EnumNiveauGestionCompteCalssique;
+import com.bourse.enumeration.EnumNiveauGestionCompteClassique;
 import com.bourse.enumeration.EnumTypeGestCompteClassique;
 import java.io.Serializable;
 import javax.persistence.Entity;
@@ -76,19 +76,19 @@ public class Classique extends PorteFeuille implements Serializable {
         this.type = type;
     }
 
-    private EnumNiveauGestionCompteCalssique niveauGestion;
+    private EnumNiveauGestionCompteClassique niveauGestion;
     /**
      * Get the value of niveauGestion
      * @return the value of niveauGestion
      */
-    public EnumNiveauGestionCompteCalssique getNiveauGestion() {
+    public EnumNiveauGestionCompteClassique getNiveauGestion() {
         return niveauGestion;
     }
     /**
      * Set the value of niveauGestion
      * @param niveauGestion new value of niveauGestion
      */
-    public void setNiveauGestion(EnumNiveauGestionCompteCalssique niveauGestion) {
+    public void setNiveauGestion(EnumNiveauGestionCompteClassique niveauGestion) {
         this.niveauGestion = niveauGestion;
     }
 

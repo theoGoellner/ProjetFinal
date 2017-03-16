@@ -10,7 +10,7 @@ import com.bourse.entities.PERP;
 import com.bourse.entities.Particulier;
 import com.bourse.entities.PorteFeuille;
 import com.bourse.enumeration.EnumFormEntreprise;
-import com.bourse.enumeration.EnumNiveauGestionCompteCalssique;
+import com.bourse.enumeration.EnumNiveauGestionCompteClassique;
 import com.bourse.enumeration.EnumTypeGestCompteClassique;
 import com.bourse.facades.ClassiqueFacadeLocal;
 import com.bourse.facades.ClientFacadeLocal;
@@ -74,7 +74,7 @@ public class BackOfficeSession implements BackOfficeSessionLocal {
     public void modificationParticulier(Particulier part, String nom, String prenom, Date dateNais, String lieuNais, String telephone, String email, String adresse, int niveau) {
         particulierFacade.modifierParticulier(part, nom, prenom, dateNais, lieuNais, telephone, email, adresse, niveau);
     }
-    ///teste
+
     @Override
     public Entreprise creationEntreprise(String siret, String nomEntreprise, EnumFormEntreprise formeEntreprise, String contact, String tphContact, String telephone, String email, String adresse, int niveau, Employe courtier) {
         return entrepriseFacade.creerEntreprise(siret, nomEntreprise, formeEntreprise, contact, tphContact, telephone, email, adresse, niveau, courtier);
@@ -137,7 +137,7 @@ public class BackOfficeSession implements BackOfficeSessionLocal {
     }
 
     
-    // GESTION DES CONTRATS
+    // GESTION DES CONTRATS / PORTEFEULLLE
     
     @Override
     public Contrat creationContrat(Date dateDebut, String rib, String typeContrat, Client cli) {
@@ -148,8 +148,6 @@ public class BackOfficeSession implements BackOfficeSessionLocal {
     public Contrat rechercheContratParID(Long idContrat) {
         return contratFacade.rechercherContratParID(idContrat);
     }
-
-    // GESTION DES PORTEFEULLLE
 
     @Override
     public PorteFeuille creationPorteFeuille(Double montantInitial, Contrat contrat) {
@@ -162,19 +160,19 @@ public class BackOfficeSession implements BackOfficeSessionLocal {
     }
 
     @Override
-    public Classique creationClassique(EnumTypeGestCompteClassique typeClassique, EnumNiveauGestionCompteCalssique niveauGestion, 
+    public Classique creationClassique(EnumTypeGestCompteClassique typeClassique, EnumNiveauGestionCompteClassique niveauGestion, 
             String nomCharge, Double valeurMax, Double pourcMax, Double montantInitial, Contrat contrat) {
         return classiqueFacade.creerClassique(typeClassique, niveauGestion, nomCharge, valeurMax, pourcMax, montantInitial, contrat);
     }
 
     @Override
-    public PEA creationPEA(Date dateOuverture) {
-        return pEAFacade.creerPEA(dateOuverture);
+    public PEA creationPEA(Date dateOuverture, Double montantInitial, Contrat contrat) {
+        return pEAFacade.creerPEA(dateOuverture, montantInitial, contrat);
     }
 
     @Override
-    public PERP creationPERP(Date dateOuverture, Date dateFermeture) {
-        return pERPFacade.creerPERP(dateOuverture, dateFermeture);
+    public PERP creationPERP(Date dateOuverture, Date dateFermeture, Double montantInitial, Contrat contrat) {
+        return pERPFacade.creerPERP(dateOuverture, dateFermeture, montantInitial, contrat);
     }
  
     

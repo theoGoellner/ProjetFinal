@@ -5,13 +5,8 @@ import com.bourse.entities.Employe;
 import com.bourse.entities.Entreprise;
 import com.bourse.entities.Identification;
 import com.bourse.entities.Particulier;
-import com.bourse.enumeration.EnumFormEntreprise;
-import com.bourse.enumeration.EnumNiveauGestionCompteCalssique;
-import com.bourse.enumeration.EnumRoleEmploye;
-import com.bourse.enumeration.EnumTypeGestCompteClassique;
-import com.bourse.sessions.AdministrationSessionLocal;
-import com.bourse.sessions.BackOfficeSessionLocal;
-import com.bourse.sessions.CommunSessionLocal;
+import com.bourse.enumeration.*;
+import com.bourse.sessions.*;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.List;
@@ -38,6 +33,7 @@ public class controllerBackOffice extends HttpServlet {
     
     private String jspClient;
     private String message = "";
+    
     private Client cli = null;
     private Entreprise entr = null;
     private Particulier part = null;
@@ -45,11 +41,10 @@ public class controllerBackOffice extends HttpServlet {
     private List<Employe> listeEmp = null;
     private List<Particulier> listeParticulier = null;
     private List<Entreprise> listeEntreprise = null;
+    
     private Identification ident = null;
     private HttpSession session;
-    
-    private String redirection;
-    
+   
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -67,23 +62,21 @@ public class controllerBackOffice extends HttpServlet {
         
         String act = null;
         
-        if(!request.isRequestedSessionIdValid()){
+        if (!request.isRequestedSessionIdValid()) {
             jspClient = "/Authentification.jsp";
-            message="votre session est expirée";
+            message = "votre session est expirée";
             request.setAttribute("message", message);
-
-        } else {
-        act = request.getParameter("action");
-        }
-        
-        
+        } else { act = request.getParameter("action"); }
+                
         if ((act == null) || (act.equals("null"))) {
             jspClient = "/BackOffice/Accueil.jsp";
         } else {
             switch (act) {
                 case "accueil":
                     jspClient = "/BackOffice/Accueil.jsp";
-                    break;   
+                    break;                   
+                    
+                // GESTION DES EMPLOYES
                 case "formAjoutEmploye":
                     listeEmp = administrationSession.getListeEmployesActifs();
                     request.setAttribute("ListeDesEmployes", listeEmp);
@@ -96,6 +89,8 @@ public class controllerBackOffice extends HttpServlet {
                 case "archiverEmploye":
                     doActionArchiverEmploye(request, response);
                     break; 
+                    
+                // GESTION DES CLIENTS
                 case "formModifierEmploye":                   
                     emp = administrationSession.rechercheEmployeParID(Long.valueOf(request.getParameter("idEmploye")));
                     jspClient = "/Administration/GestionDesEmployes/formModifEmploye.jsp";
@@ -124,24 +119,6 @@ public class controllerBackOffice extends HttpServlet {
                     request.setAttribute("message", message);
                     jspClient = "/BackOffice/GestionDesClients/gestionClientsCourtier.jsp";
                     break;
-                case "gestionContratsClient":
-                    cli = backOfficeSession.rechercheClientParID(Long.valueOf(request.getParameter("idClient")));
-                    request.setAttribute("client", cli);
-                    request.setAttribute("message", message);                    
-                    jspClient = "/BackOffice/GestionDesClients/GestionDesContrats/gestionContratsClient.jsp";
-                    break;
-                case "formAjoutContrat":
-                    cli = backOfficeSession.rechercheClientParID(Long.valueOf(request.getParameter("idClient")));
-                    request.setAttribute("client", cli);
-                    request.setAttribute("message", message); 
-                    jspClient = "/BackOffice/GestionDesClients/GestionDesContrats/formAjoutContrat.jsp";
-                    break;
-                case "ajoutContrat":
-                    doActionAjoutContrat(request, response);
-                    break;
-                case "formModifContrat":
-                    jspClient = "/BackOffice/GestionDesClients/GestionDesContrats/formModifContrat.jsp";
-                    break;
                 case "archiverClientAjout":   
                     jspClient = "/BackOffice/GestionDesClients/formAjoutClient.jsp";
                     doActionArchiverClient(request, response);                    
@@ -149,7 +126,7 @@ public class controllerBackOffice extends HttpServlet {
                 case "archiverClientGestion":
                     jspClient = "/BackOffice/GestionDesClients/gestionClientsCourtier.jsp";
                     doActionArchiverClient(request, response);
-                    break;                
+                    break; 
                 case "formModifierClient":
                     cli = backOfficeSession.rechercheClientParID(Long.valueOf(request.getParameter("idClient")));
                     if (cli instanceof Entreprise){
@@ -173,6 +150,26 @@ public class controllerBackOffice extends HttpServlet {
                 case "RechClient":
                     doActionRechercherClient(request, response);
                     break;
+                    
+                // GESTION DES CONTRATS / PORTEFEUILLES
+                case "gestionContratsClient":
+                    cli = backOfficeSession.rechercheClientParID(Long.valueOf(request.getParameter("idClient")));
+                    request.setAttribute("client", cli);
+                    request.setAttribute("message", message);                    
+                    jspClient = "/BackOffice/GestionDesClients/GestionDesContrats/gestionContratsClient.jsp";
+                    break;
+                case "formAjoutContrat":
+                    cli = backOfficeSession.rechercheClientParID(Long.valueOf(request.getParameter("idClient")));
+                    request.setAttribute("client", cli);
+                    request.setAttribute("message", message); 
+                    jspClient = "/BackOffice/GestionDesClients/GestionDesContrats/formAjoutContrat.jsp";
+                    break;
+                case "ajoutContrat":
+                    doActionAjoutContrat(request, response);
+                    break;
+                case "formModifContrat":
+                    jspClient = "/BackOffice/GestionDesClients/GestionDesContrats/formModifContrat.jsp";
+                    break;  
             }
         }
         RequestDispatcher Rd;
@@ -389,7 +386,6 @@ public class controllerBackOffice extends HttpServlet {
         message = "Archivage du client réussi !";
         request.setAttribute("message", message);
     }
-
     
     protected void doActionModifierParticulier(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -458,9 +454,8 @@ public class controllerBackOffice extends HttpServlet {
         request.setAttribute("message", message);
         jspClient = "/BackOffice/GestionDesClients/formAjoutClient.jsp";
     }  
-    
-    
-        protected void doActionRechercherClient(HttpServletRequest request, HttpServletResponse response)
+        
+    protected void doActionRechercherClient(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         listeParticulier =null;
         listeEntreprise =null;  
@@ -498,8 +493,10 @@ public class controllerBackOffice extends HttpServlet {
             request.setAttribute("message", message);
 
         }
-        
-        protected void doActionAjoutContrat(HttpServletRequest request, HttpServletResponse response)
+    
+    // ------------------------ GESTION DES CONTRATS  --------------------------
+    
+    protected void doActionAjoutContrat(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
         String typePorteFeuille = request.getParameter("typePorteFeuille");
@@ -521,27 +518,26 @@ public class controllerBackOffice extends HttpServlet {
         String dateFermeturePEP = request.getParameter("dateFermeturePEP");  
         
         cli = backOfficeSession.rechercheClientParID(Long.valueOf(request.getParameter("idClient")));
-        
+
         session = request.getSession(true);
         Employe courtier = (Employe)session.getAttribute("employe");
         
-        if (typePorteFeuille.equalsIgnoreCase("Classique")) { 
-            
-            backOfficeSession.creationClassique(EnumTypeGestCompteClassique.valueOf(typePFClassique), EnumNiveauGestionCompteCalssique.valueOf(niveauGestionClassique), 
+        if (typePorteFeuille.equalsIgnoreCase("Classique")) {            
+            backOfficeSession.creationClassique(EnumTypeGestCompteClassique.valueOf(typePFClassique), EnumNiveauGestionCompteClassique.valueOf(niveauGestionClassique), 
                     nomChargeCompte, Double.valueOf(valeurMaxClassique), Double.valueOf(pourcMaxClassique), Double.valueOf(montantInitialPF), 
-                    backOfficeSession.creationContrat(Date.valueOf(dateDebutContrat), ribContrat, typeContrat, cli));            
-                       
-            
+                    backOfficeSession.creationContrat(Date.valueOf(dateDebutContrat), ribContrat, typeContrat, cli)); 
+            message = "Ajout d'un contrat de type Classique réussi !";                                 
         } else if (typePorteFeuille.equalsIgnoreCase("PEA")) {
-            
+            backOfficeSession.creationPEA(Date.valueOf(dateOuverturePEA), Double.valueOf(montantInitialPF), 
+                    backOfficeSession.creationContrat(Date.valueOf(dateDebutContrat), ribContrat, typeContrat, cli));
+            message = "Ajout d'un contrat de type PEA réussi !";
         } else {
-            
+            backOfficeSession.creationPERP(Date.valueOf(dateOuverturePEP), Date.valueOf(dateFermeturePEP), Double.valueOf(montantInitialPF), 
+                    backOfficeSession.creationContrat(Date.valueOf(dateDebutContrat), ribContrat, typeContrat, cli));
+            message = "Ajout d'un contrat de type PEP-PERP réussi !";
         }
-        
+        request.setAttribute("client", cli);
         request.setAttribute("message", message);
         jspClient = "/BackOffice/GestionDesClients/GestionDesContrats/gestionContratsClient.jsp";
-    }
-        
-        
-        
+    }      
 }

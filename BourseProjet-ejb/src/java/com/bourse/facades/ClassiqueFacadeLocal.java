@@ -2,7 +2,7 @@ package com.bourse.facades;
 
 import com.bourse.entities.Classique;
 import com.bourse.entities.Contrat;
-import com.bourse.enumeration.EnumNiveauGestionCompteCalssique;
+import com.bourse.enumeration.EnumNiveauGestionCompteClassique;
 import com.bourse.enumeration.EnumTypeGestCompteClassique;
 import java.util.List;
 import javax.ejb.Local;
@@ -24,7 +24,7 @@ public interface ClassiqueFacadeLocal {
 
     int count();
 
-    Classique creerClassique(EnumTypeGestCompteClassique typeClassique, EnumNiveauGestionCompteCalssique niveauGestion, 
+    Classique creerClassique(EnumTypeGestCompteClassique typeClassique, EnumNiveauGestionCompteClassique niveauGestion, 
             String nomCharge, Double valeurMax, Double pourcMax, Double montantInitial, Contrat contrat);
     
 }
