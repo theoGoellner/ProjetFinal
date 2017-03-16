@@ -6,7 +6,9 @@ import com.bourse.entities.Entreprise;
 import com.bourse.entities.Identification;
 import com.bourse.entities.Particulier;
 import com.bourse.enumeration.EnumFormEntreprise;
+import com.bourse.enumeration.EnumNiveauGestionCompteCalssique;
 import com.bourse.enumeration.EnumRoleEmploye;
+import com.bourse.enumeration.EnumTypeGestCompteClassique;
 import com.bourse.sessions.AdministrationSessionLocal;
 import com.bourse.sessions.BackOfficeSessionLocal;
 import com.bourse.sessions.CommunSessionLocal;
@@ -111,9 +113,7 @@ public class controllerBackOffice extends HttpServlet {
                     jspClient = "/BackOffice/GestionDesClients/gestionClientsCourtier.jsp";
                     break;
                 case "gestionContratsClient":
-                    System.out.println("toto" + request.getParameter("idClient"));
                     cli = backOfficeSession.rechercheClientParID(Long.valueOf(request.getParameter("idClient")));
-                    System.out.println("toto" + cli.getMail());
                     request.setAttribute("client", cli);
                     request.setAttribute("message", message);                    
                     jspClient = "/BackOffice/GestionDesClients/GestionDesContrats/gestionContratsClient.jsp";
@@ -123,6 +123,9 @@ public class controllerBackOffice extends HttpServlet {
                     request.setAttribute("client", cli);
                     request.setAttribute("message", message); 
                     jspClient = "/BackOffice/GestionDesClients/GestionDesContrats/formAjoutContrat.jsp";
+                    break;
+                case "ajoutContrat":
+                    doActionAjoutContrat(request, response);
                     break;
                 case "formModifContrat":
                     jspClient = "/BackOffice/GestionDesClients/GestionDesContrats/formModifContrat.jsp";
@@ -482,5 +485,51 @@ public class controllerBackOffice extends HttpServlet {
             request.setAttribute("ListeDesEntreprises", listeEntreprise);
             request.setAttribute("message", message);
 
+        }
+        
+        protected void doActionAjoutContrat(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        String typePorteFeuille = request.getParameter("typePorteFeuille");
+        String dateDebutContrat = request.getParameter("dateDebutContrat");
+        String ribContrat = request.getParameter("ribContrat");
+        String typeContrat = request.getParameter("typeContrat");
+        
+        String montantInitialPF = request.getParameter("montantInitialPF");
+        
+        String typePFClassique = request.getParameter("typePFClassique");
+        String niveauGestionClassique = request.getParameter("niveauGestionClassique");
+        String nomChargeCompte = request.getParameter("nomChargeCompte");
+        String valeurMaxClassique = request.getParameter("valeurMaxClassique");
+        String pourcMaxClassique = request.getParameter("pourcMaxClassique");
+        
+        String dateOuverturePEA = request.getParameter("dateOuverturePEA");
+        
+        String dateOuverturePEP = request.getParameter("dateOuverturePEP");
+        String dateFermeturePEP = request.getParameter("dateFermeturePEP");  
+        
+        cli = backOfficeSession.rechercheClientParID(Long.valueOf(request.getParameter("idClient")));
+        
+        session = request.getSession(true);
+        Employe courtier = (Employe)session.getAttribute("employe");
+        
+        if (typePorteFeuille.equalsIgnoreCase("Classique")) { 
+            
+            backOfficeSession.creationClassique(EnumTypeGestCompteClassique.valueOf(typePFClassique), EnumNiveauGestionCompteCalssique.valueOf(niveauGestionClassique), 
+                    nomChargeCompte, Double.valueOf(valeurMaxClassique), Double.valueOf(pourcMaxClassique), Double.valueOf(montantInitialPF), 
+                    backOfficeSession.creationContrat(Date.valueOf(dateDebutContrat), ribContrat, typeContrat, cli));            
+                       
+            
+        } else if (typePorteFeuille.equalsIgnoreCase("PEA")) {
+            
+        } else {
+            
+        }
+        
+        request.setAttribute("message", message);
+        jspClient = "/BackOffice/GestionDesClients/GestionDesContrats/gestionContratsClient.jsp";
     }
+        
+        
+        
 }

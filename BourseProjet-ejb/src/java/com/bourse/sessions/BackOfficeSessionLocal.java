@@ -1,12 +1,17 @@
 package com.bourse.sessions;
 
+import com.bourse.entities.Classique;
 import com.bourse.entities.Client;
 import com.bourse.entities.Contrat;
 import com.bourse.entities.Employe;
 import com.bourse.entities.Entreprise;
+import com.bourse.entities.PEA;
+import com.bourse.entities.PERP;
 import com.bourse.entities.Particulier;
 import com.bourse.entities.PorteFeuille;
 import com.bourse.enumeration.EnumFormEntreprise;
+import com.bourse.enumeration.EnumNiveauGestionCompteCalssique;
+import com.bourse.enumeration.EnumTypeGestCompteClassique;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
@@ -50,4 +55,11 @@ public interface BackOfficeSessionLocal {
     PorteFeuille creationPorteFeuille(Double montantInitial, Contrat contrat);
 
     PorteFeuille recherchePorteFeuilleParID(Long idPorteFeuille);
+
+    Classique creationClassique(EnumTypeGestCompteClassique typeClassique, EnumNiveauGestionCompteCalssique niveauGestion, 
+            String nomCharge, Double valeurMax, Double pourcMax, Double montantInitial, Contrat contrat);
+
+    PEA creationPEA(Date dateOuverture);
+
+    PERP creationPERP(Date dateOuverture, Date dateFermeture);
 }

@@ -1,6 +1,7 @@
 package com.bourse.facades;
 
 import com.bourse.entities.PEA;
+import java.util.Date;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,5 +20,14 @@ public class PEAFacade extends AbstractFacade<PEA> implements PEAFacadeLocal {
     public PEAFacade() {
         super(PEA.class);
     }
+
+    @Override
+    public PEA creerPEA(Date dateOuverture) {
+        PEA pea = new PEA();
+        pea.setDateOuverture(dateOuverture);
+        em.persist(pea);
+        return pea;
+    }
+    
     
 }

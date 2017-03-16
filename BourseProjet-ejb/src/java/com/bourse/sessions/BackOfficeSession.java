@@ -1,16 +1,24 @@
 package com.bourse.sessions;
 
+import com.bourse.entities.Classique;
 import com.bourse.entities.Client;
 import com.bourse.entities.Contrat;
 import com.bourse.entities.Employe;
 import com.bourse.entities.Entreprise;
+import com.bourse.entities.PEA;
+import com.bourse.entities.PERP;
 import com.bourse.entities.Particulier;
 import com.bourse.entities.PorteFeuille;
 import com.bourse.enumeration.EnumFormEntreprise;
+import com.bourse.enumeration.EnumNiveauGestionCompteCalssique;
+import com.bourse.enumeration.EnumTypeGestCompteClassique;
+import com.bourse.facades.ClassiqueFacadeLocal;
 import com.bourse.facades.ClientFacadeLocal;
 import com.bourse.facades.ContratFacadeLocal;
 import com.bourse.facades.EntrepriseFacadeLocal;
 import com.bourse.facades.IdentificationFacadeLocal;
+import com.bourse.facades.PEAFacadeLocal;
+import com.bourse.facades.PERPFacadeLocal;
 import com.bourse.facades.ParticulierFacadeLocal;
 import com.bourse.facades.PorteFeuilleFacadeLocal;
 import java.util.Date;
@@ -20,6 +28,15 @@ import javax.ejb.Stateless;
 
 @Stateless
 public class BackOfficeSession implements BackOfficeSessionLocal {
+
+    @EJB
+    private PERPFacadeLocal pERPFacade;
+
+    @EJB
+    private PEAFacadeLocal pEAFacade;
+
+    @EJB
+    private ClassiqueFacadeLocal classiqueFacade;
 
     @EJB
     private PorteFeuilleFacadeLocal porteFeuilleFacade;
@@ -143,5 +160,22 @@ public class BackOfficeSession implements BackOfficeSessionLocal {
     public PorteFeuille recherchePorteFeuilleParID(Long idPorteFeuille) {
         return porteFeuilleFacade.rechercherPorteFeuilleParID(idPorteFeuille);
     }
+
+    @Override
+    public Classique creationClassique(EnumTypeGestCompteClassique typeClassique, EnumNiveauGestionCompteCalssique niveauGestion, 
+            String nomCharge, Double valeurMax, Double pourcMax, Double montantInitial, Contrat contrat) {
+        return classiqueFacade.creerClassique(typeClassique, niveauGestion, nomCharge, valeurMax, pourcMax, montantInitial, contrat);
+    }
+
+    @Override
+    public PEA creationPEA(Date dateOuverture) {
+        return pEAFacade.creerPEA(dateOuverture);
+    }
+
+    @Override
+    public PERP creationPERP(Date dateOuverture, Date dateFermeture) {
+        return pERPFacade.creerPERP(dateOuverture, dateFermeture);
+    }
  
+    
 }

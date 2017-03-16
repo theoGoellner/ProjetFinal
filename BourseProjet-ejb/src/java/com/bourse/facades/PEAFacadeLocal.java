@@ -1,6 +1,7 @@
 package com.bourse.facades;
 
 import com.bourse.entities.PEA;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -20,5 +21,7 @@ public interface PEAFacadeLocal {
     List<PEA> findRange(int[] range);
 
     int count();
+
+    PEA creerPEA(Date dateOuverture);
     
 }
