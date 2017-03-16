@@ -14,17 +14,16 @@ public class CommunSession implements CommunSessionLocal {
     @EJB
     private IdentificationFacadeLocal identificationFacade;
 
-    
     public static String generate(int length) {
-        String chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890&~#|`-_)('/?,;:."; 
+        String chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890&~#|`-_)('/?,;:.";
         StringBuffer pass = new StringBuffer();
-        for(int x=0;x<length;x++)   {
-           int i = (int)Math.floor(Math.random() * (chars.length() -1));
-           pass.append(chars.charAt(i));
+        for (int x = 0; x < length; x++) {
+            int i = (int) Math.floor(Math.random() * (chars.length() - 1));
+            pass.append(chars.charAt(i));
         }
         return pass.toString();
-}
-   
+    }
+
     @Override
     public String stringHash(String s) {
         try {
@@ -69,5 +68,5 @@ public class CommunSession implements CommunSessionLocal {
     public void modificationIdentification(Identification identification, String login, String pwd) {
         identificationFacade.modifierIdentification(identification, login, pwd);
     }
-    
+
 }

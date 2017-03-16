@@ -25,33 +25,6 @@ public class EntrepriseFacade extends AbstractFacade<Entreprise> implements Entr
     }
     
     @Override
-    public List<Entreprise> getListeEntreprisesActives() {
-        List<Entreprise> listeEntrActives = null;
-        try {
-            Query req = em.createQuery("Select e from Entreprise as e where e.dateArchivage is null");
-            listeEntrActives = req.getResultList();
-        } catch (Exception e) {
-            listeEntrActives = null;
-            System.out.println("Erreur dans la facade Entreprise dans la méthode getListeEntreprisesActives " + e.getMessage());
-        }
-        return listeEntrActives;
-    }
-    
-    @Override
-    public List<Entreprise> getListeEntreprisesActivesParCourtier(Employe courtier) {
-        List<Entreprise> listeEntrActives = null;
-        try {
-            Query req = em.createQuery("Select e from Entreprise as e where e.dateArchivage is null and e.courtier=:courtier");
-            req.setParameter("courtier", courtier);
-            listeEntrActives = req.getResultList();
-        } catch (Exception e) {
-            listeEntrActives = null;
-            System.out.println("Erreur dans la facade Entreprise dans la méthode getListeEntreprisesActivesParCourtier " + e.getMessage());
-        }
-        return listeEntrActives;
-    }
-    
-    @Override
     public Entreprise creerEntreprise(String siret, String nomEntreprise, EnumFormEntreprise formeEntreprise, String contact, String tphContact, String telephone, String email, String adresse, int niveau, Employe courtier) {
         Entreprise entr = new Entreprise();
         entr.setSiret(siret);
@@ -80,6 +53,33 @@ public class EntrepriseFacade extends AbstractFacade<Entreprise> implements Entr
         entr.setAdresse(adresse);
         entr.setNiveau(niveau);
         em.merge(entr);  
+    }
+    
+    @Override
+    public List<Entreprise> getListeEntreprisesActives() {
+        List<Entreprise> listeEntrActives = null;
+        try {
+            Query req = em.createQuery("Select e from Entreprise as e where e.dateArchivage is null");
+            listeEntrActives = req.getResultList();
+        } catch (Exception e) {
+            listeEntrActives = null;
+            System.out.println("Erreur dans la facade Entreprise dans la méthode getListeEntreprisesActives " + e.getMessage());
+        }
+        return listeEntrActives;
+    }
+    
+    @Override
+    public List<Entreprise> getListeEntreprisesActivesParCourtier(Employe courtier) {
+        List<Entreprise> listeEntrActives = null;
+        try {
+            Query req = em.createQuery("Select e from Entreprise as e where e.dateArchivage is null and e.courtier=:courtier");
+            req.setParameter("courtier", courtier);
+            listeEntrActives = req.getResultList();
+        } catch (Exception e) {
+            listeEntrActives = null;
+            System.out.println("Erreur dans la facade Entreprise dans la méthode getListeEntreprisesActivesParCourtier " + e.getMessage());
+        }
+        return listeEntrActives;
     }
 
     @Override

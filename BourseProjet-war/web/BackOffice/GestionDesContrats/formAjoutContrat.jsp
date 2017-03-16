@@ -20,10 +20,10 @@
 
         <jsp:useBean id="employe" scope="session" class="com.bourse.entities.Employe"></jsp:useBean>
 
-            <title>Ajout d'un contrat</title>       
+            <title>Création d'un nouveau contrat</title>       
         </head>
         <body>
-        <%@include  file="../../../jsp_commun/menuBackOffice.jsp" %>
+        <%@include  file="../../jsp_commun/menuBackOffice.jsp" %>
         <div class="container-fluid text-center col-sm-offset-2">
             <div class="row content">
                 <div class="col-sm-10 text-left"> 
@@ -42,10 +42,8 @@
                         <div class="col-sm-8 well col-sm-offset-2"> 
                             <form name="formulaireAjoutContrat" class="form-horizontal" method="get" action="controllerBackOffice">
                                 <fieldset>
-                                    <legend>Ajout d'un contrat</legend>
+                                    <legend>Création d'un nouveau contrat</legend>
                                     <div class="row"><p>     </p></div>
-
-
 
                                     <div class="form-group">
                                         <label for="typePorteFeuille" class="col-lg-3 control-label">Type de portefeuille</label>
@@ -182,9 +180,9 @@
                         </div>
                     </div>
 
-                    <%@include  file="../../../jsp_commun/footer.jsp" %>
+                    <%@include  file="../../jsp_commun/footer.jsp" %>
                 </div>
-                <%@include  file="../../../jsp_commun/userEncours.jsp" %>
+                <%@include  file="../../jsp_commun/userEncours.jsp" %>
             </div>
         </div>
     </body>

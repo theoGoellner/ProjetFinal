@@ -31,7 +31,7 @@ public class controllerCommun extends HttpServlet {
     private String jspClient;
     private String message = "";
     
-    private static final int DUREESESSIONVALIDE = 10;
+    private static final int DUREESESSIONVALIDE = 600;
     private static final int NBR_TENTATIVES_MAX = 3;
     
     private Identification ident = null;
@@ -133,7 +133,7 @@ public class controllerCommun extends HttpServlet {
     }// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="AUTHENTIFICATION">
-       protected void doActionAuthentification(HttpServletRequest request, HttpServletResponse response)
+    protected void doActionAuthentification(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         String login = request.getParameter("login");
@@ -160,7 +160,6 @@ public class controllerCommun extends HttpServlet {
                 } else {
                     Client user = backOfficeSession.rechercheClientParID(ident.getIdUser());
                     session.setAttribute("client", user);
-
                     if (ident.getLesConnexions().isEmpty()) {
                         jspClient = "/CommunOffice/InitialisationPwd.jsp";
                     } else {
@@ -197,10 +196,9 @@ public class controllerCommun extends HttpServlet {
         }
         request.setAttribute("message", message);
     }
-// </editor-fold>
+    // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="INITIALISATION MOT DE PASSE.">
-
     protected void doActionInitialisationPwd(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -215,14 +213,14 @@ public class controllerCommun extends HttpServlet {
             jspClient = "/CommunOffice/InitialisationPwd.jsp";
         } else {
             communSession.modificationIdentification(ident, loginUser, communSession.stringHash(newPwd));
-            message = "Modification réussie.";
+            message = "Modification réussie !";
             if (ident.getTypeUser().equalsIgnoreCase("employe")) {
                 jspClient = "/BackOffice/Accueil.jsp";
             } else {
                 jspClient = "/FrontOffice/Accueil.jsp";
             }
         }
-
         request.setAttribute("message", message);
-    }// </editor-fold>
+    }
+    // </editor-fold>
 }

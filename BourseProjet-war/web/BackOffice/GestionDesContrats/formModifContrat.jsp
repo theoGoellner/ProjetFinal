@@ -20,10 +20,10 @@
 
         <jsp:useBean id="employe" scope="session" class="com.bourse.entities.Employe"></jsp:useBean> 
 
-            <title>Gestion Contrats</title>       
+            <title>Modification du contrat</title>       
         </head>
         <body>
-        <%@include  file="../../../jsp_commun/menuBackOffice.jsp" %>
+        <%@include  file="../../jsp_commun/menuBackOffice.jsp" %>
         <div class="container-fluid text-center col-sm-offset-2">
             <div class="row content">
                 <div class="col-sm-10 text-left"> 
@@ -36,15 +36,30 @@
                         <a href="#" class="close" data-dismiss="alert">&times;</a>
                         <strong> <% out.println(attribut); %> </strong>
                     </div> 
-                    <% } %>                    
+                    <% } %>
+                    <div class="row">
+                        <div class="col-sm-8 well col-sm-offset-2"> 
+                            <form name="formulaireModifContrat" class="form-horizontal" method="get" action="controllerBackOffice">
+                                <fieldset>
+                                    <legend>Modification du contrat</legend>
+                                    <div class="row"><p>     </p></div>  
 
-                    <legend>Gestion des contrats</legend>
-                    
-                    <a href="controllerBackOffice?action=formAjoutContrat&idClient=<%= client.getId()%>"> Ajouter un contrat </a>
+                                                                                                  
 
-                    <%@include  file="../../../jsp_commun/footer.jsp" %>
+                                    <input type="hidden" name="action" value="modifierContrat">
+                                    <div class="row"> </div>
+                                    <div class="col-sm-offset-4 col-lg-9">
+                                        <button type="reset" class="btn btn-info col-sm-offset-1">Annuler</button>
+                                        <button type="submit" class="btn btn-info col-sm-offset-3">Valider</button>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                   
+                    <%@include  file="../../jsp_commun/footer.jsp" %>
                 </div>
-                <%@include  file="../../../jsp_commun/userEncours.jsp" %>
+                <%@include  file="../../jsp_commun/userEncours.jsp" %>
             </div>
         </div>
     </body>

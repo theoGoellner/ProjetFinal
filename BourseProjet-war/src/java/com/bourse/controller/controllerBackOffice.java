@@ -165,19 +165,19 @@ public class controllerBackOffice extends HttpServlet {
                     cli = backOfficeSession.rechercheClientParID(Long.valueOf(request.getParameter("idClient")));
                     request.setAttribute("client", cli);
                     request.setAttribute("message", message);                    
-                    jspClient = "/BackOffice/GestionDesClients/GestionDesContrats/gestionContratsClient.jsp";
+                    jspClient = "/BackOffice/GestionDesContrats/gestionContratsClient.jsp";
                     break;
                 case "formAjoutContrat":
                     cli = backOfficeSession.rechercheClientParID(Long.valueOf(request.getParameter("idClient")));
                     request.setAttribute("client", cli);
                     request.setAttribute("message", message); 
-                    jspClient = "/BackOffice/GestionDesClients/GestionDesContrats/formAjoutContrat.jsp";
+                    jspClient = "/BackOffice/GestionDesContrats/formAjoutContrat.jsp";
                     break;
                 case "ajoutContrat":
                     doActionAjoutContrat(request, response);
                     break;
                 case "formModifContrat":
-                    jspClient = "/BackOffice/GestionDesClients/GestionDesContrats/formModifContrat.jsp";
+                    jspClient = "/BackOffice/GestionDesContrats/formModifContrat.jsp";
                     break;  
                 // </editor-fold>
             }
@@ -467,42 +467,42 @@ public class controllerBackOffice extends HttpServlet {
         
     protected void doActionRechercherClient(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        listeParticulier =null;
-        listeEntreprise =null;  
-        
+        listeParticulier = null;
+        listeEntreprise = null;
+
         String typeClient = request.getParameter("typeClient");
         String nomClient = request.getParameter("nomClient");
         String prenomClient = request.getParameter("prenomClient");
         String siret = request.getParameter("siret");
         String nomEntreprise = request.getParameter("nomEntreprise");
-       
-        session = request.getSession(true);
-        Employe courtier = (Employe)session.getAttribute("employe");
-        
-       if (typeClient.equalsIgnoreCase("Particulier")) {
-           listeParticulier=backOfficeSession.rechercheListeParticuliersParCourtierParNomPrenom(courtier, nomClient, prenomClient);
-           if (listeParticulier.isEmpty()){
-                    message = " Aucun client ne correspond aux critère de recherche ";
-                    jspClient = "/Administration/GestionDesEmployes/formRechClient.jsp";
-           } else {
-                    message = " Vous avez "+listeParticulier.size()+" client qui repondent aux critères de recherche";
-                    jspClient = "/Administration/GestionDesEmployes/resultRechClient.jsp";
-           }
-       } else {
-       listeEntreprise=backOfficeSession.rechercheListeEntreprisesParCourtierParNomPrenom(courtier, siret, nomEntreprise);
-           if (listeEntreprise.isEmpty()){
-                    message = " Aucun client ne correspond aux critère de recherche ";
-                    jspClient = "/Administration/GestionDesEmployes/formRechClient.jsp";
-           } else {
-                    message = " Vous avez "+listeEntreprise.size()+" client qui repondent aux critères de recherche";
-                    jspClient = "/Administration/GestionDesEmployes/resultRechClient.jsp";
-           }
-       }
-            request.setAttribute("ListeDesParticuliers", listeParticulier);
-            request.setAttribute("ListeDesEntreprises", listeEntreprise);
-            request.setAttribute("message", message);
 
+        session = request.getSession(true);
+        Employe courtier = (Employe) session.getAttribute("employe");
+
+        if (typeClient.equalsIgnoreCase("Particulier")) {
+            listeParticulier = backOfficeSession.rechercheListeParticuliersParCourtierParNomPrenom(courtier, nomClient, prenomClient);
+            if (listeParticulier.isEmpty()) {
+                message = " Aucun client ne correspond aux critère de recherche ";
+                jspClient = "/Administration/GestionDesEmployes/formRechClient.jsp";
+            } else {
+                message = " Vous avez " + listeParticulier.size() + " client qui repondent aux critères de recherche";
+                jspClient = "/Administration/GestionDesEmployes/resultRechClient.jsp";
+            }
+        } else {
+            listeEntreprise = backOfficeSession.rechercheListeEntreprisesParCourtierParNomPrenom(courtier, siret, nomEntreprise);
+            if (listeEntreprise.isEmpty()) {
+                message = " Aucun client ne correspond aux critère de recherche ";
+                jspClient = "/Administration/GestionDesEmployes/formRechClient.jsp";
+            } else {
+                message = " Vous avez " + listeEntreprise.size() + " client qui repondent aux critères de recherche";
+                jspClient = "/Administration/GestionDesEmployes/resultRechClient.jsp";
+            }
         }
+        request.setAttribute("ListeDesParticuliers", listeParticulier);
+        request.setAttribute("ListeDesEntreprises", listeEntreprise);
+        request.setAttribute("message", message);
+
+    }
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="GESTION DES CONTRATS/PORTEFEUILLES">
@@ -549,7 +549,7 @@ public class controllerBackOffice extends HttpServlet {
         }
         request.setAttribute("client", cli);
         request.setAttribute("message", message);
-        jspClient = "/BackOffice/GestionDesClients/GestionDesContrats/gestionContratsClient.jsp";
+        jspClient = "/BackOffice/GestionDesContrats/gestionContratsClient.jsp";
     }    
     // </editor-fold>
 }
