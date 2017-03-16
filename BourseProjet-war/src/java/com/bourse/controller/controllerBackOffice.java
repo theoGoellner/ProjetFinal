@@ -59,16 +59,15 @@ public class controllerBackOffice extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         message = "";
         jspClient = null;
-        
-        
-        String act;
-        if (session == null || !request.isRequestedSessionIdValid()) {
-            act = "deconnexion";
-            System.out.println("coco1");
-        } else {
-            act = request.getParameter("action");
-            System.out.println("coco2");
-        }
+
+        String act = request.getParameter("action");
+//        if (session == null || !request.isRequestedSessionIdValid()) {
+//            act = "deconnexion";
+//            System.out.println("coco1");
+//        } else {
+//            act = request.getParameter("action");
+//            System.out.println("coco2");
+//        }
                 
         if ((act == null) || (act.equals("null"))) {
             jspClient = "/BackOffice/Accueil.jsp";
@@ -80,7 +79,7 @@ public class controllerBackOffice extends HttpServlet {
                     
                 case "deconnexion":
                     jspClient = "/Authentification.jsp";
-                    message = "votre session est expirée";
+                    message = "Votre session a expiré. Veuillez vous reconnecter.";
                     request.setAttribute("message", message);
                     break;    
                 
@@ -94,12 +93,6 @@ public class controllerBackOffice extends HttpServlet {
                 case "ajoutEmploye":
                     doActionAjoutEmploye(request, response);
                     break;
-                case "archiverEmploye":
-                    doActionArchiverEmploye(request, response);
-                    break; 
-                // </editor-fold>
-                    
-                // <editor-fold defaultstate="collapsed" desc="GESTION DES CLIENTS">
                 case "formModifierEmploye":                   
                     emp = administrationSession.rechercheEmployeParID(Long.valueOf(request.getParameter("idEmploye")));
                     jspClient = "/Administration/GestionDesEmployes/formModifEmploye.jsp";
@@ -108,6 +101,12 @@ public class controllerBackOffice extends HttpServlet {
                 case "modifierEmploye":
                     doActionModifierEmploye(request, response);
                     break;
+                case "archiverEmploye":
+                    doActionArchiverEmploye(request, response);
+                    break; 
+                // </editor-fold>
+                    
+                // <editor-fold defaultstate="collapsed" desc="GESTION DES CLIENTS">
                 case "formAjoutClient":
                     listeParticulier = backOfficeSession.getListeParticuliersActifs();
                     request.setAttribute("ListeDesParticuliers", listeParticulier);
@@ -118,7 +117,7 @@ public class controllerBackOffice extends HttpServlet {
                     break;
                 case "ajoutClient":
                     doActionAjoutClient(request, response);
-                    break;
+                    break;                               
                 case "gestionClientsCourtier":
                     session = request.getSession(true); 
                     listeParticulier = backOfficeSession.getListeParticuliersActifsParCourtier((Employe) session.getAttribute("employe"));
@@ -228,8 +227,7 @@ public class controllerBackOffice extends HttpServlet {
     }// </editor-fold>
 
     
-    // <editor-fold defaultstate="collapsed" desc="GESTION DES EMPLOYES">
-    
+    // <editor-fold defaultstate="collapsed" desc="GESTION DES EMPLOYES">    
     protected void doActionAjoutEmploye(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 

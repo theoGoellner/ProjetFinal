@@ -18,13 +18,10 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "controllerFrontOffice", urlPatterns = {"/controllerFrontOffice"})
 public class controllerFrontOffice extends HttpServlet {
 
-    private static int NBR_TENTATIVES_MAX = 3;
     private String jspClient;
     private String message = "";
     private HttpSession session;
 
-    private Employe emp = null;
-    private List<Employe> listeEmp = null;
     private Identification ident = null;
     
     /**

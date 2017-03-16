@@ -28,12 +28,14 @@ public class controllerCommun extends HttpServlet {
     @EJB
     private AdministrationSessionLocal administrationSession;
 
-    private static final int DUREESESSIONVALIDE = 10;
-    private static final int NBR_TENTATIVES_MAX = 3;
     private String jspClient;
     private String message = "";
-    private HttpSession session;
+    
+    private static final int DUREESESSIONVALIDE = 10;
+    private static final int NBR_TENTATIVES_MAX = 3;
+    
     private Identification ident = null;
+    private HttpSession session;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -142,8 +144,7 @@ public class controllerCommun extends HttpServlet {
         if (ident != null) { // Login trouvé
             if (ident.isEstBloque()) {
                 msgErreur = "Ce compte est bloqué. Veuillez contacter votre administrateur.";
-            } else if (communSession.compareHashString(pwd, ident.getPwd())) { // Connexion réussie
-                
+            } else if (communSession.compareHashString(pwd, ident.getPwd())) { // Connexion réussie                
                 session = request.getSession(true);
                 session.setMaxInactiveInterval(DUREESESSIONVALIDE);
                 session.setAttribute("identification", ident);
