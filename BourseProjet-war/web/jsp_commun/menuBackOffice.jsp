@@ -15,10 +15,10 @@
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="controllerBackOffice?action=accueil">Accueil</a></li> 
                     <li class="active"><a href="controllerCommun?action=deconnexion">Se déconnecter</a></li>
-                    <li class="active"><a href="controllerCommun?action=formInitPwd">initialisation pwd</a></li>
+                    <li class="active"><a href="controllerCommun?action=formInitPwd">Initialisation pwd</a></li>
 
-                    <li class="active"><a href="controllerBackOffice?action=formAjoutEmploye">Ajouter un Employé</a></li>
-                    <li class="active"><a href="controllerBackOffice?action=formAjoutClient">Ajouter un Client</a></li>
+                    <li class="active"><a href="controllerBackOffice?action=formAjoutEmploye">Gestion des employés</a></li>
+                    <li class="active"><a href="controllerBackOffice?action=formAjoutClient">Ajouter des clients</a></li>
                     <li class="active"><a href="controllerBackOffice?action=gestionClientsCourtier">Gerer mes clients</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>

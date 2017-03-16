@@ -75,8 +75,8 @@ public class controllerBackOffice extends HttpServlet {
                 case "accueil":
                     jspClient = "/BackOffice/Accueil.jsp";
                     break;                   
-                    
-                // GESTION DES EMPLOYES
+                
+                // <editor-fold defaultstate="collapsed" desc="GESTION DES EMPLOYES">
                 case "formAjoutEmploye":
                     listeEmp = administrationSession.getListeEmployesActifs();
                     request.setAttribute("ListeDesEmployes", listeEmp);
@@ -89,8 +89,9 @@ public class controllerBackOffice extends HttpServlet {
                 case "archiverEmploye":
                     doActionArchiverEmploye(request, response);
                     break; 
+                // </editor-fold>
                     
-                // GESTION DES CLIENTS
+                // <editor-fold defaultstate="collapsed" desc="GESTION DES CLIENTS">
                 case "formModifierEmploye":                   
                     emp = administrationSession.rechercheEmployeParID(Long.valueOf(request.getParameter("idEmploye")));
                     jspClient = "/Administration/GestionDesEmployes/formModifEmploye.jsp";
@@ -150,8 +151,9 @@ public class controllerBackOffice extends HttpServlet {
                 case "RechClient":
                     doActionRechercherClient(request, response);
                     break;
+                // </editor-fold>
                     
-                // GESTION DES CONTRATS / PORTEFEUILLES
+                // <editor-fold defaultstate="collapsed" desc="GESTION DES CONTRATS/PORTEFEUILLES">
                 case "gestionContratsClient":
                     cli = backOfficeSession.rechercheClientParID(Long.valueOf(request.getParameter("idClient")));
                     request.setAttribute("client", cli);
@@ -170,6 +172,7 @@ public class controllerBackOffice extends HttpServlet {
                 case "formModifContrat":
                     jspClient = "/BackOffice/GestionDesClients/GestionDesContrats/formModifContrat.jsp";
                     break;  
+                // </editor-fold>
             }
         }
         RequestDispatcher Rd;
@@ -217,7 +220,7 @@ public class controllerBackOffice extends HttpServlet {
     }// </editor-fold>
 
     
-    // ----------------------- GESTION DES EMPLOYES ----------------------------
+    // <editor-fold defaultstate="collapsed" desc="GESTION DES EMPLOYES">
     
     protected void doActionAjoutEmploye(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -312,8 +315,9 @@ public class controllerBackOffice extends HttpServlet {
         request.setAttribute("message", message);
         jspClient = "/Administration/GestionDesEmployes/formAjoutEmploye.jsp";
     }
+    // </editor-fold>
     
-    // ------------------------ GESTION DES CLIENTS ----------------------------
+    // <editor-fold defaultstate="collapsed" desc="GESTION DES CLIENTS">
     
     protected void doActionAjoutClient(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -493,8 +497,9 @@ public class controllerBackOffice extends HttpServlet {
             request.setAttribute("message", message);
 
         }
+    // </editor-fold>
     
-    // ------------------------ GESTION DES CONTRATS  --------------------------
+    // <editor-fold defaultstate="collapsed" desc="GESTION DES CONTRATS/PORTEFEUILLES">
     
     protected void doActionAjoutContrat(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -539,5 +544,6 @@ public class controllerBackOffice extends HttpServlet {
         request.setAttribute("client", cli);
         request.setAttribute("message", message);
         jspClient = "/BackOffice/GestionDesClients/GestionDesContrats/gestionContratsClient.jsp";
-    }      
+    }    
+    // </editor-fold>
 }

@@ -43,12 +43,48 @@
 
                     <legend>Gestion de mes clients</legend>
                     
-                    <div class="row">
-                        <div class="well text-center"> 
-                            <a href="#infoParticuliers" class="btn btn-primary" data-toggle="collapse">Afficher la liste des particuliers</a>
+                   
+                    
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Liste des particuliers</div>
+                        <div class="panel-body">
+                            <%if (ListeDesParticuliers.isEmpty())
+                                out.println("La liste des particuliers est vide !");
+                            else {%>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr> 
+                                    <td> Nom </td> <td> Prénom </td> <td> Date de naissance </td> <td> Lieu de naissance </td> 
+                                    <td> Téléphone </td> <td> Email </td> <td> Adresse </td> <td> Niveau </td> <td> Action </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% for (Particulier part : lesParticuliers) {%>
+                                <tr> 
+                                    <td > <%= part.getNom()%> </td>
+                                    <td > <%= part.getPrenom()%> </td>
+                                    <td > <%= sdf.format(part.getDateNais())%> </td>
+                                    <td > <%= part.getLieuNaissance()%> </td>
+                                    <td > <%= part.getTelephone()%> </td>
+                                    <td > <%= part.getMail()%> </td>
+                                    <td > <%= part.getAdresse()%> </td>
+                                    <td > <%= part.getNiveau()%> </td>
+                                    <td ><a href="controllerBackOffice?action=archiverClientGestion&idClient=<%= part.getId()%>"> Archiver </a>
+                                    </td>
+                                    <td ><a href="controllerBackOffice?action=formModifierClient&idClient=<%= part.getId()%>"> Modifier </a>
+                                    </td>
+                                    <td ><a href="controllerBackOffice?action=gestionContratsClient&idClient=<%= part.getId()%>"> Contrats </a>
+                                    </td>
+                                </tr> 
+                                <%}%>
+                            </tbody>
+                        </table>
+                        <%}%>
                         </div>
                     </div>
-                    <div id="infoParticuliers" class="collapse">
+                    
+
+                    <div  class="collapse">
                         <br>
                         <%if (ListeDesParticuliers.isEmpty())
                                 out.println("La liste des particuliers est vide !");

@@ -15,7 +15,7 @@
             <div class="row content">
 
                 <div class="col-sm-10 text-left"> 
-                    <h1> Bienvenue sur notre site </h1>
+                    <h1> Bienvenue sur notre site </h1>                                        
 
 
                     <%@include  file="jsp_commun/footer.jsp" %>
