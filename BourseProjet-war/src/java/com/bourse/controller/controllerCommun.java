@@ -28,7 +28,7 @@ public class controllerCommun extends HttpServlet {
     @EJB
     private AdministrationSessionLocal administrationSession;
 
-    private static final int DUREESESSIONVALIDE = 300;
+    private static final int DUREESESSIONVALIDE = 10;
     private static final int NBR_TENTATIVES_MAX = 3;
     private String jspClient;
     private String message = "";
@@ -49,12 +49,7 @@ public class controllerCommun extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         message = "";
         jspClient = null;
-        String act;
-        if(!request.isRequestedSessionIdValid()){
-            act = "accueil";
-        } else {
-        act = request.getParameter("action");
-        }
+        String act = request.getParameter("action");
         
         if ((act == null) || (act.equals("null"))) {
             jspClient = "/Accueil.jsp";
@@ -135,7 +130,7 @@ public class controllerCommun extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="AUTHENTIFICATION.">
+    // <editor-fold defaultstate="collapsed" desc="AUTHENTIFICATION">
        protected void doActionAuthentification(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -148,6 +143,7 @@ public class controllerCommun extends HttpServlet {
             if (ident.isEstBloque()) {
                 msgErreur = "Ce compte est bloqué. Veuillez contacter votre administrateur.";
             } else if (communSession.compareHashString(pwd, ident.getPwd())) { // Connexion réussie
+                
                 session = request.getSession(true);
                 session.setMaxInactiveInterval(DUREESESSIONVALIDE);
                 session.setAttribute("identification", ident);

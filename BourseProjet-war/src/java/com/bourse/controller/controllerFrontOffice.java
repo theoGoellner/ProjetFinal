@@ -41,7 +41,14 @@ public class controllerFrontOffice extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         message = "";
         jspClient = null;
-        String act = request.getParameter("action");
+        
+        String act;
+        if (session == null || !request.isRequestedSessionIdValid()) {
+            act = "deconnexion";
+        } else {
+            act = request.getParameter("action");
+        }
+        
         if ((act == null) || (act.equals("null"))) {
             jspClient = "/FrontOffice/Accueil.jsp";
         } else {
@@ -49,6 +56,11 @@ public class controllerFrontOffice extends HttpServlet {
                 case "accueil":
                     jspClient = "/FrontOffice/Accueil.jsp";
                     break;   
+                case "deconnexion":
+                    jspClient = "/Authentification.jsp";
+                    message = "votre session est expirée";
+                    request.setAttribute("message", message);
+                    break;
 
                     
             }

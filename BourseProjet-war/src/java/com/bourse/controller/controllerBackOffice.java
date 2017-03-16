@@ -60,13 +60,15 @@ public class controllerBackOffice extends HttpServlet {
         message = "";
         jspClient = null;
         
-        String act = null;
         
-        if (!request.isRequestedSessionIdValid()) {
-            jspClient = "/Authentification.jsp";
-            message = "votre session est expirée";
-            request.setAttribute("message", message);
-        } else { act = request.getParameter("action"); }
+        String act;
+        if (session == null || !request.isRequestedSessionIdValid()) {
+            act = "deconnexion";
+            System.out.println("coco1");
+        } else {
+            act = request.getParameter("action");
+            System.out.println("coco2");
+        }
                 
         if ((act == null) || (act.equals("null"))) {
             jspClient = "/BackOffice/Accueil.jsp";
@@ -74,7 +76,13 @@ public class controllerBackOffice extends HttpServlet {
             switch (act) {
                 case "accueil":
                     jspClient = "/BackOffice/Accueil.jsp";
-                    break;                   
+                    break;  
+                    
+                case "deconnexion":
+                    jspClient = "/Authentification.jsp";
+                    message = "votre session est expirée";
+                    request.setAttribute("message", message);
+                    break;    
                 
                 // <editor-fold defaultstate="collapsed" desc="GESTION DES EMPLOYES">
                 case "formAjoutEmploye":
