@@ -64,7 +64,19 @@ public class controllerBackOffice extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         message = "";
         jspClient = null;
-        String act = request.getParameter("action");
+        
+        String act = null;
+        
+        if(!request.isRequestedSessionIdValid()){
+            jspClient = "/Authentification.jsp";
+            message="votre session est expirée";
+            request.setAttribute("message", message);
+
+        } else {
+        act = request.getParameter("action");
+        }
+        
+        
         if ((act == null) || (act.equals("null"))) {
             jspClient = "/BackOffice/Accueil.jsp";
         } else {

@@ -1,3 +1,3 @@
-# ProjetBourse
-Un projet qu'il est bien
-https://github.com/theoGoellner/ProjetBourse.git
+# ProjetFinal
+Un projet qu'il est encore mieux
+https://github.com/theoGoellner/ProjetFinal.git
