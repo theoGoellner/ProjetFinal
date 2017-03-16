@@ -6,9 +6,7 @@ import com.bourse.entities.Identification;
 import com.bourse.sessions.AdministrationSessionLocal;
 import com.bourse.sessions.BackOfficeSessionLocal;
 import com.bourse.sessions.CommunSessionLocal;
-import com.bourse.sessions.FrontOfficeSessionLocal;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -27,11 +25,8 @@ public class controllerCommun extends HttpServlet {
     @EJB
     private CommunSessionLocal communSession;
 
-
     @EJB
     private AdministrationSessionLocal administrationSession;
-    
-    
 
     private static final int DUREESESSIONVALIDE = 300;
     private static final int NBR_TENTATIVES_MAX = 3;
@@ -54,7 +49,13 @@ public class controllerCommun extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         message = "";
         jspClient = null;
-        String act = request.getParameter("action");
+        String act;
+        if(!request.isRequestedSessionIdValid()){
+            act = "accueil";
+        } else {
+        act = request.getParameter("action");
+        }
+        
         if ((act == null) || (act.equals("null"))) {
             jspClient = "/Accueil.jsp";
         } else {
@@ -84,14 +85,12 @@ public class controllerCommun extends HttpServlet {
                     request.setAttribute("message", message);
                     jspClient = "/CommunOffice/InitialisationPwd.jsp";
                     break;
-
                 case "pwdInit":
                     doActionInitialisationPwd(request, response);
-                    break;                    
-                    
-                    
+                    break;
             }
         }
+        
         RequestDispatcher Rd;
         Rd = getServletContext().getRequestDispatcher(jspClient);
         Rd.forward(request, response);
@@ -136,13 +135,13 @@ public class controllerCommun extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    // ----------------------- GESTION DES IDENTIFICATIONS ---------------------
-    protected void doActionAuthentification(HttpServletRequest request, HttpServletResponse response)
+    // <editor-fold defaultstate="collapsed" desc="AUTHENTIFICATION.">
+       protected void doActionAuthentification(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         String login = request.getParameter("login");
         String pwd = request.getParameter("pwd");
-        String msgErreur = "Erreur d'authentification. Veuillez vérifier votre login et votre mot de passe.";
+        String msgErreur = "Erreur d'authentification. Veuillez vérifier votre login ou mot de passe.";
 
         ident = administrationSession.rechercheIdentParLogin(login);
         if (ident != null) { // Login trouvé
@@ -152,15 +151,24 @@ public class controllerCommun extends HttpServlet {
                 session = request.getSession(true);
                 session.setMaxInactiveInterval(DUREESESSIONVALIDE);
                 session.setAttribute("identification", ident);
-                administrationSession.ajouterConnexion(ident);
-                if (ident.getTypeUser().equalsIgnoreCase("Employe")) { 
-                    jspClient = "/BackOffice/Accueil.jsp";
+                if (ident.getTypeUser().equalsIgnoreCase("Employe")) {
                     Employe user = administrationSession.rechercheEmployeParID(ident.getIdUser());
-                    session.setAttribute("employe", user); 
-                } else {              
-                    jspClient = "/FrontOffice/Accueil.jsp";
+                    session.setAttribute("employe", user);
+                    if (ident.getLesConnexions().isEmpty()) {
+                        jspClient = "/CommunOffice/InitialisationPwd.jsp";
+                    } else {
+                        administrationSession.ajouterConnexion(ident);
+                        jspClient = "/BackOffice/Accueil.jsp";
+                    }
+                } else {
                     Client user = backOfficeSession.rechercheClientParID(ident.getIdUser());
                     session.setAttribute("client", user);
+
+                    if (ident.getLesConnexions().isEmpty()) {
+                        jspClient = "/CommunOffice/InitialisationPwd.jsp";
+                    } else {
+                        jspClient = "/FrontOffice/Accueil.jsp";
+                    }
                 }
             } else { // Mauvais mot de passe
                 if (session == null) { // Si c'est la première tentative, on crée une session 
@@ -169,7 +177,7 @@ public class controllerCommun extends HttpServlet {
                     session.setAttribute("nbrTentatives", 1);
                 } else { // Autres tentatives                
                     if (session.getAttribute("identification").equals(ident)) { // Si même session
-                        if ((Integer) session.getAttribute("nbrTentatives") == (NBR_TENTATIVES_MAX - 1)) {
+                        if ((Integer)session.getAttribute("nbrTentatives") == (NBR_TENTATIVES_MAX - 1)) {
                             session.setAttribute("nbrTentatives", ((Integer) session.getAttribute("nbrTentatives")) + 1);
                             msgErreur = "Attention, il ne vous reste plus qu'une tentative d'authentification. Le compte sera ensuite bloqué.";
                         } else if ((Integer) session.getAttribute("nbrTentatives") == NBR_TENTATIVES_MAX) {// Si nbMax atteint, on bloque le compte (l'identification)                           
@@ -192,27 +200,32 @@ public class controllerCommun extends HttpServlet {
         }
         request.setAttribute("message", message);
     }
+// </editor-fold>
 
-        protected void doActionInitialisationPwd(HttpServletRequest request, HttpServletResponse response)
+    // <editor-fold defaultstate="collapsed" desc="INITIALISATION MOT DE PASSE.">
+
+    protected void doActionInitialisationPwd(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         String loginUser = request.getParameter("loginUser");
-        String pwd = request.getParameter("pwd");
         String newPwd = request.getParameter("newPwd");
-        String newPwdConfirm = request.getParameter("newPwdConfirm");
 
         session = request.getSession(true);
-        ident = (Identification)session.getAttribute("identification");
-        
-        if (!ident.getLogin().equalsIgnoreCase(loginUser)&&communSession.rechercheIdentParLogin(loginUser)!=null) {
+        ident = (Identification) session.getAttribute("identification");
+
+        if (!ident.getLogin().equalsIgnoreCase(loginUser) && communSession.rechercheIdentParLogin(loginUser) != null) {
             message = "Erreur : Ce login est déjà pris, veillez choisir un autre login.";
-        }
-        else {
+            jspClient = "/CommunOffice/InitialisationPwd.jsp";
+        } else {
             communSession.modificationIdentification(ident, loginUser, communSession.stringHash(newPwd));
             message = "Modification réussie.";
-        }     
-        jspClient = "/CommunOffice/InitialisationPwd.jsp";
+            if (ident.getTypeUser().equalsIgnoreCase("employe")) {
+                jspClient = "/BackOffice/Accueil.jsp";
+            } else {
+                jspClient = "/FrontOffice/Accueil.jsp";
+            }
+        }
 
         request.setAttribute("message", message);
-    }
+    }// </editor-fold>
 }

@@ -4,10 +4,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link type="text/css" rel="stylesheet" href="Presentation/CSS/bootstrap.css" />
-        <link type="text/css" href="Presentation/CSS/bootstrap.min.css" rel="stylesheet">
         <script src="Presentation/JS/jquery.min.js"></script>
         <script src="Presentation/JS/bootstrap.min.js"></script>
-        
         <title>Authentification</title>
     </head>
     <body>

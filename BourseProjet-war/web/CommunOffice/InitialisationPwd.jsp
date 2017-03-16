@@ -6,7 +6,6 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link type="text/css" rel="stylesheet" href="Presentation/CSS/bootstrap.css">
-        <link type="text/css" href="Presentation/CSS/bootstrap.min.css" rel="stylesheet">
         <script src="Presentation/JS/jquery.min.js"></script>
         <script src="Presentation/JS/bootstrap.min.js"></script>
         <script src="Presentation/JS/bourse.js"></script>
@@ -22,8 +21,7 @@
            
         %>
         <%@include  file="../jsp_commun/menuBackOffice.jsp" %>
-        
-        
+
         <div class="container-fluid text-center col-sm-offset-2">
             <div class="row content">
                 <div class="col-sm-10 text-left"> 
@@ -65,7 +63,6 @@
                                             <input type="password" class="form-control" name="newPwdConfirm" placeholder="Confirmer votre nouveau mot de passe" required>
                                         </div>
                                     </div> 
-
                                     <input type="hidden" name="action" value="pwdInit">
                                     <div class="row"> </div>
                                     <div class="col-sm-offset-4 col-lg-9">
@@ -73,7 +70,6 @@
                                         <button type="submit" class="btn btn-info col-sm-offset-3">Valider</button>
                                     </div>
                                 </fieldset>
-
                             </form>
                         </div>
                     </div>
