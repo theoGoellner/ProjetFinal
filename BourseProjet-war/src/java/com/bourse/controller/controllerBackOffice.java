@@ -60,14 +60,14 @@ public class controllerBackOffice extends HttpServlet {
         message = "";
         jspClient = null;
 
-        String act = request.getParameter("action");
-//        if (session == null || !request.isRequestedSessionIdValid()) {
-//            act = "deconnexion";
-//            System.out.println("coco1");
-//        } else {
-//            act = request.getParameter("action");
-//            System.out.println("coco2");
-//        }
+        String act;
+        session= request.getSession(false);
+        
+        if (session==null) {
+            act = "deconnexion";
+        } else {
+            act = request.getParameter("action");
+        }
                 
         if ((act == null) || (act.equals("null"))) {
             jspClient = "/BackOffice/Accueil.jsp";

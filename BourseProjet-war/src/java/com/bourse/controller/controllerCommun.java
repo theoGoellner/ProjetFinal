@@ -7,6 +7,7 @@ import com.bourse.sessions.AdministrationSessionLocal;
 import com.bourse.sessions.BackOfficeSessionLocal;
 import com.bourse.sessions.CommunSessionLocal;
 import java.io.IOException;
+import java.util.Date;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -31,7 +32,7 @@ public class controllerCommun extends HttpServlet {
     private String jspClient;
     private String message = "";
     
-    private static final int DUREESESSIONVALIDE = 600;
+    private static final int DUREESESSIONVALIDE = 300;
     private static final int NBR_TENTATIVES_MAX = 3;
     
     private Identification ident = null;
@@ -75,7 +76,7 @@ public class controllerCommun extends HttpServlet {
                     break;
                 case "deconnexion":
                     jspClient = "/Accueil.jsp";
-                    session = request.getSession(false);
+                    session = request.getSession();
                     session.invalidate();
                     break;
                 case "formInitPwd":
@@ -145,7 +146,9 @@ public class controllerCommun extends HttpServlet {
             if (ident.isEstBloque()) {
                 msgErreur = "Ce compte est bloqué. Veuillez contacter votre administrateur.";
             } else if (communSession.compareHashString(pwd, ident.getPwd())) { // Connexion réussie                
-                session = request.getSession(true);
+                session = request.getSession();
+                //Long l= (new Date().getTime()-session.getCreationTime())/1000;
+               
                 session.setMaxInactiveInterval(DUREESESSIONVALIDE);
                 session.setAttribute("identification", ident);
                 if (ident.getTypeUser().equalsIgnoreCase("Employe")) {

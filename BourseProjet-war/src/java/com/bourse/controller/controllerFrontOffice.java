@@ -40,7 +40,9 @@ public class controllerFrontOffice extends HttpServlet {
         jspClient = null;
         
         String act;
-        if (session == null || !request.isRequestedSessionIdValid()) {
+        session= request.getSession(false);
+        
+        if (session==null) {
             act = "deconnexion";
         } else {
             act = request.getParameter("action");
