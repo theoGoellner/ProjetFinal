@@ -12,7 +12,6 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link type="text/css" rel="stylesheet" href="Presentation/CSS/bootstrap.css">
-        <link type="text/css" href="Presentation/CSS/bootstrap.min.css" rel="stylesheet">
         <script src="Presentation/JS/jquery.min.js"></script>
         <script src="Presentation/JS/bootstrap.min.js"></script>
 
@@ -73,7 +72,7 @@
                                     </td>
                                     <td ><a href="controllerBackOffice?action=formModifierClient&idClient=<%= part.getId()%>"> Modifier </a>
                                     </td>
-                                    <td ><a href="controllerBackOffice?action=gestionContratsClient&idClient=<%= part.getId()%>"> Contrats </a>
+                                    <td ><a href="controllerCommun?action=afficherPortefeuillesClient&idClient=<%= part.getId()%>"> Gestion Portefeuilles </a>
                                     </td>
                                 </tr> 
                                 <%}%>
@@ -81,44 +80,7 @@
                         </table>
                         <%}%>
                         </div>
-                    </div>
-                    
-
-                    <div  class="collapse">
-                        <br>
-                        <%if (ListeDesParticuliers.isEmpty())
-                                out.println("La liste des particuliers est vide !");
-                            else {%>
-                        <table class="table table-hover">
-                            <thead>
-                                <tr> 
-                                    <td> Nom </td> <td> Prénom </td> <td> Date de naissance </td> <td> Lieu de naissance </td> 
-                                    <td> Téléphone </td> <td> Email </td> <td> Adresse </td> <td> Niveau </td> <td> Action </td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <% for (Particulier part : lesParticuliers) {%>
-                                <tr> 
-                                    <td > <%= part.getNom()%> </td>
-                                    <td > <%= part.getPrenom()%> </td>
-                                    <td > <%= sdf.format(part.getDateNais())%> </td>
-                                    <td > <%= part.getLieuNaissance()%> </td>
-                                    <td > <%= part.getTelephone()%> </td>
-                                    <td > <%= part.getMail()%> </td>
-                                    <td > <%= part.getAdresse()%> </td>
-                                    <td > <%= part.getNiveau()%> </td>
-                                    <td ><a href="controllerBackOffice?action=archiverClientGestion&idClient=<%= part.getId()%>"> Archiver </a>
-                                    </td>
-                                    <td ><a href="controllerBackOffice?action=formModifierClient&idClient=<%= part.getId()%>"> Modifier </a>
-                                    </td>
-                                    <td ><a href="controllerBackOffice?action=gestionContratsClient&idClient=<%= part.getId()%>"> Contrats </a>
-                                    </td>
-                                </tr> 
-                                <%}%>
-                            </tbody>
-                        </table>
-                        <%}%>  
-                    </div>
+                    </div>                                       
 
                     <div class="row">
                         <div class="well text-center"> 
@@ -153,7 +115,7 @@
                                     </td>
                                     <td ><a href="controllerBackOffice?action=formModifierClient&idClient=<%= entr.getId()%>"> Modifier </a>
                                     </td>
-                                    <td ><a href="controllerBackOffice?action=gestionContratsClient&idClient=<%= entr.getId() %>"> Contrats </a>
+                                    <td ><a href="controllerCommun?action=afficherPortefeuillesClient&idClient=<%= entr.getId()%>"> Gestion Portefeuilles </a>
                                     </td>
                                 </tr> 
                                 <%}%>

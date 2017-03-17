@@ -549,7 +549,7 @@ public class controllerBackOffice extends HttpServlet {
         }
         request.setAttribute("client", cli);
         request.setAttribute("message", message);
-        jspClient = "/BackOffice/GestionDesContrats/gestionContratsClient.jsp";
+        jspClient = "/CommunOffice/GestionDesPortefeuilles/afficherPortefeuillesClient.jsp";
     }    
     // </editor-fold>
 }

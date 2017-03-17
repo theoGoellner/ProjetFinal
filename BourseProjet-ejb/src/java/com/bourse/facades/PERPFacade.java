@@ -28,6 +28,7 @@ public class PERPFacade extends AbstractFacade<PERP> implements PERPFacadeLocal 
         perp.setDateOuverture(dateOuverture);
         perp.setDateFermeture(dateFermeture);
         perp.setMontantInitial(montantInitial);
+        perp.setLiquidite(montantInitial);
         perp.setLeContrat(contrat);
         em.persist(perp);
         return perp;

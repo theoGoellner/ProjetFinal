@@ -52,8 +52,6 @@ public interface BackOfficeSessionLocal {
 
     Contrat rechercheContratParID(Long idContrat);
 
-    PorteFeuille creationPorteFeuille(Double montantInitial, Contrat contrat);
-
     PorteFeuille recherchePorteFeuilleParID(Long idPorteFeuille);
 
     Classique creationClassique(EnumTypeGestCompteClassique typeClassique, EnumNiveauGestionCompteClassique niveauGestion, 

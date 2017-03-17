@@ -27,6 +27,7 @@ public class PEAFacade extends AbstractFacade<PEA> implements PEAFacadeLocal {
         PEA pea = new PEA();
         pea.setDateOuverture(dateOuverture);
         pea.setMontantInitial(montantInitial);
+        pea.setLiquidite(montantInitial);
         pea.setLeContrat(contrat);
         em.persist(pea);
         return pea;

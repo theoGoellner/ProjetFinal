@@ -23,15 +23,6 @@ public class PorteFeuilleFacade extends AbstractFacade<PorteFeuille> implements 
     }
 
     @Override
-    public PorteFeuille creerPorteFeuille(Double montantInitial, Contrat contrat) {
-        PorteFeuille porte = new PorteFeuille();
-        porte.setMontantInitial(montantInitial);
-        porte.setLeContrat(contrat);
-        em.persist(porte);
-        return porte;
-    }
-
-    @Override
     public PorteFeuille rechercherPorteFeuilleParID(Long idPorteFeuille) {
         PorteFeuille porte = null;
         try {

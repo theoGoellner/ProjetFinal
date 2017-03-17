@@ -150,11 +150,6 @@ public class BackOfficeSession implements BackOfficeSessionLocal {
     }
 
     @Override
-    public PorteFeuille creationPorteFeuille(Double montantInitial, Contrat contrat) {
-        return porteFeuilleFacade.creerPorteFeuille(montantInitial, contrat);
-    }
-
-    @Override
     public PorteFeuille recherchePorteFeuilleParID(Long idPorteFeuille) {
         return porteFeuilleFacade.rechercherPorteFeuilleParID(idPorteFeuille);
     }

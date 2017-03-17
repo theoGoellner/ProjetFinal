@@ -3,11 +3,11 @@ package com.bourse.controller;
 import com.bourse.entities.Client;
 import com.bourse.entities.Employe;
 import com.bourse.entities.Identification;
+import com.bourse.entities.PorteFeuille;
 import com.bourse.sessions.AdministrationSessionLocal;
 import com.bourse.sessions.BackOfficeSessionLocal;
 import com.bourse.sessions.CommunSessionLocal;
 import java.io.IOException;
-import java.util.Date;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -37,6 +37,9 @@ public class controllerCommun extends HttpServlet {
     
     private Identification ident = null;
     private HttpSession session;
+    
+    private Client cli = null;
+    private PorteFeuille pf = null;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -86,6 +89,19 @@ public class controllerCommun extends HttpServlet {
                 case "pwdInit":
                     doActionInitialisationPwd(request, response);
                     break;
+                case "afficherPortefeuillesClient":
+                    cli = backOfficeSession.rechercheClientParID(Long.valueOf(request.getParameter("idClient")));
+                    request.setAttribute("client", cli);
+                    request.setAttribute("message", message);
+                    jspClient = "/CommunOffice/GestionDesPortefeuilles/afficherPortefeuillesClient.jsp";
+                    break;
+                case "afficherDetailPF":
+                    System.out.println("toto");
+                    pf = backOfficeSession.recherchePorteFeuilleParID(Long.valueOf(request.getParameter("idPF")));
+                    System.out.println("toto" + pf.getMontantInitial());
+                    request.setAttribute("portefeuille", pf);
+                    request.setAttribute("message", message);
+                    jspClient = "/CommunOffice/GestionDesPortefeuilles/afficherDetailPF.jsp";
             }
         }
         

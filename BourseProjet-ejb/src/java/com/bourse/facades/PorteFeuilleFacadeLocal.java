@@ -22,8 +22,6 @@ public interface PorteFeuilleFacadeLocal {
 
     int count();
 
-    PorteFeuille creerPorteFeuille(Double montantInitial, Contrat contrat);
-
     PorteFeuille rechercherPorteFeuilleParID(Long idPorteFeuille);
     
 }

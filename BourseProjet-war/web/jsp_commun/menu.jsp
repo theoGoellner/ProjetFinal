@@ -15,7 +15,6 @@
       <ul class="nav navbar-nav">
         <li class="active"><a href="controllerCommun?action=accueil">Accueil<span class="sr-only">(current)</span></a></li>
         <li><a href="controllerCommun?action=formAuthentification">S'authentifier</a></li>
-        <li><a href="controllerBackOffice?action=formAjoutEmploye">Gestion des employés</a></li> 
         
         <%--
         <li class="dropdown">

@@ -33,6 +33,7 @@ public class ClassiqueFacade extends AbstractFacade<Classique> implements Classi
         classiq.setValeurMax(valeurMax);
         classiq.setPourcentageMax(pourcMax);
         classiq.setMontantInitial(montantInitial);
+        classiq.setLiquidite(montantInitial);
         classiq.setLeContrat(contrat);
         em.persist(classiq);
         return classiq;
