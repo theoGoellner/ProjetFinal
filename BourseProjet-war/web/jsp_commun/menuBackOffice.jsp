@@ -28,6 +28,23 @@
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="controllerBackOffice?action=formAjoutClient">Nouveau client</a></li>
                             <li><a href="controllerBackOffice?action=gestionClientsCourtier">Gerer mes clients</a></li>
+                            <li><a href="controllerBackOffice?action=formRechClientGestion">Rechercher un client</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Gestion des versements<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="controllerBackOffice?action=formRechClientVersement">Nouveau versement</a></li>
+                            <li><a href="controllerBackOffice?action=formRechClientVersement">Historique des versements</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Gestion des portefeuilles<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="">Nouveau portefeuille</a></li>
+                            <li><a href="">Consulter les portefeuilles clients</a></li>
                         </ul>
                     </li>
                     

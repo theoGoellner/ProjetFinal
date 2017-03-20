@@ -97,13 +97,12 @@ public class ParticulierFacade extends AbstractFacade<Particulier> implements Pa
 
     @Override
     public List<Particulier> rechercherListeParticuliersParCourtierParNomPrenom(Employe courtier, String nom, String prenom) {
-    List<Particulier> listPart = null;
+        List<Particulier> listPart = null;
         try {
-            Query req = em.createQuery("select p from Particulier as p where p.courtier = :courtier and (p.nom like '%UPPER(:nom)%' or p.prenom like '%UPPER(:prenom)%') and p.dateArchivage is null");
-            req.setParameter("nom", nom);
-            req.setParameter("prenom", prenom);
-            req.setParameter("courtier", courtier);
-            
+            Query req = em.createQuery("select p from Particulier as p where (p.courtier =:courtier and p.dateArchivage is null and (p.nom like UPPER(:nom) or p.prenom like UPPER(:prenom)))");
+            req.setParameter("nom", "%"+nom+"%");
+            req.setParameter("prenom", "%"+prenom+"%"); 
+            req.setParameter("courtier", courtier);            
             listPart = req.getResultList();
         } catch (Exception e) {
             listPart=null;

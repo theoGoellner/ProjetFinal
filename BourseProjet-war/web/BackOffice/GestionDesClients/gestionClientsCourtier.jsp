@@ -39,11 +39,9 @@
                         <strong> <% out.println(attribut); %> </strong>
                     </div> 
                     <% } %>                    
-
-                    <legend>Gestion de mes clients</legend>
                     
-                   
-                    
+                    <legend>Liste de mes clients</legend>
+                                                         
                     <div class="panel panel-default">
                         <div class="panel-heading">Liste des particuliers</div>
                         <div class="panel-body">
@@ -72,7 +70,7 @@
                                     </td>
                                     <td ><a href="controllerBackOffice?action=formModifierClient&idClient=<%= part.getId()%>"> Modifier </a>
                                     </td>
-                                    <td ><a href="controllerCommun?action=afficherPortefeuillesClient&idClient=<%= part.getId()%>"> Gestion Portefeuilles </a>
+                                    <td ><a href="controllerCommun?action=afficherPortefeuillesClient&idClient=<%= part.getId()%>"> Afficher Portefeuilles </a>
                                     </td>
                                 </tr> 
                                 <%}%>
@@ -115,7 +113,7 @@
                                     </td>
                                     <td ><a href="controllerBackOffice?action=formModifierClient&idClient=<%= entr.getId()%>"> Modifier </a>
                                     </td>
-                                    <td ><a href="controllerCommun?action=afficherPortefeuillesClient&idClient=<%= entr.getId()%>"> Gestion Portefeuilles </a>
+                                    <td ><a href="controllerCommun?action=afficherPortefeuillesClient&idClient=<%= entr.getId()%>"> Afficher Portefeuilles </a>
                                     </td>
                                 </tr> 
                                 <%}%>

@@ -21,10 +21,10 @@
                         <form class="form col-md-12 center-block" method="get" action="controllerCommun">
                             <fieldset> 
                                 <div class="form-group">
-                                    <input type="text" name="login" value="" class="form-control input-lg" placeholder="Login" size="20" maxlength="20"/>
+                                    <input type="text" name="login" value="" class="form-control input-lg" placeholder="Login" size="20" maxlength="20" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" name="pwd" value="" class="form-control input-lg" placeholder="Password" size="20" maxlength="20"/>
+                                    <input type="password" name="pwd" value="" class="form-control input-lg" placeholder="Password" size="20" maxlength="20" required>
                                 </div>
                                 <input type="hidden" name="action" value="authentification">
                             </fieldset>

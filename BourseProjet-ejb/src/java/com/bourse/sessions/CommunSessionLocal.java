@@ -1,6 +1,9 @@
 package com.bourse.sessions;
 
+import com.bourse.entities.Client;
+import com.bourse.entities.PorteFeuille;
 import com.bourse.entities.Identification;
+import java.util.List;
 import javax.ejb.Local;
 
 
@@ -18,4 +21,6 @@ public interface CommunSessionLocal {
     Identification rechercheIdentParLogin(String login);
 
     void modificationIdentification(Identification identification, String login, String pwd);
+
+    List<PorteFeuille> getListePFParClient(Client client);
 }

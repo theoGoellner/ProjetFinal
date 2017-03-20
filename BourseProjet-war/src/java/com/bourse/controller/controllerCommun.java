@@ -96,9 +96,7 @@ public class controllerCommun extends HttpServlet {
                     jspClient = "/CommunOffice/GestionDesPortefeuilles/afficherPortefeuillesClient.jsp";
                     break;
                 case "afficherDetailPF":
-                    System.out.println("toto");
                     pf = backOfficeSession.recherchePorteFeuilleParID(Long.valueOf(request.getParameter("idPF")));
-                    System.out.println("toto" + pf.getMontantInitial());
                     request.setAttribute("portefeuille", pf);
                     request.setAttribute("message", message);
                     jspClient = "/CommunOffice/GestionDesPortefeuilles/afficherDetailPF.jsp";

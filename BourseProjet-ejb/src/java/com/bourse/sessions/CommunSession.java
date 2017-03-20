@@ -1,9 +1,13 @@
 package com.bourse.sessions;
 
+import com.bourse.entities.Client;
 import com.bourse.entities.Identification;
+import com.bourse.entities.PorteFeuille;
 import com.bourse.facades.IdentificationFacadeLocal;
+import com.bourse.facades.PorteFeuilleFacadeLocal;
 import java.math.BigInteger;
 import java.security.MessageDigest;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.xml.bind.DatatypeConverter;
@@ -12,7 +16,12 @@ import javax.xml.bind.DatatypeConverter;
 public class CommunSession implements CommunSessionLocal {
 
     @EJB
+    private PorteFeuilleFacadeLocal porteFeuilleFacade;
+
+    @EJB
     private IdentificationFacadeLocal identificationFacade;
+    
+    
 
     public static String generate(int length) {
         String chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890&~#|`-_)('/?,;:.";
@@ -69,4 +78,10 @@ public class CommunSession implements CommunSessionLocal {
         identificationFacade.modifierIdentification(identification, login, pwd);
     }
 
+    @Override
+    public List<PorteFeuille> getListePFParClient(Client client) {
+        return porteFeuilleFacade.getListePFParClient(client);
+    }
+
+    
 }

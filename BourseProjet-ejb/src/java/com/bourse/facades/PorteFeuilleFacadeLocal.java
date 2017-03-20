@@ -1,5 +1,6 @@
 package com.bourse.facades;
 
+import com.bourse.entities.Client;
 import com.bourse.entities.Contrat;
 import com.bourse.entities.PorteFeuille;
 import java.util.List;
@@ -23,5 +24,9 @@ public interface PorteFeuilleFacadeLocal {
     int count();
 
     PorteFeuille rechercherPorteFeuilleParID(Long idPorteFeuille);
+
+    List<PorteFeuille> getListePFParClient(Client client);
+
+    Double verserMontantPF(PorteFeuille pf, Double montant);
     
 }

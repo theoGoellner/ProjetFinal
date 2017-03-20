@@ -9,6 +9,7 @@ import com.bourse.entities.PEA;
 import com.bourse.entities.PERP;
 import com.bourse.entities.Particulier;
 import com.bourse.entities.PorteFeuille;
+import com.bourse.entities.Versement;
 import com.bourse.enumeration.EnumFormEntreprise;
 import com.bourse.enumeration.EnumNiveauGestionCompteClassique;
 import com.bourse.enumeration.EnumTypeGestCompteClassique;
@@ -60,4 +61,6 @@ public interface BackOfficeSessionLocal {
     PEA creationPEA(Date dateOuverture, Double montantInitial, Contrat contrat);
 
     PERP creationPERP(Date dateOuverture, Date dateFermeture, Double montantInitial, Contrat contrat);
+
+    Double creationVersement(Client client, PorteFeuille portefeuille, Double montant);
 }

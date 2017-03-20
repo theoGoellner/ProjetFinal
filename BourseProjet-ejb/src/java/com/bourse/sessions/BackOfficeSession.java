@@ -9,6 +9,7 @@ import com.bourse.entities.PEA;
 import com.bourse.entities.PERP;
 import com.bourse.entities.Particulier;
 import com.bourse.entities.PorteFeuille;
+import com.bourse.entities.Versement;
 import com.bourse.enumeration.EnumFormEntreprise;
 import com.bourse.enumeration.EnumNiveauGestionCompteClassique;
 import com.bourse.enumeration.EnumTypeGestCompteClassique;
@@ -21,6 +22,7 @@ import com.bourse.facades.PEAFacadeLocal;
 import com.bourse.facades.PERPFacadeLocal;
 import com.bourse.facades.ParticulierFacadeLocal;
 import com.bourse.facades.PorteFeuilleFacadeLocal;
+import com.bourse.facades.VersementFacadeLocal;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -28,6 +30,9 @@ import javax.ejb.Stateless;
 
 @Stateless
 public class BackOfficeSession implements BackOfficeSessionLocal {
+
+    @EJB
+    private VersementFacadeLocal versementFacade;
 
     @EJB
     private PERPFacadeLocal pERPFacade;
@@ -56,6 +61,7 @@ public class BackOfficeSession implements BackOfficeSessionLocal {
     @EJB
     private IdentificationFacadeLocal identificationFacade;
 
+    
     
     
     // GESTION DES CLIENTS
@@ -170,5 +176,14 @@ public class BackOfficeSession implements BackOfficeSessionLocal {
         return pERPFacade.creerPERP(dateOuverture, dateFermeture, montantInitial, contrat);
     }
  
+    // GESTION DES VERSEMENTS
+
+    @Override
+    public Double creationVersement(Client client, PorteFeuille portefeuille, Double montant) {
+        versementFacade.creerVersement(client, portefeuille, montant);
+        porteFeuilleFacade.verserMontantPF(portefeuille, montant);
+        return portefeuille.getLiquidite();
+    }
+    
     
 }

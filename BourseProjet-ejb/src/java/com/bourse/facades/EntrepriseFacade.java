@@ -100,9 +100,9 @@ public class EntrepriseFacade extends AbstractFacade<Entreprise> implements Entr
     public List<Entreprise> rechercheListeEntreprisesParCourtierParNomSiret(Employe courtier, String siret, String nom) {
     List<Entreprise> listEntr = null;
         try {
-            Query req = em.createQuery("select e from Entreprise as e where e.courtier = :courtier and (e.Siret like '%:siret%' or e.nomEntreprise like '%UPPER(:nom)%') and p.dateArchivage is null");
-            req.setParameter("nom", nom);
-            req.setParameter("siret", siret);
+            Query req = em.createQuery("select e from Entreprise as e where (e.courtier =:courtier and e.dateArchivage is null and (e.Siret like :siret or e.nomEntreprise like UPPER(:nom)))");
+            req.setParameter("nom", "%"+nom+"%");
+            req.setParameter("siret", "%"+siret+"%");
             req.setParameter("courtier", courtier);
             
             listEntr = req.getResultList();
@@ -112,9 +112,6 @@ public class EntrepriseFacade extends AbstractFacade<Entreprise> implements Entr
         }
         return listEntr;   
     }
-
-    
-
     
     
     

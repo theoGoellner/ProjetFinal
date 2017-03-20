@@ -1,10 +1,12 @@
 package com.bourse.controller;
 
 import com.bourse.entities.Client;
+import com.bourse.entities.Contrat;
 import com.bourse.entities.Employe;
 import com.bourse.entities.Entreprise;
 import com.bourse.entities.Identification;
 import com.bourse.entities.Particulier;
+import com.bourse.entities.PorteFeuille;
 import com.bourse.enumeration.*;
 import com.bourse.sessions.*;
 import java.io.IOException;
@@ -33,14 +35,17 @@ public class controllerBackOffice extends HttpServlet {
     
     private String jspClient;
     private String message = "";
+    private String typeRechClient = "";
     
     private Client cli = null;
     private Entreprise entr = null;
     private Particulier part = null;
     private Employe emp = null;
+    private PorteFeuille pf = null;
     private List<Employe> listeEmp = null;
     private List<Particulier> listeParticulier = null;
     private List<Entreprise> listeEntreprise = null;
+    private List<PorteFeuille> listePF = null;
     
     private Identification ident = null;
     private HttpSession session;
@@ -117,16 +122,7 @@ public class controllerBackOffice extends HttpServlet {
                     break;
                 case "ajoutClient":
                     doActionAjoutClient(request, response);
-                    break;                               
-                case "gestionClientsCourtier":
-                    session = request.getSession(true); 
-                    listeParticulier = backOfficeSession.getListeParticuliersActifsParCourtier((Employe) session.getAttribute("employe"));
-                    request.setAttribute("ListeDesParticuliers", listeParticulier);
-                    listeEntreprise = backOfficeSession.getListeEntreprisesActivesParCourtier((Employe) session.getAttribute("employe"));
-                    request.setAttribute("ListeDesEntreprises", listeEntreprise);
-                    request.setAttribute("message", message);
-                    jspClient = "/BackOffice/GestionDesClients/gestionClientsCourtier.jsp";
-                    break;
+                    break;                                               
                 case "archiverClientAjout":   
                     jspClient = "/BackOffice/GestionDesClients/formAjoutClient.jsp";
                     doActionArchiverClient(request, response);                    
@@ -151,11 +147,28 @@ public class controllerBackOffice extends HttpServlet {
                 case "modifierEntreprise":
                     doActionModifierEntreprise(request, response);
                     break;
-                case "formRechClient":
+                case "gestionClientsCourtier":
+                    session = request.getSession(true); 
+                    listeParticulier = backOfficeSession.getListeParticuliersActifsParCourtier((Employe) session.getAttribute("employe"));
+                    request.setAttribute("ListeDesParticuliers", listeParticulier);
+                    listeEntreprise = backOfficeSession.getListeEntreprisesActivesParCourtier((Employe) session.getAttribute("employe"));
+                    request.setAttribute("ListeDesEntreprises", listeEntreprise);
                     request.setAttribute("message", message);
-                    jspClient = "/Administration/GestionDesEmployes/formRechClient.jsp";
+                    jspClient = "/BackOffice/GestionDesClients/gestionClientsCourtier.jsp";
+                    break;    
+                case "formRechClientGestion":
+                    typeRechClient = "gestion";
+                    session.setAttribute("typeRechClient", typeRechClient);
+                    request.setAttribute("message", message);
+                    jspClient = "/BackOffice/GestionDesClients/RechercheClient/formRechClient.jsp";
                     break;
-                case "RechClient":
+                case "formRechClientVersement":
+                    typeRechClient = "versement";
+                    session.setAttribute("typeRechClient", typeRechClient);
+                    request.setAttribute("message", message);
+                    jspClient = "/BackOffice/GestionDesClients/RechercheClient/formRechClient.jsp";
+                    break;
+                case "rechClient":
                     doActionRechercherClient(request, response);
                     break;
                 // </editor-fold>
@@ -180,6 +193,17 @@ public class controllerBackOffice extends HttpServlet {
                     jspClient = "/BackOffice/GestionDesContrats/formModifContrat.jsp";
                     break;  
                 // </editor-fold>
+                                        
+                case "formGestionVersements":
+                    session.setAttribute("clientSelectionne", (Client)backOfficeSession.rechercheClientParID(Long.valueOf(request.getParameter("idClient"))));
+                    //listePF = communSession.getListePFParClient(backOfficeSession.rechercheClientParID(Long.valueOf(request.getParameter("idClient"))));
+                    //request.setAttribute("listePF", listePF);
+                    request.setAttribute("message", message);
+                    jspClient = "/BackOffice/GestionDesVersements/formGestionVersements.jsp";
+                    break;
+                case "validerVersement":
+                    doActionValiderVersement(request, response);
+                    break;
             }
         }
         RequestDispatcher Rd;
@@ -467,6 +491,7 @@ public class controllerBackOffice extends HttpServlet {
         
     protected void doActionRechercherClient(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         listeParticulier = null;
         listeEntreprise = null;
 
@@ -475,33 +500,31 @@ public class controllerBackOffice extends HttpServlet {
         String prenomClient = request.getParameter("prenomClient");
         String siret = request.getParameter("siret");
         String nomEntreprise = request.getParameter("nomEntreprise");
-
-        session = request.getSession(true);
-        Employe courtier = (Employe) session.getAttribute("employe");
-
+       
+        Employe user = (Employe) session.getAttribute("employe");
+        
         if (typeClient.equalsIgnoreCase("Particulier")) {
-            listeParticulier = backOfficeSession.rechercheListeParticuliersParCourtierParNomPrenom(courtier, nomClient, prenomClient);
+            listeParticulier = backOfficeSession.rechercheListeParticuliersParCourtierParNomPrenom(user, nomClient, prenomClient);
             if (listeParticulier.isEmpty()) {
-                message = " Aucun client ne correspond aux critère de recherche ";
-                jspClient = "/Administration/GestionDesEmployes/formRechClient.jsp";
+                message = "Aucun client ne correspond aux critère de recherche.";
+                jspClient = "/BackOffice/GestionDesClients/RechercheClient/formRechClient.jsp";
             } else {
-                message = " Vous avez " + listeParticulier.size() + " client qui repondent aux critères de recherche";
-                jspClient = "/Administration/GestionDesEmployes/resultRechClient.jsp";
+                request.setAttribute("ListeDesParticuliers", listeParticulier);
+                message = "Vous avez " + listeParticulier.size() + " client(s) qui repond(ent) aux critères de recherche.";
+                jspClient = "/BackOffice/GestionDesClients/RechercheClient/resultRechParticulier.jsp";
             }
         } else {
-            listeEntreprise = backOfficeSession.rechercheListeEntreprisesParCourtierParNomPrenom(courtier, siret, nomEntreprise);
+            listeEntreprise = backOfficeSession.rechercheListeEntreprisesParCourtierParNomPrenom(user, siret, nomEntreprise);
             if (listeEntreprise.isEmpty()) {
-                message = " Aucun client ne correspond aux critère de recherche ";
-                jspClient = "/Administration/GestionDesEmployes/formRechClient.jsp";
+                message = " Aucun client ne correspond aux critère de recherche.";
+                jspClient = "/BackOffice/GestionDesClients/RechercheClient/formRechClient.jsp";
             } else {
-                message = " Vous avez " + listeEntreprise.size() + " client qui repondent aux critères de recherche";
-                jspClient = "/Administration/GestionDesEmployes/resultRechClient.jsp";
+                request.setAttribute("ListeDesEntreprises", listeEntreprise);
+                message = " Vous avez " + listeEntreprise.size() + " client(s) qui repond(ent) aux critères de recherche.";
+                jspClient = "/BackOffice/GestionDesClients/RechercheClient/resultRechEntreprise.jsp";
             }
         }
-        request.setAttribute("ListeDesParticuliers", listeParticulier);
-        request.setAttribute("ListeDesEntreprises", listeEntreprise);
         request.setAttribute("message", message);
-
     }
     // </editor-fold>
     
@@ -531,7 +554,6 @@ public class controllerBackOffice extends HttpServlet {
         cli = backOfficeSession.rechercheClientParID(Long.valueOf(request.getParameter("idClient")));
 
         session = request.getSession(true);
-        Employe courtier = (Employe)session.getAttribute("employe");
         
         if (typePorteFeuille.equalsIgnoreCase("Classique")) {            
             backOfficeSession.creationClassique(EnumTypeGestCompteClassique.valueOf(typePFClassique), EnumNiveauGestionCompteClassique.valueOf(niveauGestionClassique), 
@@ -552,4 +574,20 @@ public class controllerBackOffice extends HttpServlet {
         jspClient = "/CommunOffice/GestionDesPortefeuilles/afficherPortefeuillesClient.jsp";
     }    
     // </editor-fold>
+            
+    protected void doActionValiderVersement(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        session = request.getSession(true);
+        cli = (Client)session.getAttribute("clientSelectionne");
+        pf = backOfficeSession.recherchePorteFeuilleParID(Long.valueOf(request.getParameter("idPF")));
+        Double montantVersement = Double.valueOf(request.getParameter("montantVersement"));
+        
+        backOfficeSession.creationVersement(cli, pf, montantVersement);
+        
+        message = "Versement réussi !";
+        request.setAttribute("message", message);
+        jspClient = "/BackOffice/GestionDesVersements/formGestionVersements.jsp";
+    }   
+    
 }

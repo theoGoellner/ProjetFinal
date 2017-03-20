@@ -1,5 +1,7 @@
 package com.bourse.facades;
 
+import com.bourse.entities.Client;
+import com.bourse.entities.PorteFeuille;
 import com.bourse.entities.Versement;
 import java.util.List;
 import javax.ejb.Local;
@@ -20,5 +22,7 @@ public interface VersementFacadeLocal {
     List<Versement> findRange(int[] range);
 
     int count();
+
+    Versement creerVersement(Client client, PorteFeuille portefeuille, Double montant);
     
 }

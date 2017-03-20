@@ -17,7 +17,6 @@
             
         <%
             Identification ident =(Identification) session.getAttribute("identification");
-                System.out.println("cocoo"+ident.getLogin());
            
         %>
         <%@include  file="../jsp_commun/menuBackOffice.jsp" %>
