@@ -1,3 +1,5 @@
+<%@page import="com.bourse.entities.PEA"%>
+<%@page import="com.bourse.entities.Contrat"%>
 <%@page import="com.bourse.entities.Entreprise"%>
 <%@page import="com.bourse.entities.Particulier"%>
 <%@page import="com.bourse.entities.Employe"%>
@@ -12,7 +14,6 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link type="text/css" rel="stylesheet" href="Presentation/CSS/bootstrap.css">
-        <link type="text/css" href="Presentation/CSS/bootstrap.min.css" rel="stylesheet">
         <script src="Presentation/JS/jquery.min.js"></script>
         <script src="Presentation/JS/bootstrap.min.js"></script>
 
@@ -50,9 +51,20 @@
                                         <div class="col-lg-9">
                                             <select id="typePorteFeuille" class="form-control" name="typePorteFeuille" onChange="majAffichageTypePorteFeuille()" required>
                                                 <option value="" selected="selected"> </option>                                                                                        
-                                                <option value="Classique">Classique</option>
-                                                <option value="PEA">PEA</option>
-                                                <option value="PEP-PERP">PEP-PERP</option>
+                                                <option value="Classique">Classique</option>                                                
+                                                
+                                                
+                                                <% if (client instanceof Particulier) {
+                                                    %> <option value="PEP-PERP">PEP-PERP</option> <%
+                                                    boolean b = false;
+                                                    for (Contrat c : client.getLesContrats()){
+                                                        if (c.getPorteFeuille() instanceof PEA) b=true;
+                                                    }  
+                                                    if (b==false) { %>
+                                                        <option value="PEA">PEA</option>
+                                                    <% }
+                                                                                    
+                                                    } %>
                                             </select>
                                         </div> 
                                     </div>

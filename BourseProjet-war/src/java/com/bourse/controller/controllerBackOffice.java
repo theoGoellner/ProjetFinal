@@ -2,6 +2,7 @@ package com.bourse.controller;
 
 import com.bourse.entities.Client;
 import com.bourse.entities.Contrat;
+import com.bourse.entities.Courtage;
 import com.bourse.entities.Employe;
 import com.bourse.entities.Entreprise;
 import com.bourse.entities.Identification;
@@ -46,6 +47,7 @@ public class controllerBackOffice extends HttpServlet {
     private List<Particulier> listeParticulier = null;
     private List<Entreprise> listeEntreprise = null;
     private List<PorteFeuille> listePF = null;
+    private List<Courtage> listeCours = null;
     
     private Identification ident = null;
     private HttpSession session;
@@ -194,6 +196,7 @@ public class controllerBackOffice extends HttpServlet {
                     break;  
                 // </editor-fold>
                                         
+                // <editor-fold defaultstate="collapsed" desc="GESTION DES VERSEMENTS">
                 case "formGestionVersements":
                     session.setAttribute("clientSelectionne", (Client)backOfficeSession.rechercheClientParID(Long.valueOf(request.getParameter("idClient"))));
                     //listePF = communSession.getListePFParClient(backOfficeSession.rechercheClientParID(Long.valueOf(request.getParameter("idClient"))));
@@ -204,6 +207,20 @@ public class controllerBackOffice extends HttpServlet {
                 case "validerVersement":
                     doActionValiderVersement(request, response);
                     break;
+                // </editor-fold>
+                    
+                case "selectionTitres":
+                    session = request.getSession(true); 
+                    listeParticulier = backOfficeSession.getListeParticuliersActifsParCourtier((Employe) session.getAttribute("employe"));
+                    request.setAttribute("ListeDesParticuliers", listeParticulier);
+                    listeEntreprise = backOfficeSession.getListeEntreprisesActivesParCourtier((Employe) session.getAttribute("employe"));
+                    request.setAttribute("ListeDesEntreprises", listeEntreprise);
+                    listeCours = backOfficeSession.getListeCourageActuels();
+                    request.setAttribute("listeCours", listeCours);
+                    request.setAttribute("message", message);
+                    jspClient = "/BackOffice/GestionDesOperations/selectionTitres.jsp";
+                case "acheterTitres":
+                    
             }
         }
         RequestDispatcher Rd;

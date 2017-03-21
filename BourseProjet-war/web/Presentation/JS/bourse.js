@@ -37,20 +37,8 @@ function majAffichageTypePorteFeuille() {
         document.getElementById('pourcMaxClassique').required = false;
         document.getElementById('dateOuverturePEA').required = false;
         document.getElementById('dateOuverturePEP').required = false;
-        document.getElementById('dateFermeturePEP').required = false;
+        document.getElementById('dateFermeturePEP').required = false; 
     } else if (i == 2) {
-        document.getElementById('champsPFClassique').style.display = 'none';
-        document.getElementById('champsPFPEA').style.display = 'block';
-        document.getElementById('champsPFPEP').style.display = 'none';
-        document.getElementById('typePFClassique').required = false;
-        document.getElementById('niveauGestionClassique').required = false;
-        document.getElementById('nomChargeCompte').required = false;
-        document.getElementById('valeurMaxClassique').required = false;
-        document.getElementById('pourcMaxClassique').required = false;
-        document.getElementById('dateOuverturePEA').required = true;
-        document.getElementById('dateOuverturePEP').required = false;
-        document.getElementById('dateFermeturePEP').required = false;
-    } else if (i == 3) {
         document.getElementById('champsPFClassique').style.display = 'none';
         document.getElementById('champsPFPEA').style.display = 'none';
         document.getElementById('champsPFPEP').style.display = 'block';
@@ -62,6 +50,18 @@ function majAffichageTypePorteFeuille() {
         document.getElementById('dateOuverturePEA').required = false;
         document.getElementById('dateOuverturePEP').required = true;
         document.getElementById('dateFermeturePEP').required = true;
+    } else if (i == 3) {
+        document.getElementById('champsPFClassique').style.display = 'none';
+        document.getElementById('champsPFPEA').style.display = 'block';
+        document.getElementById('champsPFPEP').style.display = 'none';
+        document.getElementById('typePFClassique').required = false;
+        document.getElementById('niveauGestionClassique').required = false;
+        document.getElementById('nomChargeCompte').required = false;
+        document.getElementById('valeurMaxClassique').required = false;
+        document.getElementById('pourcMaxClassique').required = false;
+        document.getElementById('dateOuverturePEA').required = true;
+        document.getElementById('dateOuverturePEP').required = false;
+        document.getElementById('dateFermeturePEP').required = false;
     }
 }
 
@@ -130,4 +130,8 @@ function verify(pwd, pwdConfirm) {
     } else
         confirmation = true
     return confirmation
+}
+
+function setCheckBoxName(idCB) {
+    document.getElementById('CB'+idCB).setAttribute(name, idCB);
 }

@@ -12,7 +12,6 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link type="text/css" rel="stylesheet" href="Presentation/CSS/bootstrap.css">
-        <link type="text/css" href="Presentation/CSS/bootstrap.min.css" rel="stylesheet">
         <script src="Presentation/JS/jquery.min.js"></script>
         <script src="Presentation/JS/bootstrap.min.js"></script>
 
@@ -42,7 +41,7 @@
                     <% } %>
                     <div class="row">
                         <div class="col-sm-8 well col-sm-offset-2"> 
-                            <form name="formulaireAjoutClient" class="form-horizontal" method="get" action="controllerBackOffice">
+                            <form name="formulaireAjoutClient" class="form-horizontal" method="get" action="controllerBackOffice" onSubmit="return verify(this.pwd, this.pwdConfirm)">
                                 <fieldset>
                                     <legend>Création d'un nouveau client</legend>
                                     <div class="row"><p>     </p></div>  
@@ -169,7 +168,13 @@
                                         <div class="col-lg-9">
                                             <input type="password" class="form-control" name="pwd" placeholder="Saisir le mot de passe du client" required>
                                         </div>
-                                    </div>                                                              
+                                    </div>         
+                                    <div class="form-group">
+                                        <label for="pwdConfirm" class="col-lg-3 control-label">Confirmation du mot de passe </label>
+                                        <div class="col-lg-9">
+                                            <input type="password" class="form-control" name="pwdConfirm" placeholder="confirmation du mot de passe" required>
+                                        </div>
+                                    </div>
 
                                     <input type="hidden" name="action" value="ajoutClient">
                                     <div class="row"> </div>
@@ -211,11 +216,11 @@
                                     <td > <%= part.getAdresse()%> </td>
                                     <td > <%= part.getNiveau()%> </td>
                                     <td >
-                                        <% if(part.getCourtier().equals(user)) { %>
-                                            <a href="controllerBackOffice?action=archiverClientAjout&idClient=<%= part.getId()%>"> 
+                                        <% if (part.getCourtier().equals(user)) {%>
+                                        <a href="controllerBackOffice?action=archiverClientAjout&idClient=<%= part.getId()%>"> 
                                             <span class="glyphicon glyphicon-trash"></span></a> 
-                                        <% } else { %>
-                                             <span class="glyphicon glyphicon-trash"></span><% } %>                                        
+                                            <% } else { %>
+                                        <span class="glyphicon glyphicon-trash"></span><% }%>                                        
                                     </td>
                                     <td ><a href="controllerBackOffice?action=formModifierClient&idClient=<%= part.getId()%>"> Modifier </a>
                                     </td>
@@ -256,11 +261,11 @@
                                     <td > <%= entr.getAdresse()%> </td>
                                     <td > <%= entr.getNiveau()%> </td>
                                     <td >
-                                        <% if(entr.getCourtier().equals(user)) { %>
+                                        <% if (entr.getCourtier().equals(user)) {%>
                                         <a href="controllerBackOffice?action=archiverClientAjout&idClient=<%= entr.getId()%>"> 
-                                             <span class="glyphicon glyphicon-trash"></span> </a> <% } else { %>
-                                             <span class="glyphicon glyphicon-trash"></span> 
-                                        <% } %>
+                                            <span class="glyphicon glyphicon-trash"></span> </a> <% } else { %>
+                                        <span class="glyphicon glyphicon-trash"></span> 
+                                        <% }%>
                                     </td>
                                     <td >
                                         <a href="controllerBackOffice?action=formModifierClient&idClient=<%= entr.getId()%>"> Modifier </a>

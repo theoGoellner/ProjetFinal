@@ -17,16 +17,38 @@ import javax.persistence.OneToOne;
 public class PorteFeuille implements Serializable {
 
     @OneToMany(mappedBy = "lePorteFeuille")
-    private List<Contenu> lesContenus;
+    private List<Contenu> lesContenusPF;
 
-    public List<Contenu> getLesContenus() {
-        return lesContenus;
+    public List<Contenu> getLesContenusPF() {
+        return lesContenusPF;
     }
 
-    public void setLesContenus(List<Contenu> lesContenus) {
-        this.lesContenus = lesContenus;
-    } 
-    
+    public void setLesContenusPF(List<Contenu> lesContenusPF) {
+        this.lesContenusPF = lesContenusPF;
+    }
+
+    @OneToMany(mappedBy = "portefeuilleSource")
+    private List<Operation> lesOperationsVentes;
+
+    public List<Operation> getLesOperationsVentes() {
+        return lesOperationsVentes;
+    }
+
+    public void setLesOperationsVentes(List<Operation> lesOperationsVentes) {
+        this.lesOperationsVentes = lesOperationsVentes;
+    }
+
+    @OneToMany(mappedBy = "portefeuilleCible")
+    private List<Operation> lesOperationsAchats;
+        
+    public List<Operation> getLesOperationsAchats() {
+        return lesOperationsAchats;
+    }
+
+    public void setLesOperationsAchats(List<Operation> lesOperationsAchats) {
+        this.lesOperationsAchats = lesOperationsAchats;
+    }
+
     @OneToMany(mappedBy = "lePortefeuille")
     private List<Versement> lesVersements;
 
@@ -48,6 +70,9 @@ public class PorteFeuille implements Serializable {
     public void setLeContrat(Contrat leContrat) {
         this.leContrat = leContrat;
     }
+    
+    
+    
     
     private static final long serialVersionUID = 1L;
     @Id

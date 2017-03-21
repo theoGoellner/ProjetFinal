@@ -20,5 +20,7 @@ public interface CourtageFacadeLocal {
     List<Courtage> findRange(int[] range);
 
     int count();
+
+    List<Courtage> getListeCourtageActuels();
     
 }

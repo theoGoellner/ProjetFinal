@@ -21,41 +21,38 @@ import javax.persistence.Temporal;
 @Entity
 public class Operation implements Serializable {
 
-
-    @ManyToOne
-    private Contenu leContenuSource;
-
-    public Contenu getLeContenuSource() {
-        return leContenuSource;
-    }
-
-    public void setLeContenuSource(Contenu leContenuSource) {
-        this.leContenuSource = leContenuSource;
-    }
-
-    public Contenu getLeContenuCible() {
-        return leContenuCible;
-    }
-
-    public void setLeContenuCible(Contenu leContenuCible) {
-        this.leContenuCible = leContenuCible;
-    }
-
-    
-    @ManyToOne
-    private Contenu leContenuCible;
-
- 
     @OneToMany(mappedBy = "operation")
-    private List<JournalActionSurOperation> lesJournalActionSurOperation;
+    private List<JournalActionSurOperation> journalActionSurOperations;
 
-    public List<JournalActionSurOperation> getLesJournalActionSurOperation() {
-        return lesJournalActionSurOperation;
+    public List<JournalActionSurOperation> getJournalActionSurOperations() {
+        return journalActionSurOperations;
     }
 
-    public void setLesJournalActionSurOperation(List<JournalActionSurOperation> lesJournalActionSurOperation) {
-        this.lesJournalActionSurOperation = lesJournalActionSurOperation;
+    public void setJournalActionSurOperations(List<JournalActionSurOperation> journalActionSurOperations) {
+        this.journalActionSurOperations = journalActionSurOperations;
     }
+
+    @ManyToOne
+    private PorteFeuille portefeuilleCible;
+
+    public PorteFeuille getPortefeuilleCible() {
+        return portefeuilleCible;
+    }
+
+    public void setPortefeuilleCible(PorteFeuille portefeuilleCible) {
+        this.portefeuilleCible = portefeuilleCible;
+    }
+
+    @ManyToOne
+    private PorteFeuille portefeuilleSource;
+
+    public PorteFeuille getPortefeuilleSource() {
+        return portefeuilleSource;
+    }
+
+    public void setPortefeuilleSource(PorteFeuille portefeuilleSource) {
+        this.portefeuilleSource = portefeuilleSource;
+    } 
     
     @OneToOne
     private Communication communication;
@@ -69,25 +66,14 @@ public class Operation implements Serializable {
     }
     
     @ManyToOne
-    private Contenu contenu;
+    private Titre leTitre;
 
-    public Contenu getContenu() {
-        return contenu;
+    public Titre getLeTitre() {
+        return leTitre;
     }
 
-    public void setContenu(Contenu contenu) {
-        this.contenu = contenu;
-    }
-    
-    @ManyToOne
-    private Employe employe;
-
-    public Employe getEmploye() {
-        return employe;
-    }
-
-    public void setEmploye(Employe employe) {
-        this.employe = employe;
+    public void setLeTitre(Titre leTitre) {
+        this.leTitre = leTitre;
     }
     
     private static final long serialVersionUID = 1L;
@@ -161,7 +147,7 @@ public class Operation implements Serializable {
         this.TypeOperation = TypeOperation;
     }
 
-        private EnumEtatOperation etat;
+    private EnumEtatOperation etat;
 
     /**
      * Get the value of etat
@@ -245,46 +231,26 @@ public class Operation implements Serializable {
         this.dateExecution = dateExecution;
     }
     
-    private Double prixAchat;
+    private Double prix;
 
     /**
-     * Get the value of prixAchat
+     * Get the value of prix
      *
-     * @return the value of prixAchat
+     * @return the value of prix
      */
-    public Double getPrixAchat() {
-        return prixAchat;
+    public Double getPrix() {
+        return prix;
     }
 
     /**
-     * Set the value of prixAchat
+     * Set the value of prix
      *
-     * @param prixAchat new value of prixAchat
+     * @param prix new value of prix
      */
-    public void setPrixAchat(Double prixAchat) {
-        this.prixAchat = prixAchat;
+    public void setPrix(Double prix) {
+        this.prix = prix;
     }
-
-    private Double prixVente;
-
-    /**
-     * Get the value of prixVente
-     *
-     * @return the value of prixVente
-     */
-    public Double getPrixVente() {
-        return prixVente;
-    }
-
-    /**
-     * Set the value of prixVente
-     *
-     * @param prixVente new value of prixVente
-     */
-    public void setPrixVente(Double prixVente) {
-        this.prixVente = prixVente;
-    }
-    
+   
     private Boolean origineClient;
 
     /**

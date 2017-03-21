@@ -32,7 +32,7 @@ public class controllerCommun extends HttpServlet {
     private String jspClient;
     private String message = "";
     
-    private static final int DUREESESSIONVALIDE = 300;
+    private static final int DUREESESSIONVALIDE = 600;
     private static final int NBR_TENTATIVES_MAX = 3;
     
     private Identification ident = null;
@@ -168,7 +168,9 @@ public class controllerCommun extends HttpServlet {
                 if (ident.getTypeUser().equalsIgnoreCase("Employe")) {
                     Employe user = administrationSession.rechercheEmployeParID(ident.getIdUser());
                     session.setAttribute("employe", user);
+
                     if (ident.getLesConnexions().isEmpty()) {
+                        administrationSession.ajouterConnexion(ident);
                         jspClient = "/CommunOffice/InitialisationPwd.jsp";
                     } else {
                         administrationSession.ajouterConnexion(ident);
@@ -179,7 +181,9 @@ public class controllerCommun extends HttpServlet {
                     session.setAttribute("client", user);
                     if (ident.getLesConnexions().isEmpty()) {
                         jspClient = "/CommunOffice/InitialisationPwd.jsp";
+                        administrationSession.ajouterConnexion(ident);
                     } else {
+                        administrationSession.ajouterConnexion(ident);
                         jspClient = "/FrontOffice/Accueil.jsp";
                     }
                 }

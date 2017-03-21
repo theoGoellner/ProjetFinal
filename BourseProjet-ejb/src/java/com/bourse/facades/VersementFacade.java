@@ -30,7 +30,7 @@ public class VersementFacade extends AbstractFacade<Versement> implements Versem
         vers.setLePortefeuille(portefeuille);
         vers.setDateVersement(new Date());
         vers.setMontant(montant);
-        em.persist(vers);
+        em.persist(em.merge(vers));
         return vers;
     }
     

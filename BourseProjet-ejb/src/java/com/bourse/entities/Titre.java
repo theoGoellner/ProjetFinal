@@ -30,6 +30,17 @@ import javax.persistence.Temporal;
     (strategy=InheritanceType.JOINED)
 public class Titre implements Serializable {
 
+    @OneToMany(mappedBy = "leTitre")
+    private List<Operation> LesOperations;
+
+    public List<Operation> getLesOperations() {
+        return LesOperations;
+    }
+
+    public void setLesOperations(List<Operation> LesOperations) {
+        this.LesOperations = LesOperations;
+    }
+
     @OneToMany(mappedBy = "titre")
     private List<Contenu> lesContenus;
 

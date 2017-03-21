@@ -3,6 +3,7 @@ package com.bourse.sessions;
 import com.bourse.entities.Classique;
 import com.bourse.entities.Client;
 import com.bourse.entities.Contrat;
+import com.bourse.entities.Courtage;
 import com.bourse.entities.Employe;
 import com.bourse.entities.Entreprise;
 import com.bourse.entities.PEA;
@@ -63,4 +64,6 @@ public interface BackOfficeSessionLocal {
     PERP creationPERP(Date dateOuverture, Date dateFermeture, Double montantInitial, Contrat contrat);
 
     Double creationVersement(Client client, PorteFeuille portefeuille, Double montant);
+
+    List<Courtage> getListeCourageActuels();
 }

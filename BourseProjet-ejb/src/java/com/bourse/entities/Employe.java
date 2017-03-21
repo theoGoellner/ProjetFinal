@@ -32,17 +32,17 @@ import javax.persistence.Temporal;
 public class Employe implements Serializable {
 
     @OneToMany(mappedBy = "unEmploye")
-    private List<JournalActionSurOperation> lesJournalActionsSurOperation;
+    private List<JournalActionSurOperation> journalActionSurOperations;
 
-    public List<JournalActionSurOperation> getLesJournalActionsSurOperation() {
-        return lesJournalActionsSurOperation;
+    public List<JournalActionSurOperation> getJournalActionSurOperations() {
+        return journalActionSurOperations;
     }
 
-    public void setLesJournalActionsSurOperation(List<JournalActionSurOperation> lesJournalActionsSurOperation) {
-        this.lesJournalActionsSurOperation = lesJournalActionsSurOperation;
-    }   
+    public void setJournalActionSurOperations(List<JournalActionSurOperation> journalActionSurOperations) {
+        this.journalActionSurOperations = journalActionSurOperations;
+    }
 
-    @ManyToOne
+        @ManyToOne
     private Employe responsable;
     public Employe getResponsable() {
         return responsable;

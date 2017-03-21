@@ -12,29 +12,6 @@ import javax.persistence.OneToMany;
 @Entity
 public class Contenu implements Serializable {
 
-    @OneToMany(mappedBy = "leContenuSource")
-    private List<Operation> lesOperationsVentes;
-
-    public List<Operation> getLesOperationsVentes() {
-        return lesOperationsVentes;
-    }
-
-    public void setLesOperationsVentes(List<Operation> lesOperationsVentes) {
-        this.lesOperationsVentes = lesOperationsVentes;
-    }
-
-
-    @OneToMany(mappedBy = "leContenuCible")
-    private List<Operation> lesOperationsAchats;
-
-    public List<Operation> getLesOperationsAchats() {
-        return lesOperationsAchats;
-    }
-
-    public void setLesOperationsAchats(List<Operation> lesOperationsAchats) {
-        this.lesOperationsAchats = lesOperationsAchats;
-    }
-    
     @ManyToOne
     private PorteFeuille lePorteFeuille;
 

@@ -3,19 +3,20 @@ package com.bourse.sessions;
 import com.bourse.entities.Classique;
 import com.bourse.entities.Client;
 import com.bourse.entities.Contrat;
+import com.bourse.entities.Courtage;
 import com.bourse.entities.Employe;
 import com.bourse.entities.Entreprise;
 import com.bourse.entities.PEA;
 import com.bourse.entities.PERP;
 import com.bourse.entities.Particulier;
 import com.bourse.entities.PorteFeuille;
-import com.bourse.entities.Versement;
 import com.bourse.enumeration.EnumFormEntreprise;
 import com.bourse.enumeration.EnumNiveauGestionCompteClassique;
 import com.bourse.enumeration.EnumTypeGestCompteClassique;
 import com.bourse.facades.ClassiqueFacadeLocal;
 import com.bourse.facades.ClientFacadeLocal;
 import com.bourse.facades.ContratFacadeLocal;
+import com.bourse.facades.CourtageFacadeLocal;
 import com.bourse.facades.EntrepriseFacadeLocal;
 import com.bourse.facades.IdentificationFacadeLocal;
 import com.bourse.facades.PEAFacadeLocal;
@@ -30,6 +31,9 @@ import javax.ejb.Stateless;
 
 @Stateless
 public class BackOfficeSession implements BackOfficeSessionLocal {
+
+    @EJB
+    private CourtageFacadeLocal courtageFacade;
 
     @EJB
     private VersementFacadeLocal versementFacade;
@@ -183,6 +187,13 @@ public class BackOfficeSession implements BackOfficeSessionLocal {
         versementFacade.creerVersement(client, portefeuille, montant);
         porteFeuilleFacade.verserMontantPF(portefeuille, montant);
         return portefeuille.getLiquidite();
+    }
+    
+    // GESTION DES OPERATIONS
+
+    @Override
+    public List<Courtage> getListeCourageActuels() {        
+        return courtageFacade.getListeCourtageActuels();
     }
     
     

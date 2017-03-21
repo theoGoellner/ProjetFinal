@@ -9,7 +9,6 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link type="text/css" rel="stylesheet" href="Presentation/CSS/bootstrap.css">
-        <link type="text/css" href="Presentation/CSS/bootstrap.min.css" rel="stylesheet">
         <script src="Presentation/JS/jquery.min.js"></script>
         <script src="Presentation/JS/bootstrap.min.js"></script>
 

@@ -1,8 +1,11 @@
 package com.bourse.sessions;
 
 import com.bourse.entities.Client;
+import com.bourse.entities.Contenu;
 import com.bourse.entities.Identification;
 import com.bourse.entities.PorteFeuille;
+import com.bourse.entities.Titre;
+import com.bourse.facades.ContenuFacadeLocal;
 import com.bourse.facades.IdentificationFacadeLocal;
 import com.bourse.facades.PorteFeuilleFacadeLocal;
 import java.math.BigInteger;
@@ -14,6 +17,9 @@ import javax.xml.bind.DatatypeConverter;
 
 @Stateless
 public class CommunSession implements CommunSessionLocal {
+
+    @EJB
+    private ContenuFacadeLocal contenuFacade;
 
     @EJB
     private PorteFeuilleFacadeLocal porteFeuilleFacade;
@@ -83,5 +89,14 @@ public class CommunSession implements CommunSessionLocal {
         return porteFeuilleFacade.getListePFParClient(client);
     }
 
+    @Override
+    public void creationContenu(PorteFeuille portefeuille, Titre titre, int qte) {
+        contenuFacade.creerContenu(portefeuille, titre, qte);
+    }
+
+    @Override
+    public Contenu rechercherContenuParPFetTitre(PorteFeuille portefeuille, Titre titre) {
+        return contenuFacade.rechercheContenuParPFetTitre(portefeuille, titre);
+    }
     
 }
