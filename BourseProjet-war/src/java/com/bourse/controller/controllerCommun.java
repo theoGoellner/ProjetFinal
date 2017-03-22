@@ -69,9 +69,9 @@ public class controllerCommun extends HttpServlet {
                     request.setAttribute("message", message);
                     jspClient = "/Accueil.jsp";
                     break;
-                case "formAuthentification":
-                    jspClient = "/Authentification.jsp";
+                case "formAuthentification":                    
                     request.setAttribute("message", message);
+                    jspClient = "/Authentification.jsp";
                     break;
                 case "authentification":
                     doActionAuthentification(request, response);
@@ -97,9 +97,13 @@ public class controllerCommun extends HttpServlet {
                 case "pwdInit":
                     doActionInitialisationPwd(request, response);
                     break;
+                    
                 case "afficherPortefeuillesClient":
-                    cli = backOfficeSession.rechercheClientParID(Long.valueOf(request.getParameter("idClient")));
-                    request.setAttribute("client", cli);
+                    ident = (Identification) session.getAttribute("identification");            
+                    if (ident.getTypeUser().equalsIgnoreCase("employe")) {
+                        cli = backOfficeSession.rechercheClientParID(Long.valueOf(request.getParameter("idClient")));
+                        request.setAttribute("client", cli);
+                    }
                     request.setAttribute("message", message);
                     jspClient = "/CommunOffice/GestionDesPortefeuilles/afficherPortefeuillesClient.jsp";
                     break;
@@ -108,13 +112,20 @@ public class controllerCommun extends HttpServlet {
                     request.setAttribute("portefeuille", pf);
                     request.setAttribute("message", message);
                     jspClient = "/CommunOffice/GestionDesPortefeuilles/afficherDetailPF.jsp";
-                    break;
-                
+                    break;                
                 case "selectionTitres":
                     listeCours = communSession.getListeCourageActuels();
                     request.setAttribute("listeCours", listeCours);
                     request.setAttribute("message", message);
                     jspClient = "/CommunOffice/GestionDesOperations/selectionTitres.jsp";    
+                    break;
+                    
+                case "historiqueVersementsClient":
+                    if (ident.getTypeUser().equalsIgnoreCase("employe")) {
+                        session.setAttribute("clientSelectionne", (Client)backOfficeSession.rechercheClientParID(Long.valueOf(request.getParameter("idClient"))));
+                    }
+                    request.setAttribute("message", message);
+                    jspClient = "/CommunOffice/GestionDesVersements/historiqueVersements.jsp";
                     break;
             }
         }

@@ -27,7 +27,7 @@
             Client client = null;
             if (ident.getTypeUser().equalsIgnoreCase("employe")) {
                 client = (Client) request.getAttribute("client");
-        %> 
+              %> 
         <%@include  file="../../jsp_commun/menuBackOffice.jsp" %>
         <% } else {
             client = (Client) session.getAttribute("client"); %> 
@@ -43,12 +43,12 @@
                     <%  String attribut = (String) request.getAttribute("message");
                         SimpleDateFormat sdf = new SimpleDateFormat("dd - MM - yyyy");
                         List<Contrat> listeContrats = client.getLesContrats();
-                        if (attribut.length() > 8) {%>
+                        if (attribut.length() > 8) { %>
                     <div class="alert alert-info">
                         <a href="#" class="close" data-dismiss="alert">&times;</a>
                         <strong> <% out.println(attribut); %> </strong>
                     </div> 
-                    <% }%>                    
+                    <% } %>                    
                     <legend>Consulter la liste des portefeuilles</legend>                                      
                     <div class="panel panel-default">
                         <br>
@@ -97,10 +97,12 @@
                         </table>
                         <%}%>  
                     </div>
+
+                    <% if (ident.getTypeUser().equalsIgnoreCase("employe")) {%>
                     <div class="row" align="middle"> 
                         <a href="controllerBackOffice?action=formAjoutContrat&idClient=<%= client.getId()%>" class="btn btn-primary">Nouveau portefeuille</a>
                     </div>
-
+                    <% }%>
                     <%@include  file="../../jsp_commun/footer.jsp" %>
                 </div>
                 <%@include  file="../../jsp_commun/userEncours.jsp" %>

@@ -30,7 +30,7 @@
                     </div> 
                     <% }%>  
                     
-                    <h1> Bienvenue sur notre site </h1>                                        
+                    <h1 align='center'> Bienvenue chez MARTIN & CO </h1>                                        
 
 
                     <%@include  file="jsp_commun/footer.jsp" %>

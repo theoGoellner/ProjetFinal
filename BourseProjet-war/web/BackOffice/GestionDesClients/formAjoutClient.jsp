@@ -204,8 +204,8 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr> 
-                                    <td> Nom </td> <td> Prénom </td> <td> Date de naissance </td> <td> Lieu de naissance </td> 
-                                    <td> Téléphone </td> <td> Email </td> <td> Adresse </td> <td> Niveau </td> <td> Action </td>
+                                    <td> Nom </td> <td> Prénom </td> <%--<td> Date de naissance </td> <td> Lieu de naissance </td> 
+                                    <td> Téléphone </td> <td> Email </td> <td> Adresse </td> <td> Action </td>--%> <td> Niveau </td> 
                                 </tr>
                             </thead>
                             <tbody>
@@ -213,17 +213,17 @@
                                 <tr> 
                                     <td > <%= part.getNom()%> </td>
                                     <td > <%= part.getPrenom()%> </td>
-                                    <td > <%= sdf.format(part.getDateNais())%> </td>
+                                    <%--<td > <%= sdf.format(part.getDateNais())%> </td>
                                     <td > <%= part.getLieuNaissance()%> </td>
                                     <td > <%= part.getTelephone()%> </td>
                                     <td > <%= part.getMail()%> </td>
-                                    <td > <%= part.getAdresse()%> </td>
+                                    <td > <%= part.getAdresse()%> </td>--%>
                                     <td > <%= part.getNiveau()%> </td>
-                                    <td >
+                                    <%--<td >
                                         <a href="controllerBackOffice?action=archiverClientAjout&idClient=<%= part.getId()%>"> Archiver </a> 
                                     </td>
                                     <td ><a href="controllerBackOffice?action=formModifierClient&idClient=<%= part.getId()%>"> Modifier </a>
-                                    </td>
+                                    </td>--%>
                                 </tr> 
                                 <%}%>
                             </tbody>
@@ -247,8 +247,8 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr> 
-                                    <td> SIRET </td> <td> Nom </td> <td> Forme </td> <td> Contact </td> <td> Telephone Contact </td> 
-                                    <td> Telephone Client </td> <td> Email </td> <td> Adresse </td> <td> Niveau </td> <td> Action </td>
+                                    <td> SIRET </td> <td> Nom </td> <td> Forme </td> <%-- <td> Contact </td> <td> Telephone Contact </td> 
+                                    <td> Telephone Client </td> <td> Email </td> <td> Adresse </td> <td> Action </td>--%> <td> Niveau </td> 
                                 </tr>
                             </thead>
                             <tbody>
@@ -257,18 +257,18 @@
                                     <td > <%= entr.getSiret()%> </td>
                                     <td > <%= entr.getNomEntreprise()%> </td>
                                     <td > <%= entr.getFormeSociete()%> </td>
-                                    <td > <%= entr.getContact()%> </td>
+                                    <%--<td > <%= entr.getContact()%> </td>
                                     <td > <%= entr.getTphContact()%> </td>
                                     <td > <%= entr.getTelephone()%> </td>
                                     <td > <%= entr.getMail()%> </td>
-                                    <td > <%= entr.getAdresse()%> </td>
+                                    <td > <%= entr.getAdresse()%> </td>--%>
                                     <td > <%= entr.getNiveau()%> </td>
-                                    <td >
+                                    <%--<td >
                                         <a href="controllerBackOffice?action=archiverClientAjout&idClient=<%= entr.getId()%>"> Archiver </a>
                                     </td>
                                     <td >
                                         <a href="controllerBackOffice?action=formModifierClient&idClient=<%= entr.getId()%>"> Modifier </a>
-                                    </td>
+                                    </td>--%>
                                 </tr> 
                                 <%}%>
                             </tbody>

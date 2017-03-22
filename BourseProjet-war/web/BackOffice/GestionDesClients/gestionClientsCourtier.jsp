@@ -37,90 +37,88 @@
                         <strong> <% out.println(attribut); %> </strong>
                     </div> 
                     <% } %>                    
-                    
+
                     <legend>Liste de mes clients</legend>
-                                                         
+
                     <div class="panel panel-default">
                         <div class="panel-heading">Liste des particuliers</div>
                         <div class="panel-body">
                             <%if (ListeDesParticuliers.isEmpty())
-                                out.println("La liste des particuliers est vide !");
-                            else {%>
-                        <div style="overflow:scroll;height:200px;width:100%;overflow:auto">
+                                    out.println("La liste des particuliers est vide !");
+                                else {%>
+                            <div style="overflow:scroll;height:200px;width:100%;overflow:auto">
 
-                        <table class="table table-hover">
-                            <thead>
-                                <tr> 
-                                    <td> Nom </td> <td> Prénom </td> <td> Date de naissance </td> <td> Lieu de naissance </td> 
-                                    <td> Téléphone </td> <td> Email </td> <td> Adresse </td> <td> Niveau </td> <td> Action </td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <% for (Particulier part : lesParticuliers) {%>
-                                <tr> 
-                                    <td > <%= part.getNom()%> </td>
-                                    <td > <%= part.getPrenom()%> </td>
-                                    <td > <%= sdf.format(part.getDateNais())%> </td>
-                                    <td > <%= part.getLieuNaissance()%> </td>
-                                    <td > <%= part.getTelephone()%> </td>
-                                    <td > <%= part.getMail()%> </td>
-                                    <td > <%= part.getAdresse()%> </td>
-                                    <td > <%= part.getNiveau()%> </td>
-                                    <td ><a href="controllerBackOffice?action=archiverClientGestion&idClient=<%= part.getId()%>"> Archiver </a>
-                                    </td>
-                                    <td ><a href="controllerBackOffice?action=formModifierClient&idClient=<%= part.getId()%>"> Modifier </a>
-                                    </td>
-                                    <td ><a href="controllerCommun?action=afficherPortefeuillesClient&idClient=<%= part.getId()%>"> Afficher Portefeuilles </a>
-                                    </td>
-                                </tr> 
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr> 
+                                            <td> Nom </td> <td> Prénom </td> <td> Date de naissance </td> <td> Lieu de naissance </td> 
+                                            <td> Téléphone </td> <td> Email </td> <td> Adresse </td> <td> Niveau </td> <td> Action </td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% for (Particulier part : lesParticuliers) {%>
+                                        <tr> 
+                                            <td > <%= part.getNom()%> </td>
+                                            <td > <%= part.getPrenom()%> </td>
+                                            <td > <%= sdf.format(part.getDateNais())%> </td>
+                                            <td > <%= part.getLieuNaissance()%> </td>
+                                            <td > <%= part.getTelephone()%> </td>
+                                            <td > <%= part.getMail()%> </td>
+                                            <td > <%= part.getAdresse()%> </td>
+                                            <td > <%= part.getNiveau()%> </td>
+                                            <td ><a href="controllerBackOffice?action=archiverClientGestion&idClient=<%= part.getId()%>"> Archiver </a>
+                                            </td>
+                                            <td ><a href="controllerBackOffice?action=formModifierClient&idClient=<%= part.getId()%>"> Modifier </a>
+                                            </td>
+                                            <td ><a href="controllerCommun?action=afficherPortefeuillesClient&idClient=<%= part.getId()%>"> Gestion Portefeuilles </a>
+                                            </td>
+                                        </tr> 
+                                        <%}%>
+                                    </tbody>
+                                </table>
                                 <%}%>
-                            </tbody>
-                        </table>
-                        <%}%>
-                        </div>
-                    </div>                                       
+                            </div>
+                        </div>                                       
 
-                    <div class="row">
-                        <div class="well text-center"> 
-                            <a href="#infoEntreprises" class="btn btn-primary" data-toggle="collapse">Afficher la liste des entreprises</a>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Liste des entreprises</div>
+                            <div class="panel-body">
+                                <br>
+                                <%if (ListeDesEntreprises.isEmpty())
+                                        out.println("La liste des entreprises est vide !");
+                                    else {%>
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr> 
+                                            <td> SIRET </td> <td> Nom </td> <td> Forme </td> <td> Contact </td> <td> Telephone Contact </td> 
+                                            <td> Telephone Client </td> <td> Email </td> <td> Adresse </td> <td> Niveau </td> <td> Action </td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% for (Entreprise entr : lesEntreprises) {%>
+                                        <tr> 
+                                            <td > <%= entr.getSiret()%> </td>
+                                            <td > <%= entr.getNomEntreprise()%> </td>
+                                            <td > <%= entr.getFormeSociete()%> </td>
+                                            <td > <%= entr.getContact()%> </td>
+                                            <td > <%= entr.getTphContact()%> </td>
+                                            <td > <%= entr.getTelephone()%> </td>
+                                            <td > <%= entr.getMail()%> </td>
+                                            <td > <%= entr.getAdresse()%> </td>
+                                            <td > <%= entr.getNiveau()%> </td>
+                                            <td ><a href="controllerBackOffice?action=archiverClient&idClient=<%= entr.getId()%>"> <span class="glyphicon glyphicon-trash"></span> Archiver </a>
+                                            </td>
+                                            <td ><a href="controllerBackOffice?action=formModifierClient&idClient=<%= entr.getId()%>"> Modifier </a>
+                                            </td>
+                                            <td ><a href="controllerCommun?action=afficherPortefeuillesClient&idClient=<%= entr.getId()%>"> Gestion Portefeuilles </a>
+                                            </td>
+                                        </tr> 
+                                        <%}%>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <%}%>  
                         </div>
-                    </div>
-                    <div id="infoEntreprises" class="collapse">
-                        <br>
-                        <%if (ListeDesEntreprises.isEmpty())
-                                out.println("La liste des entreprises est vide !");
-                            else {%>
-                        <table class="table table-hover">
-                            <thead>
-                                <tr> 
-                                    <td> SIRET </td> <td> Nom </td> <td> Forme </td> <td> Contact </td> <td> Telephone Contact </td> 
-                                    <td> Telephone Client </td> <td> Email </td> <td> Adresse </td> <td> Niveau </td> <td> Action </td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <% for (Entreprise entr : lesEntreprises) {%>
-                                <tr> 
-                                    <td > <%= entr.getSiret()%> </td>
-                                    <td > <%= entr.getNomEntreprise()%> </td>
-                                    <td > <%= entr.getFormeSociete()%> </td>
-                                    <td > <%= entr.getContact()%> </td>
-                                    <td > <%= entr.getTphContact()%> </td>
-                                    <td > <%= entr.getTelephone()%> </td>
-                                    <td > <%= entr.getMail()%> </td>
-                                    <td > <%= entr.getAdresse()%> </td>
-                                    <td > <%= entr.getNiveau()%> </td>
-                                    <td ><a href="controllerBackOffice?action=archiverClient&idClient=<%= entr.getId()%>"> <span class="glyphicon glyphicon-trash"></span> Archiver </a>
-                                    </td>
-                                    <td ><a href="controllerBackOffice?action=formModifierClient&idClient=<%= entr.getId()%>"> Modifier </a>
-                                    </td>
-                                    <td ><a href="controllerCommun?action=afficherPortefeuillesClient&idClient=<%= entr.getId()%>"> Afficher Portefeuilles </a>
-                                    </td>
-                                </tr> 
-                                <%}%>
-                            </tbody>
-                        </table>
-                    </div>
-                    <%}%>  
                     </div>
 
                     <%@include  file="../../jsp_commun/footer.jsp" %>

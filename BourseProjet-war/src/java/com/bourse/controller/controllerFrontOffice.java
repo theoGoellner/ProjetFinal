@@ -58,14 +58,14 @@ public class controllerFrontOffice extends HttpServlet {
         } else {
             switch (act) {
                 case "accueil":
+                    request.setAttribute("message", message);
                     jspClient = "/FrontOffice/Accueil.jsp";
                     break;   
                 case "deconnexion":
                     jspClient = "/Authentification.jsp";
                     message = "votre session est expirée";
                     request.setAttribute("message", message);
-                    break;
-                    
+                    break;                   
                 case "formInitPwd":
                     request.setAttribute("message", message);
                     jspClient = "/CommunOffice/InitialisationPwd.jsp";
@@ -73,10 +73,16 @@ public class controllerFrontOffice extends HttpServlet {
                 case "pwdInit":
                     doActionInitialisationPwd(request, response);
                     break;                    
-                    
+ 
                 case "propositionCour":
-                    break;
-
+//                    cour = communSession.rechercheCourActuelParID(Long.valueOf(request.getParameter("idCour")));
+//                    request.setAttribute("cour", cour);
+//                    request.setAttribute("message", message);
+//                    jspClient = "/BackOffice/GestionDesOperations/propositionOperation.jsp";
+                    break;     
+                    
+                    
+                
                     
             }
         }

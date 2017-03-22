@@ -50,13 +50,13 @@
                                         <div class="form-group">
                                             <label for="nomClient" class="col-lg-3 control-label">Nom</label>
                                             <div class="col-lg-9">
-                                                <input id="nomClient" type="text" class="form-control" name="nomClient" placeholder="Saisir le nom du client" required>
+                                                <input id="nomClient" type="text" class="form-control" name="nomClient" placeholder="Saisir le nom du client">
                                             </div>
                                         </div>  
                                         <div class="form-group">
                                             <label for="prenomClient" class="col-lg-3 control-label">Prénom</label>
                                             <div class="col-lg-9">
-                                                <input id="prenomClient" type="text" class="form-control" name="prenomClient" placeholder="Saisir le prénom du client" required>
+                                                <input id="prenomClient" type="text" class="form-control" name="prenomClient" placeholder="Saisir le prénom du client">
                                             </div>
                                         </div>
                                     </div>
@@ -66,13 +66,13 @@
                                         <div class="form-group">
                                             <label for="siret" class="col-lg-3 control-label">SIRET de l'entreprise</label>
                                             <div class="col-lg-9">
-                                                <input id="siret" type="text" class="form-control" name="siret" placeholder="Saisir le SIRET de l'entreprise" required>
+                                                <input id="siret" type="text" class="form-control" name="siret" placeholder="Saisir le SIRET de l'entreprise">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="nomEntreprise" class="col-lg-3 control-label">Nom de l'entreprise</label>
                                             <div class="col-lg-9">
-                                                <input id="nomEntreprise" type="text" class="form-control" name="nomEntreprise" placeholder="Saisir le nom de l'entreprise" required>
+                                                <input id="nomEntreprise" type="text" class="form-control" name="nomEntreprise" placeholder="Saisir le nom de l'entreprise">
                                             </div>
                                         </div>
                                     </div>

@@ -50,7 +50,7 @@
                                     <div class="form-group">
                                         <label for="respSection" class="col-lg-3 control-label">Sélectionner un portefeuille</label>
                                         <div class="col-lg-9">
-                                            <select id="selectPF" class="form-control" name="idPF">
+                                            <select id="selectPF" class="form-control" name="idPF" required>
                                                 <option value="" selected="selected"> </option> 
                                                 <%
                                                     List<Contrat> listeContr = cli.getLesContrats();

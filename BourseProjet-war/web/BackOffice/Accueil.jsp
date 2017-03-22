@@ -27,7 +27,7 @@
                         <strong> <% out.println(attribut); %> </strong>
                     </div> 
                     <% }%>  
-                    
+                    <h1 align='center'> Espace Employé </h1>
                     <% if ((user.getRole() == EnumRoleEmploye.ChefGroupe) || (user.getRole() == EnumRoleEmploye.ChefSalle) || (user.getRole() == EnumRoleEmploye.ChefSection)) { %>
 
                     <div align="middle">

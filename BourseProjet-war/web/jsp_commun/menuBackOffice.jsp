@@ -11,7 +11,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="controllerBackOffice?action=accueil">BOURSE DE FRANCE </a>
+                <a class="navbar-brand" href="controllerBackOffice?action=accueil">MARTIN & CO</a>
             </div>
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -46,8 +46,8 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Gestion des portefeuilles<span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="">Nouveau portefeuille</a></li>
-                            <li><a href="">Consulter les portefeuilles clients</a></li>
+                            <li><a href="controllerBackOffice?action=formRechClientPF">Nouveau portefeuille</a></li>
+                            <li><a href="controllerBackOffice?action=gestionClientsCourtier">Consulter les portefeuilles clients</a></li>
                         </ul>
                     </li>
                     

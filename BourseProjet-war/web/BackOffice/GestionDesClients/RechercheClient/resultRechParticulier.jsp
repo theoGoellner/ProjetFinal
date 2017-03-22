@@ -26,7 +26,7 @@
                     <%  String attribut = (String) request.getAttribute("message");
                         SimpleDateFormat sdf = new SimpleDateFormat("dd - MM - yyyy");
                         List<Particulier> lesParticuliers = ListeDesParticuliers;
-                        String typeRechClient = (String) session.getAttribute("typeRechClient");                        
+                        String typeRechClient = (String) session.getAttribute("typeRechClient");
                         if (attribut.length() > 8) {%>
                     <div class="alert alert-info">
                         <a href="#" class="close" data-dismiss="alert">&times;</a>
@@ -35,7 +35,7 @@
                     <% } %>
 
                     <legend>Résultats de la recherche</legend>
-                    
+
                     <div class="panel panel-default">
                         <div class="panel-heading">Liste des particuliers</div>
                         <div class="panel-body">
@@ -43,46 +43,49 @@
                                     out.println("La liste des particuliers est vide !");
                                 else {%>
                             <div style="overflow:scroll;height:200px;width:100%;overflow:auto">
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr> 
-                                        <td> Nom </td> <td> Prénom </td> <td> Date de naissance </td> <td> Lieu de naissance </td> 
-                                        <td> Téléphone </td> <td> Email </td> <td> Adresse </td> <td> Niveau </td> <td> Action </td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <% for (Particulier part : lesParticuliers) {%>
-                                    <tr> 
-                                        <td > <%= part.getNom()%> </td>
-                                        <td > <%= part.getPrenom()%> </td>
-                                        <td > <%= sdf.format(part.getDateNais())%> </td>
-                                        <td > <%= part.getLieuNaissance()%> </td>
-                                        <td > <%= part.getTelephone()%> </td>
-                                        <td > <%= part.getMail()%> </td>
-                                        <td > <%= part.getAdresse()%> </td>
-                                        <td > <%= part.getNiveau()%> </td>
-                                        
-                                        <% if (typeRechClient.equalsIgnoreCase("gestion")) { %>
-                                        <td ><a href="controllerBackOffice?action=archiverClient&idClient=<%= part.getId()%>"> <span class="glyphicon glyphicon-trash"></span> Archiver </a>
-                                        </td>
-                                        <td ><a href="controllerBackOffice?action=formModifierClient&idClient=<%= part.getId()%>"> Modifier </a>
-                                        </td>
-                                        <td ><a href="controllerCommun?action=afficherPortefeuillesClient&idClient=<%= part.getId()%>"> Afficher Portefeuilles </a>
-                                        </td>
-                                        <% } else if (typeRechClient.equalsIgnoreCase("versement")) { %>
-                                        <td ><a href="controllerBackOffice?action=formGestionVersements&idClient=<%= part.getId()%>">Versement </a>
-                                        </td>
-                                        <% } %>
-                                    </tr> 
-                                    <%}%>
-                                </tbody>
-                            </table>
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr> 
+                                            <td> Nom </td> <td> Prénom </td> <td> Date de naissance </td> <td> Lieu de naissance </td> 
+                                            <td> Téléphone </td> <td> Email </td> <td> Adresse </td> <td> Niveau </td> <td> Action </td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% for (Particulier part : lesParticuliers) {%>
+                                        <tr> 
+                                            <td > <%= part.getNom()%> </td>
+                                            <td > <%= part.getPrenom()%> </td>
+                                            <td > <%= sdf.format(part.getDateNais())%> </td>
+                                            <td > <%= part.getLieuNaissance()%> </td>
+                                            <td > <%= part.getTelephone()%> </td>
+                                            <td > <%= part.getMail()%> </td>
+                                            <td > <%= part.getAdresse()%> </td>
+                                            <td > <%= part.getNiveau()%> </td>
+
+                                            <% if (typeRechClient.equalsIgnoreCase("gestion")) {%>
+                                            <td ><a href="controllerBackOffice?action=archiverClient&idClient=<%= part.getId()%>"> <span class="glyphicon glyphicon-trash"></span> Archiver </a>
+                                            </td>
+                                            <td ><a href="controllerBackOffice?action=formModifierClient&idClient=<%= part.getId()%>">Modifier </a>
+                                            </td>
+                                            <td ><a href="controllerCommun?action=afficherPortefeuillesClient&idClient=<%= part.getId()%>">Gestion Portefeuilles </a>
+                                            </td>
+                                            <% } else if (typeRechClient.equalsIgnoreCase("versement")) {%>
+                                            <td ><a href="controllerBackOffice?action=formGestionVersements&idClient=<%= part.getId()%>">Versements </a>
+                                            </td>
+                                            <% } else if (typeRechClient.equalsIgnoreCase("PF")) {%>
+                                            <td ><a href="controllerBackOffice?action=formAjoutContrat&idClient=<%= part.getId()%>">Nouveau Contrat </a>
+                                            </td>
+                                            <% } %>
+                                        </tr> 
+                                        <%}%>
+                                    </tbody>
+                                </table>
                             </div>
                             <%}%>
                         </div>
                     </div>       
-                        
-                        <div class="row">
+
+                    <div class="row">
                         <div class="col-lg-8 well col-lg-offset-2"> 
                             <form name="formulaireRechercheClient" class="form-horizontal" method="post" action="controllerBackOffice">
                                 <fieldset>
@@ -131,7 +134,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <input type="hidden" name="action" value="rechClient">
                                     <div class="row"> </div>
                                     <div class="col-lg-offset-4 col-lg-9">

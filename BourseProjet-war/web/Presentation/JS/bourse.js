@@ -99,17 +99,9 @@ function majAffichageTypeClientRecherche() {
     if (i == 1) {
         document.getElementById('champsParticulier').style.display = 'block';
         document.getElementById('champsEntreprise').style.display = 'none';
-        document.getElementById('nomClient').required = true;
-        document.getElementById('prenomClient').required = true;
-        document.getElementById('siret').required = false;
-        document.getElementById('nomEntreprise').required = false;
     } else if (i == 2) {
         document.getElementById('champsParticulier').style.display = 'none';
         document.getElementById('champsEntreprise').style.display = 'block';
-        document.getElementById('nomClient').required = false;
-        document.getElementById('prenomClient').required = false;
-        document.getElementById('siret').required = true;
-        document.getElementById('nomEntreprise').required = true;
     }
 }
 

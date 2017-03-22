@@ -7,7 +7,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="controllerCommun?action=accueil">BOURSE DE FRANCE</a>
+      <a class="navbar-brand" href="controllerCommun?action=accueil">MARTIN & CO</a>
       
     </div>
 
@@ -16,9 +16,8 @@
         <li class="active"><a href="controllerCommun?action=accueil">Accueil<span class="sr-only">(current)</span></a></li>
         <li><a href="controllerCommun?action=formAuthentification">S'authentifier</a></li>
         
-          <%--<li class="active"><a href="controllerBackOffice?action=formAjoutEmploye">Gestion des employés</a></li>
-        
-      
+        <%--<li class="active"><a href="controllerBackOffice?action=formAjoutEmploye">Gestion des employés</a></li>
+             
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">

@@ -84,6 +84,7 @@ public class controllerBackOffice extends HttpServlet {
         } else {
             switch (act) {
                 case "accueil":
+                    request.setAttribute("message", message);
                     jspClient = "/BackOffice/Accueil.jsp";
                     break;                  
                 case "formInitPwd":
@@ -173,6 +174,12 @@ public class controllerBackOffice extends HttpServlet {
                     request.setAttribute("message", message);
                     jspClient = "/BackOffice/GestionDesClients/RechercheClient/formRechClient.jsp";
                     break;
+                case "formRechClientPF":
+                    typeRechClient = "PF";
+                    session.setAttribute("typeRechClient", typeRechClient);
+                    request.setAttribute("message", message);
+                    jspClient = "/BackOffice/GestionDesClients/RechercheClient/formRechClient.jsp";
+                    break;
                 case "formRechClientVersement":
                     typeRechClient = "versement";
                     session.setAttribute("typeRechClient", typeRechClient);
@@ -184,15 +191,9 @@ public class controllerBackOffice extends HttpServlet {
                     break;
                 // </editor-fold>
                     
-                // <editor-fold defaultstate="collapsed" desc="GESTION DES CONTRATS/PORTEFEUILLES">
-                case "gestionContratsClient":
-                    cli = backOfficeSession.rechercheClientParID(Long.valueOf(request.getParameter("idClient")));
-                    request.setAttribute("client", cli);
-                    request.setAttribute("message", message);                    
-                    jspClient = "/BackOffice/GestionDesContrats/gestionContratsClient.jsp";
-                    break;
+                // <editor-fold defaultstate="collapsed" desc="GESTION DES CONTRATS/PORTEFEUILLES">                
                 case "formAjoutContrat":
-                    cli = backOfficeSession.rechercheClientParID(Long.valueOf(request.getParameter("idClient")));
+                    cli = backOfficeSession.rechercheClientParID(Long.valueOf(request.getParameter("idClient")));                    
                     request.setAttribute("client", cli);
                     request.setAttribute("message", message); 
                     jspClient = "/BackOffice/GestionDesContrats/formAjoutContrat.jsp";
@@ -200,6 +201,12 @@ public class controllerBackOffice extends HttpServlet {
                 case "ajoutContrat":
                     doActionAjoutContrat(request, response);
                     break;
+                case "gestionContratsClient":
+                    cli = backOfficeSession.rechercheClientParID(Long.valueOf(request.getParameter("idClient")));
+                    request.setAttribute("client", cli);
+                    request.setAttribute("message", message);                    
+                    jspClient = "/BackOffice/GestionDesContrats/gestionContratsClient.jsp";
+                    break;    
                 case "formModifContrat":
                     jspClient = "/BackOffice/GestionDesContrats/formModifContrat.jsp";
                     break;  
@@ -208,8 +215,6 @@ public class controllerBackOffice extends HttpServlet {
                 // <editor-fold defaultstate="collapsed" desc="GESTION DES VERSEMENTS">
                 case "formGestionVersements":
                     session.setAttribute("clientSelectionne", (Client)backOfficeSession.rechercheClientParID(Long.valueOf(request.getParameter("idClient"))));
-                    //listePF = communSession.getListePFParClient(backOfficeSession.rechercheClientParID(Long.valueOf(request.getParameter("idClient"))));
-                    //request.setAttribute("listePF", listePF);
                     request.setAttribute("message", message);
                     jspClient = "/BackOffice/GestionDesVersements/formGestionVersements.jsp";
                     break;

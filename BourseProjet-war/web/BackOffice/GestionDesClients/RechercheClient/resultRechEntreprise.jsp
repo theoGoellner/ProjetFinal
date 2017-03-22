@@ -15,7 +15,7 @@
         <script src="Presentation/JS/bootstrap.min.js"></script>
         <script src="Presentation/JS/bourse.js"></script>
         <jsp:useBean id="ListeDesEntreprises" scope="request" class="java.util.List"></jsp:useBean>
-        <title>Résultats Recherche Entreprises</title>       
+            <title>Résultats Recherche Entreprises</title>       
         </head>
         <body>
         <%@include  file="../../../jsp_commun/menuBackOffice.jsp" %>
@@ -29,7 +29,7 @@
                     <%  String attribut = (String) request.getAttribute("message");
                         SimpleDateFormat sdf = new SimpleDateFormat("dd - MM - yyyy");
                         List<Entreprise> lesEntreprises = ListeDesEntreprises;
-                        String typeRechClient = (String) session.getAttribute("typeRechClient");                        
+                        String typeRechClient = (String) session.getAttribute("typeRechClient");
                         if (attribut.length() > 8) {%>
                     <div class="alert alert-info">
                         <a href="#" class="close" data-dismiss="alert">&times;</a>
@@ -37,7 +37,7 @@
                     </div> 
                     <% } %>
 
-                    
+
                     <div class="panel panel-default">
                         <div class="panel-heading">Liste des entreprises</div>
                         <div class="panel-body">
@@ -45,45 +45,48 @@
                                     out.println("La liste des entreprises est vide !");
                                 else {%>
                             <div style="overflow:scroll;height:200px;width:100%;overflow:auto">
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr> 
-                                        <td> SIRET </td> <td> Nom </td> <td> Forme </td> <td> Contact </td> <td> Telephone Contact </td> 
-                                        <td> Telephone Client </td> <td> Email </td> <td> Adresse </td> <td> Niveau </td> <td> Action </td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <% for (Entreprise entr : lesEntreprises) {%>
-                                    <tr> 
-                                        <td > <%= entr.getSiret()%> </td>
-                                        <td > <%= entr.getNomEntreprise()%> </td>
-                                        <td > <%= entr.getFormeSociete()%> </td>
-                                        <td > <%= entr.getContact()%> </td>
-                                        <td > <%= entr.getTphContact()%> </td>
-                                        <td > <%= entr.getTelephone()%> </td>
-                                        <td > <%= entr.getMail()%> </td>
-                                        <td > <%= entr.getAdresse()%> </td>
-                                        <td > <%= entr.getNiveau()%> </td>
-                                        <% if (typeRechClient.equalsIgnoreCase("gestion")) { %>
-                                        <td ><a href="controllerBackOffice?action=archiverClient&idClient=<%= entr.getId()%>"> <span class="glyphicon glyphicon-trash"></span> Archiver </a>
-                                        </td>
-                                        <td ><a href="controllerBackOffice?action=formModifierClient&idClient=<%= entr.getId()%>"> Modifier </a>
-                                        </td>
-                                        <td ><a href="controllerCommun?action=afficherPortefeuillesClient&idClient=<%= entr.getId()%>"> Afficher Portefeuilles </a>
-                                        </td>
-                                        <% } else if (typeRechClient.equalsIgnoreCase("versement")) { %>
-                                        <td ><a href="controllerBackOffice?action=formGestionVersements&idClient=<%= entr.getId()%>"> Versement </a>
-                                        </td>
-                                        <% } %>
-                                    </tr> 
-                                    <%}%>
-                                </tbody>
-                            </table>
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr> 
+                                            <td> SIRET </td> <td> Nom </td> <td> Forme </td> <td> Contact </td> <td> Telephone Contact </td> 
+                                            <td> Telephone Client </td> <td> Email </td> <td> Adresse </td> <td> Niveau </td> <td> Action </td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% for (Entreprise entr : lesEntreprises) {%>
+                                        <tr> 
+                                            <td > <%= entr.getSiret()%> </td>
+                                            <td > <%= entr.getNomEntreprise()%> </td>
+                                            <td > <%= entr.getFormeSociete()%> </td>
+                                            <td > <%= entr.getContact()%> </td>
+                                            <td > <%= entr.getTphContact()%> </td>
+                                            <td > <%= entr.getTelephone()%> </td>
+                                            <td > <%= entr.getMail()%> </td>
+                                            <td > <%= entr.getAdresse()%> </td>
+                                            <td > <%= entr.getNiveau()%> </td>
+                                            <% if (typeRechClient.equalsIgnoreCase("gestion")) {%>
+                                            <td ><a href="controllerBackOffice?action=archiverClient&idClient=<%= entr.getId()%>"> <span class="glyphicon glyphicon-trash"></span> Archiver </a>
+                                            </td>
+                                            <td ><a href="controllerBackOffice?action=formModifierClient&idClient=<%= entr.getId()%>">Modifier </a>
+                                            </td>
+                                            <td ><a href="controllerCommun?action=afficherPortefeuillesClient&idClient=<%= entr.getId()%>">Gestion Portefeuilles </a>
+                                            </td>
+                                            <% } else if (typeRechClient.equalsIgnoreCase("versement")) {%>
+                                            <td ><a href="controllerBackOffice?action=formGestionVersements&idClient=<%= entr.getId()%>">Versements </a>
+                                            </td>
+                                            <% } else if (typeRechClient.equalsIgnoreCase("PF")) {%>
+                                            <td ><a href="controllerBackOffice?action=formAjoutContrat&idClient=<%= entr.getId()%>">Nouveau Contrat </a>
+                                            </td>
+                                            <% } %>
+                                        </tr> 
+                                        <%}%>
+                                    </tbody>
+                                </table>
                             </div>
                             <%}%>  
                         </div> 
                     </div>
-                    
+
                     <div class="row">
                         <div class="col-lg-8 well col-lg-offset-2"> 
                             <form name="formulaireRechercheClient" class="form-horizontal" method="post" action="controllerBackOffice">
@@ -133,7 +136,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <input type="hidden" name="action" value="rechClient">
                                     <div class="row"> </div>
                                     <div class="col-lg-offset-4 col-lg-9">
@@ -145,7 +148,7 @@
                         </div>
                     </div>                                                                                                                                
 
-                    
+
 
                     <%@include  file="../../../jsp_commun/footer.jsp" %>
                 </div>
