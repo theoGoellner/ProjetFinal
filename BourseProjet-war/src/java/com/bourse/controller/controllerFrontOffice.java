@@ -125,7 +125,7 @@ public class controllerFrontOffice extends HttpServlet {
     }// </editor-fold>
 
        
-     // <editor-fold defaultstate="collapsed" desc="INITIALISATION MOT DE PASSE.">
+    // <editor-fold defaultstate="collapsed" desc="INITIALISATION MOT DE PASSE">
     protected void doActionInitialisationPwd(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 

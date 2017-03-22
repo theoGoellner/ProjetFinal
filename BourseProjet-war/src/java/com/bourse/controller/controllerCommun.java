@@ -5,7 +5,6 @@ import com.bourse.entities.Courtage;
 import com.bourse.entities.Employe;
 import com.bourse.entities.Identification;
 import com.bourse.entities.PorteFeuille;
-import com.bourse.entities.Titre;
 import com.bourse.sessions.AdministrationSessionLocal;
 import com.bourse.sessions.BackOfficeSessionLocal;
 import com.bourse.sessions.CommunSessionLocal;

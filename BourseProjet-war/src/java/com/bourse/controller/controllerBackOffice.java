@@ -1,7 +1,6 @@
 package com.bourse.controller;
 
 import com.bourse.entities.Client;
-import com.bourse.entities.Contrat;
 import com.bourse.entities.Courtage;
 import com.bourse.entities.Employe;
 import com.bourse.entities.Entreprise;
@@ -86,16 +85,14 @@ public class controllerBackOffice extends HttpServlet {
             switch (act) {
                 case "accueil":
                     jspClient = "/BackOffice/Accueil.jsp";
-                    break;  
-                
+                    break;                  
                 case "formInitPwd":
                     request.setAttribute("message", message);
                     jspClient = "/CommunOffice/InitialisationPwd.jsp";
                     break;
                 case "pwdInit":
                     doActionInitialisationPwd(request, response);
-                    break;
-                 
+                    break;                
                 case "deconnexion":
                     jspClient = "/Authentification.jsp";
                     message = "Votre session a expiré. Veuillez vous reconnecter.";
@@ -221,16 +218,16 @@ public class controllerBackOffice extends HttpServlet {
                     break;
                 // </editor-fold>
                 
-                case "achatCour":
-                    
-                    break;
+                // <editor-fold defaultstate="collapsed" desc="GESTION DES TITRE et COURTAGE">    
                 case "propositionCour":
                     cour = communSession.rechercheCourActuelParID(Long.valueOf(request.getParameter("idCour")));
                     request.setAttribute("cour", cour);
                     request.setAttribute("message", message);
                     jspClient = "/BackOffice/GestionDesOperations/propositionOperation.jsp";
+                    break;   
+                case "achatCour":                    
                     break;
-                    
+                // </editor-fold>
             }
         }
         RequestDispatcher Rd;
@@ -602,7 +599,7 @@ public class controllerBackOffice extends HttpServlet {
     }    
     // </editor-fold>
          
-     // <editor-fold defaultstate="collapsed" desc="INITIALISATION MOT DE PASSE.">
+    // <editor-fold defaultstate="collapsed" desc="INITIALISATION MOT DE PASSE">
     protected void doActionInitialisationPwd(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -628,8 +625,7 @@ public class controllerBackOffice extends HttpServlet {
     }
     // </editor-fold>
     
-         // <editor-fold defaultstate="collapsed" desc="Gestion VERSEMENT.">
-
+    // <editor-fold defaultstate="collapsed" desc="GESTION DES VERSEMENTS">
     protected void doActionValiderVersement(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
@@ -643,7 +639,6 @@ public class controllerBackOffice extends HttpServlet {
         message = "Versement réussi !";
         request.setAttribute("message", message);
         jspClient = "/BackOffice/GestionDesVersements/formGestionVersements.jsp";
-    }   
-    
-     // </editor-fold>
+    }       
+    // </editor-fold>
 }
