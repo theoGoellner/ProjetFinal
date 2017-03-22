@@ -3,14 +3,12 @@ package com.bourse.sessions;
 import com.bourse.entities.Classique;
 import com.bourse.entities.Client;
 import com.bourse.entities.Contrat;
-import com.bourse.entities.Courtage;
 import com.bourse.entities.Employe;
 import com.bourse.entities.Entreprise;
 import com.bourse.entities.PEA;
 import com.bourse.entities.PERP;
 import com.bourse.entities.Particulier;
 import com.bourse.entities.PorteFeuille;
-import com.bourse.entities.Versement;
 import com.bourse.enumeration.EnumFormEntreprise;
 import com.bourse.enumeration.EnumNiveauGestionCompteClassique;
 import com.bourse.enumeration.EnumTypeGestCompteClassique;
@@ -65,5 +63,5 @@ public interface BackOfficeSessionLocal {
 
     Double creationVersement(Client client, PorteFeuille portefeuille, Double montant);
 
-    List<Courtage> getListeCourageActuels();
+
 }

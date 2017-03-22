@@ -1,13 +1,16 @@
 package com.bourse.controller;
 
 import com.bourse.entities.Client;
+import com.bourse.entities.Courtage;
 import com.bourse.entities.Employe;
 import com.bourse.entities.Identification;
 import com.bourse.entities.PorteFeuille;
+import com.bourse.entities.Titre;
 import com.bourse.sessions.AdministrationSessionLocal;
 import com.bourse.sessions.BackOfficeSessionLocal;
 import com.bourse.sessions.CommunSessionLocal;
 import java.io.IOException;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -98,6 +101,13 @@ public class controllerCommun extends HttpServlet {
                 case "afficherDetailPF":
                     pf = backOfficeSession.recherchePorteFeuilleParID(Long.valueOf(request.getParameter("idPF")));
                     request.setAttribute("portefeuille", pf);
+                    request.setAttribute("message", message);
+                    jspClient = "/CommunOffice/GestionDesPortefeuilles/afficherDetailPF.jsp";
+                case "proposerOrdres":
+                    List<Courtage> listDesCours = communSession.getListeCourageActuels();
+                    request.setAttribute("lesCours", listDesCours);
+                    
+                    
                     request.setAttribute("message", message);
                     jspClient = "/CommunOffice/GestionDesPortefeuilles/afficherDetailPF.jsp";
             }

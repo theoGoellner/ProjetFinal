@@ -2,12 +2,15 @@ package com.bourse.sessions;
 
 import com.bourse.entities.Client;
 import com.bourse.entities.Contenu;
+import com.bourse.entities.Courtage;
 import com.bourse.entities.Identification;
 import com.bourse.entities.PorteFeuille;
 import com.bourse.entities.Titre;
 import com.bourse.facades.ContenuFacadeLocal;
+import com.bourse.facades.CourtageFacadeLocal;
 import com.bourse.facades.IdentificationFacadeLocal;
 import com.bourse.facades.PorteFeuilleFacadeLocal;
+import com.bourse.facades.TitreFacadeLocal;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.util.List;
@@ -19,6 +22,13 @@ import javax.xml.bind.DatatypeConverter;
 public class CommunSession implements CommunSessionLocal {
 
     @EJB
+    private CourtageFacadeLocal courtageFacade;
+
+    
+    @EJB
+    private TitreFacadeLocal titreFacade;
+
+    @EJB
     private ContenuFacadeLocal contenuFacade;
 
     @EJB
@@ -27,7 +37,10 @@ public class CommunSession implements CommunSessionLocal {
     @EJB
     private IdentificationFacadeLocal identificationFacade;
     
-    
+    @Override
+    public List<Courtage> getListeCourageActuels() {        
+        return courtageFacade.getListeCourtageActuels();
+    }
 
     public static String generate(int length) {
         String chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890&~#|`-_)('/?,;:.";

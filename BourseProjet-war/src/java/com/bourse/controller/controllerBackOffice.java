@@ -215,11 +215,11 @@ public class controllerBackOffice extends HttpServlet {
                     request.setAttribute("ListeDesParticuliers", listeParticulier);
                     listeEntreprise = backOfficeSession.getListeEntreprisesActivesParCourtier((Employe) session.getAttribute("employe"));
                     request.setAttribute("ListeDesEntreprises", listeEntreprise);
-                    listeCours = backOfficeSession.getListeCourageActuels();
+                    listeCours = communSession.getListeCourageActuels();
                     request.setAttribute("listeCours", listeCours);
                     request.setAttribute("message", message);
                     jspClient = "/BackOffice/GestionDesOperations/selectionTitres.jsp";
-                case "acheterTitres":
+                
                     
             }
         }

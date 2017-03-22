@@ -1,6 +1,7 @@
 package com.bourse.facades;
 
 import com.bourse.entities.Client;
+import com.bourse.entities.Employe;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -50,6 +51,18 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
     }
     
     
-    
+    @Override
+    public List<Client> getListClientActifsPrCourtier(Employe empl) {
+        List<Client> listClients = null;
+        try {
+            Query req = em.createQuery("Select c from Client as c where c.courtier = :empl and c.dateArchivage is not null");
+            req.setParameter("empl", empl);
+            listClients = req.getResultList();
+        } catch (Exception e) {
+            listClients = null;
+            System.out.println("Erreur dans la facade Client dans la méthode getListClientActifsPrCourtier " + e.getMessage());
+        }
+        return listClients ;
+    }  
     
 }

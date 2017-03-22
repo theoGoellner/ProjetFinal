@@ -1,6 +1,7 @@
 package com.bourse.facades;
 
 import com.bourse.entities.Client;
+import com.bourse.entities.Employe;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -27,4 +28,5 @@ public interface ClientFacadeLocal {
 
     void archiverClient(Client client);
     
+    List<Client> getListClientActifsPrCourtier(Employe empl);
 }

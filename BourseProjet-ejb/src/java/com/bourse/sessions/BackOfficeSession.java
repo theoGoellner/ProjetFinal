@@ -33,9 +33,6 @@ import javax.ejb.Stateless;
 public class BackOfficeSession implements BackOfficeSessionLocal {
 
     @EJB
-    private CourtageFacadeLocal courtageFacade;
-
-    @EJB
     private VersementFacadeLocal versementFacade;
 
     @EJB
@@ -191,10 +188,7 @@ public class BackOfficeSession implements BackOfficeSessionLocal {
     
     // GESTION DES OPERATIONS
 
-    @Override
-    public List<Courtage> getListeCourageActuels() {        
-        return courtageFacade.getListeCourtageActuels();
-    }
+
     
     
 }
