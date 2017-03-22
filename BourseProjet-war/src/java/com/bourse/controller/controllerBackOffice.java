@@ -1,7 +1,6 @@
 package com.bourse.controller;
 
 import com.bourse.entities.Client;
-import com.bourse.entities.Contrat;
 import com.bourse.entities.Courtage;
 import com.bourse.entities.Employe;
 import com.bourse.entities.Entreprise;

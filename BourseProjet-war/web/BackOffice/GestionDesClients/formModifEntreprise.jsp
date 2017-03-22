@@ -28,7 +28,7 @@
                         Entreprise entr = (Entreprise) request.getAttribute("entreprise");%>
                     <div class="row">
                         <div class="col-lg-8 well col-lg-offset-2"> 
-                            <form name="formulaireModifEntreprise" class="form-horizontal" role="form" method="get" action="controllerBackOffice">
+                            <form name="formulaireModifEntreprise" class="form-horizontal" role="form" method="post" action="controllerBackOffice">
                                 <div class="modal-header">
                                     <h1 class="text-center">Modification d'un client entreprise existant</h1>
                                 </div>

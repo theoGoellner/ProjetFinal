@@ -43,7 +43,7 @@
                     <% } %>
                     <div class="row">
                         <div class="col-lg-8 well col-lg-offset-2"> 
-                            <form name="formulaireAjoutClient" class="form-horizontal" method="get" action="controllerBackOffice" onSubmit="return verify(this.pwd, this.pwdConfirm)">
+                            <form name="formulaireAjoutClient" class="form-horizontal" method="post" action="controllerBackOffice" onSubmit="return verify(this.pwd, this.pwdConfirm)">
                                 <fieldset>
                                     <legend>Création d'un nouveau client</legend>
                                     <div class="row"><p>     </p></div>  
@@ -199,6 +199,8 @@
                         <%if (ListeDesParticuliers.isEmpty())
                                 out.println("La liste des particuliers est vide !");
                             else {%>
+                        <div style="overflow:scroll;height:200px;width:100%;overflow:auto">
+
                         <table class="table table-hover">
                             <thead>
                                 <tr> 
@@ -218,11 +220,7 @@
                                     <td > <%= part.getAdresse()%> </td>
                                     <td > <%= part.getNiveau()%> </td>
                                     <td >
-                                        <% if (part.getCourtier().equals(user)) {%>
-                                        <a href="controllerBackOffice?action=archiverClientAjout&idClient=<%= part.getId()%>"> 
-                                            <span class="glyphicon glyphicon-trash"></span></a> 
-                                            <% } else { %>
-                                        <span class="glyphicon glyphicon-trash"></span><% }%>                                        
+                                        <a href="controllerBackOffice?action=archiverClientAjout&idClient=<%= part.getId()%>"> Archiver </a> 
                                     </td>
                                     <td ><a href="controllerBackOffice?action=formModifierClient&idClient=<%= part.getId()%>"> Modifier </a>
                                     </td>
@@ -230,7 +228,8 @@
                                 <%}%>
                             </tbody>
                         </table>
-                        <%}%>  
+                        </div>
+                    <%}%>  
                     </div>
 
                     <div class="row">
@@ -243,6 +242,8 @@
                         <%if (ListeDesEntreprises.isEmpty())
                                 out.println("La liste des entreprises est vide !");
                             else {%>
+                        <div style="overflow:scroll;height:200px;width:100%;overflow:auto">
+
                         <table class="table table-hover">
                             <thead>
                                 <tr> 
@@ -263,11 +264,7 @@
                                     <td > <%= entr.getAdresse()%> </td>
                                     <td > <%= entr.getNiveau()%> </td>
                                     <td >
-                                        <% if (entr.getCourtier().equals(user)) {%>
-                                        <a href="controllerBackOffice?action=archiverClientAjout&idClient=<%= entr.getId()%>"> 
-                                            <span class="glyphicon glyphicon-trash"></span> </a> <% } else { %>
-                                        <span class="glyphicon glyphicon-trash"></span> 
-                                        <% }%>
+                                        <a href="controllerBackOffice?action=archiverClientAjout&idClient=<%= entr.getId()%>"> Archiver </a>
                                     </td>
                                     <td >
                                         <a href="controllerBackOffice?action=formModifierClient&idClient=<%= entr.getId()%>"> Modifier </a>
@@ -276,9 +273,9 @@
                                 <%}%>
                             </tbody>
                         </table>
+                        </div>
                         <%}%>  
                     </div>
-
                     <%@include  file="../../jsp_commun/footer.jsp" %>
                 </div>
                 <%@include  file="../../jsp_commun/userEncours.jsp" %>
