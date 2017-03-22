@@ -1,6 +1,5 @@
 <%@page import="com.bourse.entities.Entreprise"%>
 <%@page import="com.bourse.entities.Particulier"%>
-<%@page import="com.bourse.entities.Employe"%>
 <%@page import="com.bourse.enumeration.EnumFormEntreprise"%>
 <%@page import="com.bourse.entities.Client"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -14,25 +13,24 @@
         <link type="text/css" rel="stylesheet" href="Presentation/CSS/bootstrap.css">
         <script src="Presentation/JS/jquery.min.js"></script>
         <script src="Presentation/JS/bootstrap.min.js"></script>
-
         <script src="Presentation/JS/bourse.js"></script>
-
         <jsp:useBean id="ListeDesParticuliers" scope="request" class="java.util.List"></jsp:useBean>   
         <jsp:useBean id="ListeDesEntreprises" scope="request" class="java.util.List"></jsp:useBean>
-        <jsp:useBean id="employe" scope="session" class="com.bourse.entities.Employe"></jsp:useBean> 
-
             <title>Gestion Client</title>       
         </head>
         <body>
         <%@include  file="../../jsp_commun/menuBackOffice.jsp" %>
-        <div class="container-fluid text-center col-sm-offset-2">
+        <div class="container-fluid text-center col-lg-offset-2">
             <div class="row content">
-                <div class="col-sm-10 text-left"> 
+                <div class="col-lg-10 text-left"> 
+                    <div align="middle"> 
+                        <img src="Presentation/Images/baniere.jpg">
+                    </div>                    
+                    <hr>
                     <%  String attribut = (String) request.getAttribute("message");
                         SimpleDateFormat sdf = new SimpleDateFormat("dd - MM - yyyy");
                         List<Particulier> lesParticuliers = ListeDesParticuliers;
                         List<Entreprise> lesEntreprises = ListeDesEntreprises;
-                        Employe user = (Employe) session.getAttribute("employe");
                         if (attribut.length() > 8) {%>
                     <div class="alert alert-info">
                         <a href="#" class="close" data-dismiss="alert">&times;</a>

@@ -1,3 +1,6 @@
+<%@page import="com.bourse.entities.Employe"%>
+<jsp:useBean id="employe" scope="session" class="com.bourse.entities.Employe"></jsp:useBean> 
+ <%  Employe user = (Employe) session.getAttribute("employe"); %>
 <div class="bs-component">
     <nav class="navbar navbar-default">
         <div class="container-fluid">
@@ -18,7 +21,7 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Mon compte<span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="controllerCommun?action=formInitPwd">Changer de mot de passe</a></li>
+                            <li><a href="controllerBackOffice?action=formInitPwd">Changer de mot de passe</a></li>
                             <li><a href="controllerCommun?action=deconnexion">Se déconnecter</a></li>                            
                         </ul>
                     </li>

@@ -2,7 +2,6 @@
 <%@page import="com.bourse.entities.Contrat"%>
 <%@page import="com.bourse.entities.Entreprise"%>
 <%@page import="com.bourse.entities.Particulier"%>
-<%@page import="com.bourse.entities.Employe"%>
 <%@page import="com.bourse.enumeration.EnumFormEntreprise"%>
 <%@page import="com.bourse.entities.Client"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -16,21 +15,20 @@
         <link type="text/css" rel="stylesheet" href="Presentation/CSS/bootstrap.css">
         <script src="Presentation/JS/jquery.min.js"></script>
         <script src="Presentation/JS/bootstrap.min.js"></script>
-
         <script src="Presentation/JS/bourse.js"></script>
-
-        <jsp:useBean id="employe" scope="session" class="com.bourse.entities.Employe"></jsp:useBean>
-
             <title>Création d'un nouveau contrat</title>       
         </head>
         <body>
         <%@include  file="../../jsp_commun/menuBackOffice.jsp" %>
-        <div class="container-fluid text-center col-sm-offset-2">
+        <div class="container-fluid text-center col-lg-offset-2">
             <div class="row content">
-                <div class="col-sm-10 text-left"> 
+                <div class="col-lg-10 text-left"> 
+                    <div align="middle"> 
+                        <img src="Presentation/Images/baniere.jpg">
+                    </div>
+                    <hr>
                     <%  String attribut = (String) request.getAttribute("message");
                         SimpleDateFormat sdf = new SimpleDateFormat("dd - MM - yyyy");
-                        Employe user = (Employe) session.getAttribute("employe");
                         Client client = (Client) request.getAttribute("client");
                         if (attribut.length() > 8) {%>
                     <div class="alert alert-info">
@@ -40,7 +38,7 @@
                     <% }%>                    
 
                     <div class="row">
-                        <div class="col-sm-8 well col-sm-offset-2"> 
+                        <div class="col-lg-8 well col-lg-offset-2"> 
                             <form name="formulaireAjoutContrat" class="form-horizontal" method="get" action="controllerBackOffice">
                                 <fieldset>
                                     <legend>Création d'un nouveau contrat</legend>
@@ -183,9 +181,9 @@
                                     <input type="hidden" name="idClient" value="<%= client.getId()%>">    
                                     <input type="hidden" name="action" value="ajoutContrat">
                                     <div class="row"> </div>
-                                    <div class="col-sm-offset-4 col-lg-9">
-                                        <button type="reset" class="btn btn-info col-sm-offset-1">Annuler</button>
-                                        <button type="submit" class="btn btn-info col-sm-offset-3">Valider</button>
+                                    <div class="col-lg-offset-4 col-lg-9">
+                                        <button type="reset" class="btn btn-info col-lg-offset-1">Annuler</button>
+                                        <button type="submit" class="btn btn-info col-lg-offset-3">Valider</button>
                                     </div>
                                 </fieldset>
                             </form>

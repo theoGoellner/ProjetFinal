@@ -35,7 +35,7 @@ public class controllerCommun extends HttpServlet {
     private String jspClient;
     private String message = "";
     
-    private static final int DUREESESSIONVALIDE = 600;
+    private static final int DUREESESSIONVALIDE = 5;
     private static final int NBR_TENTATIVES_MAX = 3;
     
     private Identification ident = null;
@@ -60,12 +60,14 @@ public class controllerCommun extends HttpServlet {
         message = "";
         jspClient = null;
         String act = request.getParameter("action");
-        
+       
         if ((act == null) || (act.equals("null"))) {
+            request.setAttribute("message", message);
             jspClient = "/Accueil.jsp";
         } else {
             switch (act) {
                 case "accueil":
+                    request.setAttribute("message", message);
                     jspClient = "/Accueil.jsp";
                     break;
                 case "formAuthentification":
@@ -76,12 +78,15 @@ public class controllerCommun extends HttpServlet {
                     doActionAuthentification(request, response);
                     break;
                 case "accueilBackOffice":
+                    request.setAttribute("message", message);
                     jspClient = "/BackOffice/Accueil.jsp";
                     break;
                 case "accueilFrontOffice":
+                    request.setAttribute("message", message);
                     jspClient = "/FrontOffice/Accueil.jsp";
                     break;
                 case "deconnexion":
+                    request.setAttribute("message", message);
                     jspClient = "/Accueil.jsp";
                     session = request.getSession();
                     session.invalidate();
@@ -200,8 +205,8 @@ public class controllerCommun extends HttpServlet {
                     }
                 }
             } else { // Mauvais mot de passe
-                if (session == null) { // Si c'est la première tentative, on crée une session 
-                    session = request.getSession(true);
+                if (session.isNew() || session == null) { // Si c'est la première tentative, on crée une session 
+                    session = request.getSession();
                     session.setAttribute("identification", ident);
                     session.setAttribute("nbrTentatives", 1);
                 } else { // Autres tentatives                

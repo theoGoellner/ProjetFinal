@@ -1,4 +1,3 @@
-<%@page import="com.bourse.entities.Employe"%>
 <%@page import="com.bourse.entities.Particulier"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.List"%>
@@ -12,21 +11,23 @@
         <script src="Presentation/JS/bootstrap.min.js"></script>
 
         <script src="Presentation/JS/bourse.js"></script>
-        <jsp:useBean id="employe" scope="session" class="com.bourse.entities.Employe"></jsp:useBean> 
 
         <title>Modifier Client Particulier</title>       
     </head>
     <body>
         <%@include  file="../../jsp_commun/menuBackOffice.jsp" %>
-        <div class="container-fluid text-center col-sm-offset-2">
+        <div class="container-fluid text-center col-lg-offset-2">
             <div class="row content">
-                <div class="col-sm-10 text-left"> 
+                <div class="col-lg-10 text-left"> 
+                    <div align="middle"> 
+                        <img src="Presentation/Images/baniere.jpg">
+                    </div>
+                    <hr>
                     <%  Particulier part = (Particulier) request.getAttribute("particulier");
-                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");                        
-                        Employe user = (Employe) session.getAttribute("employe");
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                     %>
                     <div class="row">
-                        <div class="col-sm-8 well col-sm-offset-2"> 
+                        <div class="col-lg-8 well col-lg-offset-2"> 
                             <form name="formulaireModifParticulier" class="form-horizontal" role="form" method="get" action="controllerBackOffice">
                                 <div class="modal-header">
                                     <h1 class="text-center">Modification d'un client particulier existant</h1>
@@ -34,52 +35,52 @@
                                 <div class="row"><p>     </p></div>  
                                 <%-- Champs pour les objets Particulier (nom, prénom, date de naissance, lieu de naissance) --%>
                                 <div class="form-group">
-                                    <label for="nomClient" class="col-sm-4 control-label">Nom</label>
-                                    <div class="col-sm-8">
+                                    <label for="nomClient" class="col-lg-4 control-label">Nom</label>
+                                    <div class="col-lg-8">
                                         <input id="nomClient" type="text" class="form-control" name="nomClient" value="<%= part.getNom() %>" required>
                                     </div>
                                 </div>                                
                                 <div class="form-group">
-                                    <label for="prenomClient" class="col-sm-4 control-label">Prénom</label>
-                                    <div class="col-sm-8">
+                                    <label for="prenomClient" class="col-lg-4 control-label">Prénom</label>
+                                    <div class="col-lg-8">
                                         <input id="prenomClient" type="text" class="form-control" name="prenomClient" value="<%= part.getPrenom() %>" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="dateNaisClient" class="col-sm-4 control-label">Date de naissance</label>
-                                    <div class="col-sm-8">
+                                    <label for="dateNaisClient" class="col-lg-4 control-label">Date de naissance</label>
+                                    <div class="col-lg-8">
                                         <input type="text" class="form-control" name="dateEmbauche" value="<%= sdf.format(part.getDateNais()) %>" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="lieuNaisClient" class="col-sm-4 control-label">Lieu de naissance</label>
-                                    <div class="col-sm-8">
+                                    <label for="lieuNaisClient" class="col-lg-4 control-label">Lieu de naissance</label>
+                                    <div class="col-lg-8">
                                         <input type="text" class="form-control" name="lieuNaisClient" value="<%= part.getLieuNaissance() %>" required>
                                     </div>
                                 </div>
                                 <%-- Champs pour tous les clients (téléphone, email, adresse, niveau) --%>
                                 <div class="form-group">
-                                    <label for="tphClient" class="col-sm-4 control-label">Téléphone Client</label>
-                                    <div class="col-sm-8">
+                                    <label for="tphClient" class="col-lg-4 control-label">Téléphone Client</label>
+                                    <div class="col-lg-8">
                                         <input type="text" class="form-control" name="tphClient" value="<%= part.getTelephone() %>" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="emailClient" class="col-sm-4 control-label">Email</label>
-                                    <div class="col-sm-8">
+                                    <label for="emailClient" class="col-lg-4 control-label">Email</label>
+                                    <div class="col-lg-8">
                                         <input type="text" class="form-control" name="emailClient" value="<%= part.getMail() %>" required>
                                     </div>
                                 </div>  
                                 <div class="form-group">
-                                    <label for="adresseClient" class="col-sm-4 control-label">Adresse</label>
-                                    <div class="col-sm-8">
+                                    <label for="adresseClient" class="col-lg-4 control-label">Adresse</label>
+                                    <div class="col-lg-8">
                                         <input type="text" class="form-control" name="adresseClient" value="<%= part.getAdresse() %>" required>
                                     </div>
                                 </div>     
                                 
                                 <div class="form-group">
-                                    <label for="niveauClient" class="col-sm-4 control-label">Niveau</label>
-                                    <div class="col-sm-8">
+                                    <label for="niveauClient" class="col-lg-4 control-label">Niveau</label>
+                                    <div class="col-lg-8">
                                         <select class="form-control" name="niveauClient" required>
                                             <option value=""> </option> 
                                             <% for (int i = user.getNiveau(); i <= 5; i++) { 
@@ -96,9 +97,9 @@
 
                                 <input type="hidden" name="action" value="modifierParticulier">
                                 <div class="row"> </div>
-                                <div class="col-sm-offset-4 col-sm-8">
-                                    <button type="reset" class="btn btn-primary col-sm-offset-1">Annuler</button>
-                                    <button type="submit" class="btn btn-primary col-sm-offset-3">Modifier</button>
+                                <div class="col-lg-offset-4 col-lg-8">
+                                    <button type="reset" class="btn btn-primary col-lg-offset-1">Annuler</button>
+                                    <button type="submit" class="btn btn-primary col-lg-offset-3">Modifier</button>
                                 </div>
                             </form>
                         </div>

@@ -1,4 +1,3 @@
-<%@page import="com.bourse.entities.Employe"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -9,17 +8,19 @@
         <script src="Presentation/JS/bootstrap.min.js"></script>
         <script src="Presentation/JS/bourse.js"></script>
 
-        <jsp:useBean id="employe" scope="session" class="com.bourse.entities.Employe"></jsp:useBean>
 
             <title>Recherche Client</title>       
     </head>
     <body>
         <%@include  file="../../../jsp_commun/menuBackOffice.jsp" %>
-        <div class="container-fluid text-center col-sm-offset-2">
+        <div class="container-fluid text-center col-lg-offset-2">
             <div class="row content">
-                <div class="col-sm-10 text-left"> 
+                <div class="col-lg-10 text-left"> 
+                    <div align="middle"> 
+                        <img src="Presentation/Images/baniere.jpg">
+                    </div>
+                    <hr>
                     <%  String attribut = (String) request.getAttribute("message");
-                        Employe user = (Employe) session.getAttribute("employe");                     
                         if (attribut.length() > 8) {%>                       
                     <div class="alert alert-info">
                         <a href="#" class="close" data-dismiss="alert">&times;</a>
@@ -27,7 +28,7 @@
                     </div> 
                     <% }%>
                     <div class="row">
-                        <div class="col-sm-8 well col-sm-offset-2"> 
+                        <div class="col-lg-8 well col-lg-offset-2"> 
                             <form name="formulaireRechercheClient" class="form-horizontal" method="post" action="controllerBackOffice">
                                 <fieldset>
                                     <legend>Rechercher un client</legend>
@@ -78,9 +79,9 @@
                                     
                                     <input type="hidden" name="action" value="rechClient">
                                     <div class="row"> </div>
-                                    <div class="col-sm-offset-4 col-lg-9">
-                                        <button type="reset" class="btn btn-info col-sm-offset-1">Annuler</button>
-                                        <button type="submit" class="btn btn-info col-sm-offset-3">Valider</button>
+                                    <div class="col-lg-offset-4 col-lg-9">
+                                        <button type="reset" class="btn btn-info col-lg-offset-1">Annuler</button>
+                                        <button type="submit" class="btn btn-info col-lg-offset-3">Valider</button>
                                     </div>
                                 </fieldset>
                             </form>

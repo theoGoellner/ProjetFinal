@@ -18,9 +18,13 @@
         </head>
         <body>
         <%@include  file="../../jsp_commun/menuBackOffice.jsp" %>
-        <div class="container-fluid text-center col-sm-offset-2">
+        <div class="container-fluid text-center col-lg-offset-2">
             <div class="row content">
-                <div class="col-sm-10 text-left"> 
+                <div class="col-lg-10 text-left"> 
+                    <div align="middle"> 
+                        <img src="Presentation/Images/baniere.jpg">
+                    </div>
+                    <hr>
                     <%  String attribut = (String) request.getAttribute("message");
                         SimpleDateFormat sdf = new SimpleDateFormat("dd - MM - yyyy hh:mm:ss");
                         List<Employe> lesEmployes = ListeDesEmployes;
@@ -31,7 +35,7 @@
                     </div> 
                     <% } %>
                     <div class="row">
-                        <div class="col-lg-9 well col-sm-offset-2"> 
+                        <div class="col-lg-10 well col-lg-offset-1"> 
                             <form name="formulaireAjoutEmploye" class="form-horizontal" role="form" method="get" action="controllerBackOffice" onSubmit="return verify(this.pwd, this.pwdConfirm)">
 
 
@@ -142,9 +146,9 @@
                                     </div> 
                                     <input type="hidden" name="action" value="ajoutEmploye">
                                     <div class="row"> </div>
-                                    <div class="col-sm-offset-4 col-lg-9">
-                                        <button type="reset" class="btn btn-info col-sm-offset-1">Annuler</button>
-                                        <button type="submit" class="btn btn-info col-sm-offset-3">Valider</button>
+                                    <div class="col-lg-offset-4 col-lg-9">
+                                        <button type="reset" class="btn btn-info col-lg-offset-1">Annuler</button>
+                                        <button type="submit" class="btn btn-info col-lg-offset-3">Valider</button>
                                     </div>
                                 </fieldset>
 

@@ -4,7 +4,6 @@
 <%@page import="com.bourse.entities.PorteFeuille"%>
 <%@page import="com.bourse.entities.Entreprise"%>
 <%@page import="com.bourse.entities.Particulier"%>
-<%@page import="com.bourse.entities.Employe"%>
 <%@page import="com.bourse.enumeration.EnumFormEntreprise"%>
 <%@page import="com.bourse.entities.Client"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -18,18 +17,25 @@
         <link type="text/css" rel="stylesheet" href="Presentation/CSS/bootstrap.css">
         <script src="Presentation/JS/jquery.min.js"></script>
         <script src="Presentation/JS/bootstrap.min.js"></script>
-
+        <jsp:useBean id="identification" scope="session" class="com.bourse.entities.Identification"></jsp:useBean>
         <script src="Presentation/JS/bourse.js"></script>
-
-        <jsp:useBean id="employe" scope="session" class="com.bourse.entities.Employe"></jsp:useBean>
-
             <title>Consulter le détail du portefeuille</title>       
         </head>
         <body>
+        <%  Identification ident = (Identification) session.getAttribute("identification");
+            if (ident.getTypeUser().equalsIgnoreCase("employe")) { %> 
         <%@include  file="../../jsp_commun/menuBackOffice.jsp" %>
-        <div class="container-fluid text-center col-sm-offset-2">
+            <% } else { %> 
+        <%@include  file="../../jsp_commun/menuFrontOffice.jsp" %>
+            <% } %>
+            
+            <div class="container-fluid text-center col-lg-offset-2">
             <div class="row content">
-                <div class="col-sm-10 text-left"> 
+                <div class="col-lg-10 text-left"> 
+                    <div align="middle"> 
+                        <img src="Presentation/Images/baniere.jpg">
+                    </div>  
+                    <hr>
                     <%  String attribut = (String) request.getAttribute("message");
                         SimpleDateFormat sdf = new SimpleDateFormat("dd - MM - yyyy");
                         PorteFeuille pf = (PorteFeuille) request.getAttribute("portefeuille");
@@ -42,7 +48,7 @@
                     <% }%>                    
 
                     <div class="row">
-                        <div class="col-sm-8 well col-sm-offset-2"> 
+                        <div class="col-lg-8 well col-lg-offset-2"> 
                                 <fieldset>  
                                     <legend>Consulter le détail du portefeuille de 
                                         <strong><% 
@@ -55,8 +61,8 @@
                                         
                                         <div class="row"> 
                                             <div class="form-group">
-                                                <label class="col-sm-6 control-label">N° de Contrat</label>
-                                                <div class="col-sm-6">
+                                                <label class="col-lg-6 control-label">N° de Contrat</label>
+                                                <div class="col-lg-6">
                                                     <strong> <%= pf.getLeContrat().getId()%> </strong>
                                                 </div>
                                             </div><br>
@@ -66,8 +72,8 @@
                                         if (pf instanceof Classique) { %>  
                                             <div class="row"> 
                                                 <div class="form-group">
-                                                    <label class="col-sm-6 control-label">N° de compte Classique</label>
-                                                    <div class="col-sm-6">
+                                                    <label class="col-lg-6 control-label">N° de compte Classique</label>
+                                                    <div class="col-lg-6">
                                                         <strong> <%= ((Classique)pf).getId() %> </strong>
                                                     </div>
                                                 </div><br>
@@ -75,8 +81,8 @@
                                         
                                             <div class="row"> 
                                                 <div class="form-group">
-                                                    <label class="col-sm-6 control-label">Type de gestion</label>
-                                                    <div class="col-sm-6">
+                                                    <label class="col-lg-6 control-label">Type de gestion</label>
+                                                    <div class="col-lg-6">
                                                         <strong> <%= ((Classique)pf).getType()%> </strong>
                                                     </div>
                                                 </div><br>
@@ -84,48 +90,48 @@
                                                     
                                                     <div class="row"> 
                                                 <div class="form-group">
-                                                    <label class="col-sm-6 control-label">Niveau de gestion</label>
-                                                    <div class="col-sm-6">
+                                                    <label class="col-lg-6 control-label">Niveau de gestion</label>
+                                                    <div class="col-lg-6">
                                                         <strong> <%= ((Classique)pf).getNiveauGestion()%> </strong>
                                                     </div>
                                                 </div><br>
                                             </div>
                                                     <div class="row"> 
                                                 <div class="form-group">
-                                                    <label class="col-sm-6 control-label">Chargé de compte</label>
-                                                    <div class="col-sm-6">
+                                                    <label class="col-lg-6 control-label">Chargé de compte</label>
+                                                    <div class="col-lg-6">
                                                         <strong> <%= ((Classique)pf).getChargeCompte()%> </strong>
                                                     </div>
                                                 </div><br>
                                             </div>
                                                     <div class="row"> 
                                                 <div class="form-group">
-                                                    <label class="col-sm-6 control-label">Pourcentage Max</label>
-                                                    <div class="col-sm-6">
+                                                    <label class="col-lg-6 control-label">Pourcentage Max</label>
+                                                    <div class="col-lg-6">
                                                         <strong> <%= ((Classique)pf).getPourcentageMax()%> </strong>
                                                     </div>
                                                 </div><br>
                                             </div>
                                                     <div class="row"> 
                                                 <div class="form-group">
-                                                    <label class="col-sm-6 control-label">Valeur Max</label>
-                                                    <div class="col-sm-6">
+                                                    <label class="col-lg-6 control-label">Valeur Max</label>
+                                                    <div class="col-lg-6">
                                                         <strong> <%= ((Classique)pf).getValeurMax() %> </strong>
                                                     </div>
                                                 </div><br>
                                             </div>
                                                     <div class="row"> 
                                                 <div class="form-group">
-                                                    <label class="col-sm-6 control-label">Montant Initial</label>
-                                                    <div class="col-sm-6">
+                                                    <label class="col-lg-6 control-label">Montant Initial</label>
+                                                    <div class="col-lg-6">
                                                         <strong> <%= ((Classique)pf).getMontantInitial()%> </strong>
                                                     </div>
                                                 </div><br>
                                             </div>
                                                     <div class="row"> 
                                                 <div class="form-group">
-                                                    <label class="col-sm-6 control-label">Liquidités</label>
-                                                    <div class="col-sm-6">
+                                                    <label class="col-lg-6 control-label">Liquidités</label>
+                                                    <div class="col-lg-6">
                                                         <strong> <%= ((Classique)pf).getLiquidite()%> </strong>
                                                     </div>
                                                 </div><br>
@@ -133,32 +139,32 @@
                                         <% } else if (pf instanceof PEA) { %>
                                             <div class="row"> 
                                                 <div class="form-group">
-                                                    <label class="col-sm-6 control-label">N° de compte PEA</label>
-                                                    <div class="col-sm-6">
+                                                    <label class="col-lg-6 control-label">N° de compte PEA</label>
+                                                    <div class="col-lg-6">
                                                         <strong> <%= ((PEA) pf).getId()%> </strong>
                                                     </div>
                                                 </div><br>
                                             </div> 
                                             <div class="row"> 
                                                 <div class="form-group">
-                                                    <label class="col-sm-6 control-label">Date d'ouverture</label>
-                                                    <div class="col-sm-6">
+                                                    <label class="col-lg-6 control-label">Date d'ouverture</label>
+                                                    <div class="col-lg-6">
                                                         <strong> <%= sdf.format(((PEA) pf).getDateOuverture()) %> </strong>
                                                     </div>
                                                 </div><br>
                                             </div>
                                             <div class="row"> 
                                                 <div class="form-group">
-                                                    <label class="col-sm-6 control-label">Montant Initial</label>
-                                                    <div class="col-sm-6">
+                                                    <label class="col-lg-6 control-label">Montant Initial</label>
+                                                    <div class="col-lg-6">
                                                         <strong> <%= ((PEA) pf).getMontantInitial() %> </strong>
                                                     </div>
                                                 </div><br>
                                             </div>
                                             <div class="row"> 
                                                 <div class="form-group">
-                                                    <label class="col-sm-6 control-label">Liquidités</label>
-                                                    <div class="col-sm-6">
+                                                    <label class="col-lg-6 control-label">Liquidités</label>
+                                                    <div class="col-lg-6">
                                                         <strong> <%= ((PEA) pf).getLiquidite() %> </strong>
                                                     </div>
                                                 </div><br>
@@ -166,32 +172,32 @@
                                         <% } else { %>
                                             <div class="row"> 
                                                 <div class="form-group">
-                                                    <label class="col-sm-6 control-label">N° de compte PEP-PERP</label>
-                                                    <div class="col-sm-6">
+                                                    <label class="col-lg-6 control-label">N° de compte PEP-PERP</label>
+                                                    <div class="col-lg-6">
                                                         <strong> <%= ((PERP) pf).getId()%> </strong>
                                                     </div>
                                                 </div><br>
                                             </div> 
                                             <div class="row"> 
                                                 <div class="form-group">
-                                                    <label class="col-sm-6 control-label">Date d'ouverture</label>
-                                                    <div class="col-sm-6">
+                                                    <label class="col-lg-6 control-label">Date d'ouverture</label>
+                                                    <div class="col-lg-6">
                                                         <strong> <%= sdf.format(((PERP) pf).getDateOuverture()) %> </strong>
                                                     </div>
                                                 </div><br>
                                             </div>
                                             <div class="row"> 
                                                 <div class="form-group">
-                                                    <label class="col-sm-6 control-label">Montant Initial</label>
-                                                    <div class="col-sm-6">
+                                                    <label class="col-lg-6 control-label">Montant Initial</label>
+                                                    <div class="col-lg-6">
                                                         <strong> <%= ((PERP) pf).getMontantInitial() %> </strong>
                                                     </div>
                                                 </div><br>
                                             </div>
                                             <div class="row"> 
                                                 <div class="form-group">
-                                                    <label class="col-sm-6 control-label">Liquidités</label>
-                                                    <div class="col-sm-6">
+                                                    <label class="col-lg-6 control-label">Liquidités</label>
+                                                    <div class="col-lg-6">
                                                         <strong> <%= ((PERP) pf).getLiquidite() %> </strong>
                                                     </div>
                                                 </div><br>

@@ -80,13 +80,22 @@ public class controllerBackOffice extends HttpServlet {
         }
                 
         if ((act == null) || (act.equals("null"))) {
+            request.setAttribute("message", message);
             jspClient = "/BackOffice/Accueil.jsp";
         } else {
             switch (act) {
                 case "accueil":
                     jspClient = "/BackOffice/Accueil.jsp";
                     break;  
-                    
+                
+                case "formInitPwd":
+                    request.setAttribute("message", message);
+                    jspClient = "/CommunOffice/InitialisationPwd.jsp";
+                    break;
+                case "pwdInit":
+                    doActionInitialisationPwd(request, response);
+                    break;
+                 
                 case "deconnexion":
                     jspClient = "/Authentification.jsp";
                     message = "Votre session a expiré. Veuillez vous reconnecter.";
@@ -592,7 +601,35 @@ public class controllerBackOffice extends HttpServlet {
         jspClient = "/CommunOffice/GestionDesPortefeuilles/afficherPortefeuillesClient.jsp";
     }    
     // </editor-fold>
-            
+         
+     // <editor-fold defaultstate="collapsed" desc="INITIALISATION MOT DE PASSE.">
+    protected void doActionInitialisationPwd(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        String loginUser = request.getParameter("loginUser");
+        String newPwd = request.getParameter("newPwd");
+
+        session = request.getSession(true);
+        ident = (Identification) session.getAttribute("identification");
+
+        if (!ident.getLogin().equalsIgnoreCase(loginUser) && communSession.rechercheIdentParLogin(loginUser) != null) {
+            message = "Erreur : Ce login est déjà pris, veillez choisir un autre login.";
+            jspClient = "/CommunOffice/InitialisationPwd.jsp";
+        } else {
+            communSession.modificationIdentification(ident, loginUser, communSession.stringHash(newPwd));
+            message = "Modification réussie !";
+            if (ident.getTypeUser().equalsIgnoreCase("employe")) {
+                jspClient = "/BackOffice/Accueil.jsp";
+            } else {
+                jspClient = "/FrontOffice/Accueil.jsp";
+            }
+        }
+        request.setAttribute("message", message);
+    }
+    // </editor-fold>
+    
+         // <editor-fold defaultstate="collapsed" desc="Gestion VERSEMENT.">
+
     protected void doActionValiderVersement(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
@@ -608,4 +645,5 @@ public class controllerBackOffice extends HttpServlet {
         jspClient = "/BackOffice/GestionDesVersements/formGestionVersements.jsp";
     }   
     
+     // </editor-fold>
 }

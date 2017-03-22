@@ -10,20 +10,24 @@
         <script src="Presentation/JS/bootstrap.min.js"></script>
         <script src="Presentation/JS/bourse.js"></script>
         <jsp:useBean id="identification" scope="session" class="com.bourse.entities.Identification"></jsp:useBean>
-
             <title>Initialisation mot de passe </title>       
         </head>
         <body>
             
-        <%
-            Identification ident =(Identification) session.getAttribute("identification");
-           
-        %>
+        <%  Identification ident = (Identification) session.getAttribute("identification");
+            if (ident.getTypeUser().equalsIgnoreCase("employe")) { %> 
         <%@include  file="../jsp_commun/menuBackOffice.jsp" %>
+            <% } else { %> 
+        <%@include  file="../jsp_commun/menuFrontOffice.jsp" %>
+            <% } %>
 
-        <div class="container-fluid text-center col-sm-offset-2">
+        <div class="container-fluid text-center col-lg-offset-2">
             <div class="row content">
-                <div class="col-sm-10 text-left"> 
+                <div class="col-lg-10 text-left"> 
+                    <div align="middle"> 
+                        <img src="Presentation/Images/baniere.jpg">
+                    </div>
+                    <hr>
                     <%  String attribut = (String) request.getAttribute("message");
                         if (attribut.length() > 8) {%>
                     <div class="alert alert-info">
@@ -32,7 +36,7 @@
                     </div> 
                     <% }%>
                     <div class="row">
-                        <div class="col-lg-9 well col-sm-offset-2"> 
+                        <div class="col-lg-10 well col-lg-offset-1"> 
                             <form class="form-horizontal" method="post" action="controllerCommun" onSubmit="return verify(this.newPwd, this.newPwdConfirm)">
                                 <fieldset>
                                     <legend>Réinitialisation du mot de passe utilisateur </legend>
@@ -64,9 +68,9 @@
                                     </div> 
                                     <input type="hidden" name="action" value="pwdInit">
                                     <div class="row"> </div>
-                                    <div class="col-sm-offset-4 col-lg-9">
-                                        <button type="reset" class="btn btn-info col-sm-offset-1">Annuler</button>
-                                        <button type="submit" class="btn btn-info col-sm-offset-3">Valider</button>
+                                    <div class="col-lg-offset-4 col-lg-9">
+                                        <button type="reset" class="btn btn-info col-lg-offset-1">Annuler</button>
+                                        <button type="submit" class="btn btn-info col-lg-offset-3">Valider</button>
                                     </div>
                                 </fieldset>
                             </form>

@@ -11,17 +11,32 @@
     <body>
         <%@include  file="jsp_commun/menu.jsp" %>
 
-        <div class="container-fluid text-center col-sm-offset-2">
+        <div class="container-fluid text-center col-lg-offset-2">
             <div class="row content">
 
-                <div class="col-sm-10 text-left"> 
+                <div class="col-lg-10 text-left"> 
+                    
+                    <div align="middle"> 
+                    <img src="Presentation/Images/baniere.jpg">
+                    </div>
+                    
+                    <hr>
+                    
+                    <%  String attribut = (String) request.getAttribute("message");
+                        if (attribut.length() > 8) {%>
+                    <div class="alert alert-info">
+                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+                        <strong> <% out.println(attribut); %> </strong>
+                    </div> 
+                    <% }%>  
+                    
                     <h1> Bienvenue sur notre site </h1>                                        
 
 
                     <%@include  file="jsp_commun/footer.jsp" %>
                 </div>
 
-                <div class="col-sm-2 sidenav">
+                <div class="col-lg-2 sidenav">
                     <div class="well ">
 
                     </div>
