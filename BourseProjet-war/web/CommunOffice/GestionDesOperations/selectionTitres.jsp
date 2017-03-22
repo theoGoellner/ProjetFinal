@@ -44,11 +44,12 @@
                     </div> 
                     <% }%>                    
                     <legend>Consulter la liste des titres</legend>                                      
-                    <div class="panel panel-default" style="overflow:scroll;height:400px;width:100%;overflow:auto">
+                    
                         <br>
                         <%if (listeCour.isEmpty())
                                 out.println("La liste des courtage est vide ! C'est pas normal ...");
                             else {%>
+                        <div class="panel panel-default" style="overflow:scroll;height:400px;width:100%;overflow:auto">
                         <table class="table table-hover table-fixed" height="100px">
                             <thead>
                                 <tr> 
@@ -75,8 +76,9 @@
                                 <% } %>
                             </tbody>
                         </table>
+                    </div>
                         <%}%>  
-                    </div>                    
+                    
                     <div class="row" align="middle"> 
                         <a href="controllerBackOffice?action=acheterTitres" class="btn btn-primary">Acheter</a>
                     </div>

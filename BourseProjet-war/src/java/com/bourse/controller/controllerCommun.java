@@ -34,7 +34,7 @@ public class controllerCommun extends HttpServlet {
     private String jspClient;
     private String message = "";
     
-    private static final int DUREESESSIONVALIDE = 5;
+    private static final int DUREESESSIONVALIDE = 300;
     private static final int NBR_TENTATIVES_MAX = 3;
     
     private Identification ident = null;
@@ -163,7 +163,7 @@ public class controllerCommun extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="AUTHENTIFICATION">
+ // <editor-fold defaultstate="collapsed" desc="AUTHENTIFICATION">
     protected void doActionAuthentification(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -181,6 +181,7 @@ public class controllerCommun extends HttpServlet {
                
                 session.setMaxInactiveInterval(DUREESESSIONVALIDE);
                 session.setAttribute("identification", ident);
+                session.setAttribute("nbrTentatives", 1);
                 if (ident.getTypeUser().equalsIgnoreCase("Employe")) {
                     Employe user = administrationSession.rechercheEmployeParID(ident.getIdUser());
                     session.setAttribute("employe", user);
@@ -204,7 +205,7 @@ public class controllerCommun extends HttpServlet {
                     }
                 }
             } else { // Mauvais mot de passe
-                if (session.isNew() || session == null) { // Si c'est la première tentative, on crée une session 
+                if (session == null) { // Si c'est la première tentative, on crée une session 
                     session = request.getSession();
                     session.setAttribute("identification", ident);
                     session.setAttribute("nbrTentatives", 1);

@@ -47,7 +47,7 @@
                             <form name="gestionVersements" class="form-horizontal" method="get" action="controllerBackOffice">
                                 <fieldset>
                                     <legend>Effectuer un versement</legend>                                      
-                                    <div class="form-group"">
+                                    <div class="form-group">
                                         <label for="respSection" class="col-lg-3 control-label">Sélectionner un portefeuille</label>
                                         <div class="col-lg-9">
                                             <select id="selectPF" class="form-control" name="idPF">
@@ -102,6 +102,8 @@
                         <%if (listeVers.isEmpty())
                                 out.println("Aucun versement effectué !");
                             else {%>
+                        <div style="overflow:scroll;height:200px;width:100%;overflow:auto">
+
                         <table class="table table-hover">
                             <thead>
                                 <tr> 
@@ -125,6 +127,7 @@
                                 <%}%>
                             </tbody>
                         </table>
+                        </div>
                         <%}%>  
                     </div>
 

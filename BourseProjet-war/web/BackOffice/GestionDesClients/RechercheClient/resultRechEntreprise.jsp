@@ -44,6 +44,7 @@
                             <%if (ListeDesEntreprises.isEmpty())
                                     out.println("La liste des entreprises est vide !");
                                 else {%>
+                            <div style="overflow:scroll;height:200px;width:100%;overflow:auto">
                             <table class="table table-hover">
                                 <thead>
                                     <tr> 
@@ -78,6 +79,7 @@
                                     <%}%>
                                 </tbody>
                             </table>
+                            </div>
                             <%}%>  
                         </div> 
                     </div>
