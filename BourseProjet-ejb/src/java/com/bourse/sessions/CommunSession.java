@@ -9,10 +9,12 @@ import com.bourse.entities.Titre;
 import com.bourse.facades.ContenuFacadeLocal;
 import com.bourse.facades.CourtageFacadeLocal;
 import com.bourse.facades.IdentificationFacadeLocal;
+import com.bourse.facades.OperationFacadeLocal;
 import com.bourse.facades.PorteFeuilleFacadeLocal;
 import com.bourse.facades.TitreFacadeLocal;
 import java.math.BigInteger;
 import java.security.MessageDigest;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -22,8 +24,10 @@ import javax.xml.bind.DatatypeConverter;
 public class CommunSession implements CommunSessionLocal {
 
     @EJB
+    private OperationFacadeLocal operationFacade;
+ 
+    @EJB
     private CourtageFacadeLocal courtageFacade;
-
     
     @EJB
     private TitreFacadeLocal titreFacade;
@@ -111,5 +115,22 @@ public class CommunSession implements CommunSessionLocal {
     public Contenu rechercherContenuParPFetTitre(PorteFeuille portefeuille, Titre titre) {
         return contenuFacade.rechercheContenuParPFetTitre(portefeuille, titre);
     }
+
+    @Override
+    public void creationOperation(Titre titre, PorteFeuille pfCible, PorteFeuille pfSource, Boolean origine, int quantite, Date dateLimite) {
+        operationFacade.creerOperation(titre, pfCible, pfSource, origine, quantite, dateLimite);
+    }
+
+    @Override
+    public Titre rechercheTiterParID(Long idTitre) {
+        return titreFacade.rechercherTitreParID(idTitre);
+    }
+
+    @Override
+    public Courtage rechercheCourActuelParID(Long idCour) {
+        return courtageFacade.rechercherCourActuelParID(idCour);
+    }
+    
+    
     
 }

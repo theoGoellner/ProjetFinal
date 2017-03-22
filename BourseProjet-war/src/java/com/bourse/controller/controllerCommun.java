@@ -42,7 +42,8 @@ public class controllerCommun extends HttpServlet {
     private HttpSession session;
     
     private Client cli = null;
-    private PorteFeuille pf = null;
+    private PorteFeuille pf = null;    
+    private List<Courtage> listeCours = null;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -103,13 +104,14 @@ public class controllerCommun extends HttpServlet {
                     request.setAttribute("portefeuille", pf);
                     request.setAttribute("message", message);
                     jspClient = "/CommunOffice/GestionDesPortefeuilles/afficherDetailPF.jsp";
-                case "proposerOrdres":
-                    List<Courtage> listDesCours = communSession.getListeCourageActuels();
-                    request.setAttribute("lesCours", listDesCours);
-                    
-                    
+                    break;
+                
+                case "selectionTitres":
+                    listeCours = communSession.getListeCourageActuels();
+                    request.setAttribute("listeCours", listeCours);
                     request.setAttribute("message", message);
-                    jspClient = "/CommunOffice/GestionDesPortefeuilles/afficherDetailPF.jsp";
+                    jspClient = "/CommunOffice/GestionDesOperations/selectionTitres.jsp";    
+                    break;
             }
         }
         

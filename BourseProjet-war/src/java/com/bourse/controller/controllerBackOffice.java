@@ -8,6 +8,7 @@ import com.bourse.entities.Entreprise;
 import com.bourse.entities.Identification;
 import com.bourse.entities.Particulier;
 import com.bourse.entities.PorteFeuille;
+import com.bourse.entities.Titre;
 import com.bourse.enumeration.*;
 import com.bourse.sessions.*;
 import java.io.IOException;
@@ -43,6 +44,8 @@ public class controllerBackOffice extends HttpServlet {
     private Particulier part = null;
     private Employe emp = null;
     private PorteFeuille pf = null;
+    private Titre titre = null;
+    private Courtage cour = null;
     private List<Employe> listeEmp = null;
     private List<Particulier> listeParticulier = null;
     private List<Entreprise> listeEntreprise = null;
@@ -208,18 +211,16 @@ public class controllerBackOffice extends HttpServlet {
                     doActionValiderVersement(request, response);
                     break;
                 // </editor-fold>
-                    
-                case "selectionTitres":
-                    session = request.getSession(true); 
-                    listeParticulier = backOfficeSession.getListeParticuliersActifsParCourtier((Employe) session.getAttribute("employe"));
-                    request.setAttribute("ListeDesParticuliers", listeParticulier);
-                    listeEntreprise = backOfficeSession.getListeEntreprisesActivesParCourtier((Employe) session.getAttribute("employe"));
-                    request.setAttribute("ListeDesEntreprises", listeEntreprise);
-                    listeCours = communSession.getListeCourageActuels();
-                    request.setAttribute("listeCours", listeCours);
-                    request.setAttribute("message", message);
-                    jspClient = "/BackOffice/GestionDesOperations/selectionTitres.jsp";
                 
+                case "achatCour":
+                    
+                    break;
+                case "propositionCour":
+                    cour = communSession.rechercheCourActuelParID(Long.valueOf(request.getParameter("idCour")));
+                    request.setAttribute("cour", cour);
+                    request.setAttribute("message", message);
+                    jspClient = "/BackOffice/GestionDesOperations/propositionOperation.jsp";
+                    break;
                     
             }
         }

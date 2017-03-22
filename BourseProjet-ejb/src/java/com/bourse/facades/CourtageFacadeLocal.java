@@ -22,5 +22,7 @@ public interface CourtageFacadeLocal {
     int count();
 
     List<Courtage> getListeCourtageActuels();
+
+    Courtage rechercherCourActuelParID(Long idCour);
     
 }

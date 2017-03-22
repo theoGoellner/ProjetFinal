@@ -60,6 +60,8 @@ public class controllerFrontOffice extends HttpServlet {
                     message = "votre session est expirée";
                     request.setAttribute("message", message);
                     break;
+                case "propositionCour":
+                    break;
 
                     
             }

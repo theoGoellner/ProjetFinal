@@ -6,6 +6,7 @@ import com.bourse.entities.Courtage;
 import com.bourse.entities.PorteFeuille;
 import com.bourse.entities.Identification;
 import com.bourse.entities.Titre;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -32,4 +33,10 @@ public interface CommunSessionLocal {
     Contenu rechercherContenuParPFetTitre(PorteFeuille portefeuille, Titre titre);
     
     List<Courtage> getListeCourageActuels();
+
+    void creationOperation(Titre titre, PorteFeuille pfCible, PorteFeuille pfSource, Boolean origine, int quantite, Date dateLimite);
+
+    Titre rechercheTiterParID(Long idTitre);
+
+    Courtage rechercheCourActuelParID(Long idCour);
 }

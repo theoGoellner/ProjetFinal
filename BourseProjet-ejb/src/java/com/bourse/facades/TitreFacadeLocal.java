@@ -20,5 +20,7 @@ public interface TitreFacadeLocal {
     List<Titre> findRange(int[] range);
 
     int count();
+
+    Titre rechercherTitreParID(Long idTitre);
     
 }

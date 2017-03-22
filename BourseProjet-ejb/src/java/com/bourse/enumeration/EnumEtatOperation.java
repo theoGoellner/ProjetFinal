@@ -1,6 +1,8 @@
 package com.bourse.enumeration;
 
 public enum EnumEtatOperation {
-    Active,
-    Bloque;
+    Proposition,
+    Ordre,
+    Executee,
+    Annulee;
 }

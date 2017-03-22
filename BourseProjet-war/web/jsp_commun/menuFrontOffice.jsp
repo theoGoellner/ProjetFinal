@@ -13,12 +13,19 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="controllerFrontOffice?action=accueil">Accueil</a></li>
-                
+
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Mon compte<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="controllerCommun?action=formInitPwd">Changer de mot de passe</a></li>
                         <li><a href="controllerCommun?action=deconnexion">Se déconnecter</a></li>                            
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Gestion des titres<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="controllerCommun?action=selectionTitres">Consulter les courtages</a></li>
                     </ul>
                 </li>
 
@@ -36,7 +43,7 @@
                     </ul>
                 </li>
                 --%>
-                
+
             </ul>
             <form class="navbar-form navbar-right" role="search">
                 <div class="form-group">

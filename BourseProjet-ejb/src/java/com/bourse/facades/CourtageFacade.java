@@ -40,6 +40,22 @@ public class CourtageFacade extends AbstractFacade<Courtage> implements Courtage
         }
         return listCours;
     }
+
+    @Override
+    public Courtage rechercherCourActuelParID(Long idCour) {
+        Courtage cour = null;
+        try {
+            Query req = em.createQuery("Select c from Courtage as c where c.id=:idCour and c.dateCourtage.dateCourtage >= :date1 and c.dateCourtage.dateCourtage < :date2");            
+            req.setParameter("date1", (Date)sdf.parse("17 - 03 - 2017"));            
+            req.setParameter("date2", (Date)sdf.parse("18 - 03 - 2017"));
+            req.setParameter("idCour", idCour);
+            cour = (Courtage) req.getSingleResult();
+        } catch (Exception e) {
+            cour = null;
+            System.out.println("Erreur dans la facade Courtage dans la méthode rechercherCourActuelParID " + e.getMessage());
+        }
+        return cour;
+    }
     
     
 }
