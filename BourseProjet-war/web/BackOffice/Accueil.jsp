@@ -38,11 +38,7 @@
                     
                     <%@include  file="../jsp_commun/footer.jsp" %>
                 </div>
-                <div class="col-lg-2 sidenav">
-                    <div class="well ">
 
-                    </div>
-                </div>
 
             </div>
         </div>

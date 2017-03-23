@@ -33,7 +33,7 @@
         --%>
         
       </ul>
-      <form class="navbar-form navbar-right" role="search">
+<%--      <form class="navbar-form navbar-right" role="search">
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Search">
         </div>
@@ -41,7 +41,8 @@
       </form>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#">Link</a></li>
-      </ul>
+      </ul> 
+--%>
     </div>
   </div>
 </nav>

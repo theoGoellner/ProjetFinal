@@ -137,8 +137,8 @@
                                     <div class="col-lg-8">
                                         <select class="form-control" name="niveauClient" required>
                                             <option value=""> </option> 
-                                            <%  Employe user = (Employe)session.getAttribute("employe");
-                                                for (int i = user.getNiveau(); i <= 5; i++) {
+                                            <%  
+                                                for (int i = client.getCourtier().getNiveau(); i <= 5; i++) {
                                                     if (i == client.getNiveau()) {%>
                                             <option value="<%= i%>" selected="selected" > Niveau <%= " " + i%></option>
                                             <%} else {%> --%>

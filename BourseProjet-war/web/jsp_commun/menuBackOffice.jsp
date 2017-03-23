@@ -1,6 +1,6 @@
 <%@page import="com.bourse.entities.Employe"%>
 <jsp:useBean id="employe" scope="session" class="com.bourse.entities.Employe"></jsp:useBean> 
- <%  Employe user = (Employe) session.getAttribute("employe"); %>
+<%  Employe user = (Employe) session.getAttribute("employe"); %>
 <div class="bs-component">
     <nav class="navbar navbar-default">
         <div class="container-fluid">
@@ -75,14 +75,10 @@
                     </li>
                     --%>
                 </ul>
-                <form class="navbar-form navbar-right" role="search">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search">
-                    </div>
-                    <button type="submit" class="btn btn-default">Rechercher</button>
-                </form>
+
+                
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">Link</a></li>
+                    <li class="active" > <a href="#"> Bonjour,<%= user.getNom() +" "+user.getPrenom() %></a></li>
                 </ul>
             </div>
         </div>

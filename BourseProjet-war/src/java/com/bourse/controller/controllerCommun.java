@@ -38,7 +38,7 @@ public class controllerCommun extends HttpServlet {
     private String jspClient;
     private String message = "";
     
-    private static final int DUREESESSIONVALIDE = 300;
+    private static final int DUREESESSIONVALIDE = 600;
     private static final int NBR_TENTATIVES_MAX = 3;
     
     private Identification ident = null;
@@ -212,7 +212,6 @@ public class controllerCommun extends HttpServlet {
         String login = request.getParameter("login");
         String pwd = request.getParameter("pwd");
         String msgErreur = "Erreur d'authentification. Veuillez vérifier votre login ou mot de passe.";
-
         ident = administrationSession.rechercheIdentParLogin(login);
         if (ident != null) { // Login trouvé
             if (ident.isEstBloque()) {
@@ -307,7 +306,6 @@ public class controllerCommun extends HttpServlet {
     protected void doActionModifierParticulier(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        System.out.println("coco1");
         String nomClient = request.getParameter("nomClient");
         String prenomClient = request.getParameter("prenomClient");
         String dateNaisClient = request.getParameter("dateNaisClient");
@@ -316,25 +314,28 @@ public class controllerCommun extends HttpServlet {
         String tphClient = request.getParameter("tphClient");
         String emailClient = request.getParameter("emailClient");
         String adresseClient = request.getParameter("adresseClient");
-        
-        String niveauClient = request.getParameter("niveauClient");
-        
+                   
+        ident = (Identification) session.getAttribute("identification");
         
         String idParticulier = request.getParameter("idClient");
         
         Particulier part = (Particulier) backOfficeSession.rechercheClientParID(Long.valueOf(idParticulier)); 
-        System.out.println("coco2");
-        if ((!part.getNom().equalsIgnoreCase(nomClient)) && (!part.getPrenom().equalsIgnoreCase(prenomClient)) && backOfficeSession.rechercheParticulierParNomPrenom(nomClient, prenomClient) != null) {
+        if (((!part.getNom().equalsIgnoreCase(nomClient)) || (!part.getPrenom().equalsIgnoreCase(prenomClient))) && backOfficeSession.rechercheParticulierParNomPrenom(nomClient, prenomClient) != null) {
             message = "Erreur - Un client existe déja avec le même nom et le même prénom.";
         } else {
-            backOfficeSession.modificationParticulier(part, nomClient, prenomClient, Date.valueOf(dateNaisClient), lieuNaisClient, 
-                tphClient, emailClient, adresseClient, Integer.parseInt(niveauClient));
+            if (ident.getTypeUser().equalsIgnoreCase("employe")) {
+                String niveauClient = request.getParameter("niveauClient");
+                backOfficeSession.modificationParticulier(part, nomClient, prenomClient, part.getDateNais(), lieuNaisClient, 
+                    tphClient, emailClient, adresseClient, Integer.parseInt(niveauClient));
+            } else {                
+                backOfficeSession.modificationParticulier(part, nomClient, prenomClient, part.getDateNais(), lieuNaisClient, 
+                tphClient, emailClient, adresseClient, part.getNiveau());
+            }         
             message = "Modification réussie !";
-        } 
-        System.out.println("coco3");       
+        }       
         request.setAttribute("message", message);
         
-        ident = (Identification) session.getAttribute("identification");
+        
         if (ident.getTypeUser().equalsIgnoreCase("employe")) {
             session = request.getSession(true); 
                     listeParticulier = backOfficeSession.getListeParticuliersActifsParCourtier((Employe) session.getAttribute("employe"));
@@ -342,12 +343,11 @@ public class controllerCommun extends HttpServlet {
                     listeEntreprise = backOfficeSession.getListeEntreprisesActivesParCourtier((Employe) session.getAttribute("employe"));
                     request.setAttribute("ListeDesEntreprises", listeEntreprise);
                     request.setAttribute("message", message);
-            jspClient = "/BackOffice/GestionDesClients/gestionClientsCourtier.jsp";
+                    jspClient = "/BackOffice/GestionDesClients/gestionClientsCourtier.jsp";
         } else if (ident.getTypeUser().equalsIgnoreCase("client")) {
             request.setAttribute("message", message);
             jspClient = "/FrontOffice/Accueil.jsp";    
         } 
-        System.out.println("coco4");
         
     }
     
@@ -364,27 +364,29 @@ public class controllerCommun extends HttpServlet {
         String tphClient = request.getParameter("tphClient");
         String emailClient = request.getParameter("emailClient");
         String adresseClient = request.getParameter("adresseClient");
-        
-        if (ident.getTypeUser().equalsIgnoreCase("employe")) {
-            String niveauClient = request.getParameter("niveauClient");
-        }
-        String niveauClient = request.getParameter("niveauClient");    
-        
+                
         String idEntreprise = request.getParameter("idClient");
         
         Entreprise entr = (Entreprise) backOfficeSession.rechercheClientParID(Long.valueOf(idEntreprise));
+        ident = (Identification) session.getAttribute("identification");
         
         if ((!entr.getSiret().equalsIgnoreCase(siret)) && (!entr.getNomEntreprise().equalsIgnoreCase(nomEntreprise)) && backOfficeSession.rechercheEntrepriseParSIRET(siret) != null) {
             message = "Erreur - Un client de type entreprise existe déja avec le même siret.";
         } else {
+            if (ident.getTypeUser().equalsIgnoreCase("employe")) {
+                String niveauClient = request.getParameter("niveauClient");
             backOfficeSession.modificationEntreprise(entr, siret, nomEntreprise, EnumFormEntreprise.valueOf(formeEntreprise), contactEntreprise, tphContactEntreprise, 
                 tphClient, emailClient, adresseClient, Integer.parseInt(niveauClient));
+            } else {
+                backOfficeSession.modificationEntreprise(entr, siret, nomEntreprise, EnumFormEntreprise.valueOf(formeEntreprise), contactEntreprise, tphContactEntreprise, 
+                tphClient, emailClient, adresseClient, entr.getNiveau());
+            }
+            message = "Modification réussie !";            
         }   
         
-        message = "Modification réussie !";
+        
         request.setAttribute("message", message);
         
-        ident = (Identification) session.getAttribute("identification");
         if (ident.getTypeUser().equalsIgnoreCase("employe")) {
             listeParticulier = backOfficeSession.getListeParticuliersActifsParCourtier((Employe) session.getAttribute("employe"));
                     request.setAttribute("ListeDesParticuliers", listeParticulier);

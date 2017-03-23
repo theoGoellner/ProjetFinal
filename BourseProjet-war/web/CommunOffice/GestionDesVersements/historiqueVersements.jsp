@@ -4,13 +4,15 @@
 <%@page import="com.bourse.entities.PEA"%>
 <%@page import="com.bourse.entities.Contrat"%>
 <%@page import="com.bourse.entities.PorteFeuille"%>
-<%@page import="com.bourse.entities.Entreprise"%>
-<%@page import="com.bourse.entities.Particulier"%>
 <%@page import="com.bourse.enumeration.EnumFormEntreprise"%>
-<%@page import="com.bourse.entities.Client"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="com.bourse.entities.Identification"%>
 <%@page import="java.util.List"%>
+        <%@page import="com.bourse.entities.Entreprise"%>
+        <%@page import="com.bourse.entities.Client"%>
+        <%@page import="com.bourse.entities.Particulier"%>
+
+       
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -24,17 +26,20 @@
             <title>Gestion des versements</title>       
         </head>
         <body>
-        <%  Identification ident = (Identification) session.getAttribute("identification");
+        <%  
             Client client = null;
-            if (ident.getTypeUser().equalsIgnoreCase("employe")) { %> 
-                <jsp:useBean id="clientSelectionne" scope="session" class="com.bourse.entities.Client"></jsp:useBean>
-                <%@include  file="../../jsp_commun/menuBackOffice.jsp" %>
-                <% client = (Client) session.getAttribute("clientSelectionne");
-            } else {
-                client = (Client) session.getAttribute("client");
-                %>
-                <%@include  file="../../jsp_commun/menuFrontOffice.jsp" %>
-            <% } %>
+            Identification ident = (Identification) session.getAttribute("identification");
+            if (ident.getTypeUser().equalsIgnoreCase("employe")) {
+              %> 
+        <jsp:useBean id="clientSelectionne" scope="session" class="com.bourse.entities.Client"></jsp:useBean>
+        <%@include  file="../../jsp_commun/menuBackOffice.jsp" %>
+        <% client = (Client) session.getAttribute("clientSelectionne");
+        } else {
+
+        %>
+        <%@include  file="../../jsp_commun/menuFrontOffice.jsp" %>
+        <% client = (Client)session.getAttribute("client");
+                } %>
         <div class="container-fluid text-center col-lg-offset-2">
             <div class="row content">
                 <div class="col-lg-10 text-left"> 
@@ -91,7 +96,6 @@
 
                     <%@include  file="../../jsp_commun/footer.jsp" %>
                 </div>
-                <%@include  file="../../jsp_commun/userEncours.jsp" %>
             </div>
         </div>
     </body>
