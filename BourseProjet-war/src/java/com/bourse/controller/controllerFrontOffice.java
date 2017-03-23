@@ -79,11 +79,7 @@ public class controllerFrontOffice extends HttpServlet {
 //                    request.setAttribute("cour", cour);
 //                    request.setAttribute("message", message);
 //                    jspClient = "/BackOffice/GestionDesOperations/propositionOperation.jsp";
-                    break;     
-                    
-                    
-                
-                    
+                    break;          
             }
         }
         RequestDispatcher Rd;
