@@ -143,15 +143,9 @@ public class controllerBackOffice extends HttpServlet {
                     jspClient = "/BackOffice/GestionDesClients/gestionClientsCourtier.jsp";
                     doActionArchiverClient(request, response);
                     break; 
-                case "formModifierClient":
-                    cli = backOfficeSession.rechercheClientParID(Long.valueOf(request.getParameter("idClient")));
-                    if (cli instanceof Entreprise){
-                        jspClient = "/BackOffice/GestionDesClients/formModifEntreprise.jsp";
-                        request.setAttribute("entreprise", (Entreprise)cli);
-                    } else {
-                        jspClient = "/BackOffice/GestionDesClients/formModifParticulier.jsp";
-                        request.setAttribute("particulier", (Particulier)cli);
-                    }
+                case "formModifierClient":                                       
+                    jspClient = "/CommunOffice/GestionDesClients/formModifClient.jsp";
+                    request.setAttribute("client", (Client)backOfficeSession.rechercheClientParID(Long.valueOf(request.getParameter("idClient"))));
                     break;                    
                 case "modifierParticulier":
                     doActionModifierParticulier(request, response);
@@ -463,7 +457,7 @@ public class controllerBackOffice extends HttpServlet {
         String adresseClient = request.getParameter("adresseClient");
         String niveauClient = request.getParameter("niveauClient");
         
-        String idParticulier = request.getParameter("idParticulier");
+        String idParticulier = request.getParameter("idClient");
         
         Particulier part = (Particulier) backOfficeSession.rechercheClientParID(Long.valueOf(idParticulier)); 
         
@@ -480,7 +474,7 @@ public class controllerBackOffice extends HttpServlet {
         request.setAttribute("ListeDesEntreprises", listeEntreprise);
         message = "Modification du client réussi !";
         request.setAttribute("message", message);
-        jspClient = "/BackOffice/GestionDesClients/formAjoutClient.jsp";
+        jspClient = "/BackOffice/GestionDesClients/gestionClientsCourtier.jsp";
     }
     
     protected void doActionModifierEntreprise(HttpServletRequest request, HttpServletResponse response)
@@ -498,7 +492,7 @@ public class controllerBackOffice extends HttpServlet {
         String adresseClient = request.getParameter("adresseClient");
         String niveauClient = request.getParameter("niveauClient");
         
-        String idEntreprise = request.getParameter("idEntreprise");
+        String idEntreprise = request.getParameter("idClient");
         
         Entreprise entr = (Entreprise) backOfficeSession.rechercheClientParID(Long.valueOf(idEntreprise));
         
@@ -515,8 +509,8 @@ public class controllerBackOffice extends HttpServlet {
         request.setAttribute("ListeDesEntreprises", listeEntreprise);
         message = "Modification du client réussi !";
         request.setAttribute("message", message);
-        jspClient = "/BackOffice/GestionDesClients/formAjoutClient.jsp";
-    }  
+        jspClient = "/BackOffice/GestionDesClients/gestionClientsCourtier.jsp";
+    }
         
     protected void doActionRechercherClient(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

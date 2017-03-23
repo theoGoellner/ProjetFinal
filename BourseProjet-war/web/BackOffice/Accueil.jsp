@@ -32,6 +32,7 @@
 
                     <div align="middle">
                         <iframe width="1000" height="800" src="https://app.powerbi.com/view?r=eyJrIjoiYjVkYTQ4ZWMtOWY2Ny00ZDU2LTkwYWYtMmIxMTg1NDYzOGQ0IiwidCI6IjAwMzJhZjMyLTBhZTAtNDMwMC1iZjY3LTgwOWM2MjA4NGU2NiIsImMiOjh9" frameborder="0" allowFullScreen="true"></iframe>
+                        <iframe width="800" height="600" src="https://app.powerbi.com/view?r=eyJrIjoiMTYzNzBiMTUtNWMzNC00ZTZjLTg2OTctZDIzYjQ4OGVlYWE1IiwidCI6IjAwMzJhZjMyLTBhZTAtNDMwMC1iZjY3LTgwOWM2MjA4NGU2NiIsImMiOjh9" frameborder="0" allowFullScreen="true"></iframe>
                     </div>
                     <% }%>
                     

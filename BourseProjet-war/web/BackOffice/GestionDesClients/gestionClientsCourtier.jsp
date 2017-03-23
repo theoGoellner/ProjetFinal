@@ -68,7 +68,7 @@
                                             <td > <%= part.getNiveau()%> </td>
                                             <td ><a href="controllerBackOffice?action=archiverClientGestion&idClient=<%= part.getId()%>"> Archiver </a>
                                             </td>
-                                            <td ><a href="controllerBackOffice?action=formModifierClient&idClient=<%= part.getId()%>"> Modifier </a>
+                                            <td ><a href="controllerCommun?action=formModifierClient&idClient=<%= part.getId()%>"> Modifier </a>
                                             </td>
                                             <td ><a href="controllerCommun?action=afficherPortefeuillesClient&idClient=<%= part.getId()%>"> Gestion Portefeuilles </a>
                                             </td>
@@ -108,7 +108,7 @@
                                             <td > <%= entr.getNiveau()%> </td>
                                             <td ><a href="controllerBackOffice?action=archiverClient&idClient=<%= entr.getId()%>"> <span class="glyphicon glyphicon-trash"></span> Archiver </a>
                                             </td>
-                                            <td ><a href="controllerBackOffice?action=formModifierClient&idClient=<%= entr.getId()%>"> Modifier </a>
+                                            <td ><a href="controllerCommun?action=formModifierClient&idClient=<%= entr.getId()%>"> Modifier </a>
                                             </td>
                                             <td ><a href="controllerCommun?action=afficherPortefeuillesClient&idClient=<%= entr.getId()%>"> Gestion Portefeuilles </a>
                                             </td>

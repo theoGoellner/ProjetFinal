@@ -19,7 +19,6 @@
                     <div align="middle"> 
                     <img src="Presentation/Images/baniere.jpg">
                     </div>
-                    
                     <hr>
                     
                     <%  String attribut = (String) request.getAttribute("message");
@@ -30,9 +29,13 @@
                     </div> 
                     <% }%>  
                     
-                    <h1 align='center'> Bienvenue chez MARTIN & CO </h1>                                        
-
-
+                    <h1 align='center'> Bienvenue chez MARTIN & CO </h1>  
+                    
+                    <div align="middle">
+                        <iframe width="800" height="600" src="https://app.powerbi.com/view?r=eyJrIjoiYjVkYTQ4ZWMtOWY2Ny00ZDU2LTkwYWYtMmIxMTg1NDYzOGQ0IiwidCI6IjAwMzJhZjMyLTBhZTAtNDMwMC1iZjY3LTgwOWM2MjA4NGU2NiIsImMiOjh9" frameborder="0" allowFullScreen="true"></iframe>
+                        <iframe width="800" height="600" src="https://app.powerbi.com/view?r=eyJrIjoiYjVkYTQ4ZWMtOWY2Ny00ZDU2LTkwYWYtMmIxMTg1NDYzOGQ0IiwidCI6IjAwMzJhZjMyLTBhZTAtNDMwMC1iZjY3LTgwOWM2MjA4NGU2NiIsImMiOjh9" frameborder="0" allowFullScreen="true"></iframe>
+                    </div>
+                    
                     <%@include  file="jsp_commun/footer.jsp" %>
                 </div>
 

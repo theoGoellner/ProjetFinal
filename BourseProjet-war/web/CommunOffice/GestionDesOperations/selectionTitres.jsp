@@ -65,11 +65,11 @@
                                     <td > <%= cour.getCours()%> </td>
                                     <td >
                                         <% if (ident.getTypeUser().equalsIgnoreCase("employe")) {%>
-                                        <a href="controllerBackOffice?action=achatCour&idCour=<%= cour.getId()%>"> Acheter </a>
+                                        <a href=""> Acheter </a>
                                         <% out.println(" - ");%>
                                         <a href="controllerBackOffice?action=propositionCour&idCour=<%= cour.getId()%>"> Proposer </a>
                                         <% } else {%>
-                                        <a href="controllerFrontOffice?action=propositionCour&idCour=<%= cour.getId()%>"> Proposer </a>
+                                        <a href=""> Proposer </a>
                                         <% } %>                                        
                                     </td>
                                 </tr>                                 
@@ -77,10 +77,13 @@
                             </tbody>
                         </table>
                     </div>
-                        <%}%>  
-                    
+                        <%}%> 
+                    <div align="middle">  
+                        <iframe width="800" height="600" src="https://app.powerbi.com/view?r=eyJrIjoiMTYzNzBiMTUtNWMzNC00ZTZjLTg2OTctZDIzYjQ4OGVlYWE1IiwidCI6IjAwMzJhZjMyLTBhZTAtNDMwMC1iZjY3LTgwOWM2MjA4NGU2NiIsImMiOjh9" frameborder="0" allowFullScreen="true"></iframe>
+                        <iframe width="800" height="600" src="https://app.powerbi.com/view?r=eyJrIjoiMTYzNzBiMTUtNWMzNC00ZTZjLTg2OTctZDIzYjQ4OGVlYWE1IiwidCI6IjAwMzJhZjMyLTBhZTAtNDMwMC1iZjY3LTgwOWM2MjA4NGU2NiIsImMiOjh9" frameborder="0" allowFullScreen="true"></iframe>
+                    </div>
                     <div class="row" align="middle"> 
-                        <a href="controllerBackOffice?action=acheterTitres" class="btn btn-primary">Acheter</a>
+                        <a href="" class="btn btn-primary">Acheter</a>
                     </div>
                     <%@include  file="../../jsp_commun/footer.jsp" %>
                 </div>

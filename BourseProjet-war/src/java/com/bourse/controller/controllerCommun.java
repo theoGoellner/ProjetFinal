@@ -3,12 +3,16 @@ package com.bourse.controller;
 import com.bourse.entities.Client;
 import com.bourse.entities.Courtage;
 import com.bourse.entities.Employe;
+import com.bourse.entities.Entreprise;
 import com.bourse.entities.Identification;
+import com.bourse.entities.Particulier;
 import com.bourse.entities.PorteFeuille;
+import com.bourse.enumeration.EnumFormEntreprise;
 import com.bourse.sessions.AdministrationSessionLocal;
 import com.bourse.sessions.BackOfficeSessionLocal;
 import com.bourse.sessions.CommunSessionLocal;
 import java.io.IOException;
+import java.sql.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -43,6 +47,8 @@ public class controllerCommun extends HttpServlet {
     private Client cli = null;
     private PorteFeuille pf = null;    
     private List<Courtage> listeCours = null;
+    private List<Particulier> listeParticulier = null;
+    private List<Entreprise> listeEntreprise = null;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -97,6 +103,8 @@ public class controllerCommun extends HttpServlet {
                 case "pwdInit":
                     doActionInitialisationPwd(request, response);
                     break;
+                 
+                // <editor-fold defaultstate="collapsed" desc="FRONT OFFICE">    
                     
                 case "afficherPortefeuillesClient":
                     ident = (Identification) session.getAttribute("identification");            
@@ -112,7 +120,8 @@ public class controllerCommun extends HttpServlet {
                     request.setAttribute("portefeuille", pf);
                     request.setAttribute("message", message);
                     jspClient = "/CommunOffice/GestionDesPortefeuilles/afficherDetailPF.jsp";
-                    break;                
+                    break;
+                    
                 case "selectionTitres":
                     listeCours = communSession.getListeCourageActuels();
                     request.setAttribute("listeCours", listeCours);
@@ -121,12 +130,34 @@ public class controllerCommun extends HttpServlet {
                     break;
                     
                 case "historiqueVersementsClient":
+                    ident = (Identification) session.getAttribute("identification");
                     if (ident.getTypeUser().equalsIgnoreCase("employe")) {
                         session.setAttribute("clientSelectionne", (Client)backOfficeSession.rechercheClientParID(Long.valueOf(request.getParameter("idClient"))));
                     }
                     request.setAttribute("message", message);
                     jspClient = "/CommunOffice/GestionDesVersements/historiqueVersements.jsp";
                     break;
+                    
+                case "formModifierClient":
+                    ident = (Identification) session.getAttribute("identification");
+                    if (ident.getTypeUser().equalsIgnoreCase("employe")) {
+                        cli = (Client)backOfficeSession.rechercheClientParID(Long.valueOf(request.getParameter("idClient")));
+                        request.setAttribute("client", cli);
+                    }                  
+                    jspClient = "/CommunOffice/GestionDesClients/formModifClient.jsp";   
+                    break;                    
+                case "modifierParticulier":
+                    System.out.println("cocoPar1");
+                    doActionModifierParticulier(request, response);
+                    System.out.println("cocoPar2");
+                    break;
+                case "modifierEntreprise":
+                    System.out.println("cocoEntr1");
+                    doActionModifierEntreprise(request, response);
+                    System.out.println("cocoEntr2");
+                    break;
+                    
+                // </editor-fold>
             }
         }
         
@@ -174,7 +205,7 @@ public class controllerCommun extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
- // <editor-fold defaultstate="collapsed" desc="AUTHENTIFICATION">
+    // <editor-fold defaultstate="collapsed" desc="AUTHENTIFICATION">
     protected void doActionAuthentification(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -247,7 +278,7 @@ public class controllerCommun extends HttpServlet {
     }
     // </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="INITIALISATION MOT DE PASSE.">
+    // <editor-fold defaultstate="collapsed" desc="INITIALISATION MOT DE PASSE">
     protected void doActionInitialisationPwd(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -272,4 +303,98 @@ public class controllerCommun extends HttpServlet {
         request.setAttribute("message", message);
     }
     // </editor-fold>
+    
+    protected void doActionModifierParticulier(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        System.out.println("coco1");
+        String nomClient = request.getParameter("nomClient");
+        String prenomClient = request.getParameter("prenomClient");
+        String dateNaisClient = request.getParameter("dateNaisClient");
+        String lieuNaisClient = request.getParameter("lieuNaisClient");
+        
+        String tphClient = request.getParameter("tphClient");
+        String emailClient = request.getParameter("emailClient");
+        String adresseClient = request.getParameter("adresseClient");
+        
+        String niveauClient = request.getParameter("niveauClient");
+        
+        
+        String idParticulier = request.getParameter("idClient");
+        
+        Particulier part = (Particulier) backOfficeSession.rechercheClientParID(Long.valueOf(idParticulier)); 
+        System.out.println("coco2");
+        if ((!part.getNom().equalsIgnoreCase(nomClient)) && (!part.getPrenom().equalsIgnoreCase(prenomClient)) && backOfficeSession.rechercheParticulierParNomPrenom(nomClient, prenomClient) != null) {
+            message = "Erreur - Un client existe déja avec le même nom et le même prénom.";
+        } else {
+            backOfficeSession.modificationParticulier(part, nomClient, prenomClient, Date.valueOf(dateNaisClient), lieuNaisClient, 
+                tphClient, emailClient, adresseClient, Integer.parseInt(niveauClient));
+            message = "Modification réussie !";
+        } 
+        System.out.println("coco3");       
+        request.setAttribute("message", message);
+        
+        ident = (Identification) session.getAttribute("identification");
+        if (ident.getTypeUser().equalsIgnoreCase("employe")) {
+            session = request.getSession(true); 
+                    listeParticulier = backOfficeSession.getListeParticuliersActifsParCourtier((Employe) session.getAttribute("employe"));
+                    request.setAttribute("ListeDesParticuliers", listeParticulier);
+                    listeEntreprise = backOfficeSession.getListeEntreprisesActivesParCourtier((Employe) session.getAttribute("employe"));
+                    request.setAttribute("ListeDesEntreprises", listeEntreprise);
+                    request.setAttribute("message", message);
+            jspClient = "/BackOffice/GestionDesClients/gestionClientsCourtier.jsp";
+        } else if (ident.getTypeUser().equalsIgnoreCase("client")) {
+            request.setAttribute("message", message);
+            jspClient = "/FrontOffice/Accueil.jsp";    
+        } 
+        System.out.println("coco4");
+        
+    }
+    
+    protected void doActionModifierEntreprise(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        
+        String siret = request.getParameter("siret");
+        String nomEntreprise = request.getParameter("nomEntreprise");
+        String formeEntreprise = request.getParameter("formeEntreprise");
+        String contactEntreprise = request.getParameter("contactEntreprise");
+        String tphContactEntreprise = request.getParameter("tphContactEntreprise");
+        
+        String tphClient = request.getParameter("tphClient");
+        String emailClient = request.getParameter("emailClient");
+        String adresseClient = request.getParameter("adresseClient");
+        
+        if (ident.getTypeUser().equalsIgnoreCase("employe")) {
+            String niveauClient = request.getParameter("niveauClient");
+        }
+        String niveauClient = request.getParameter("niveauClient");    
+        
+        String idEntreprise = request.getParameter("idClient");
+        
+        Entreprise entr = (Entreprise) backOfficeSession.rechercheClientParID(Long.valueOf(idEntreprise));
+        
+        if ((!entr.getSiret().equalsIgnoreCase(siret)) && (!entr.getNomEntreprise().equalsIgnoreCase(nomEntreprise)) && backOfficeSession.rechercheEntrepriseParSIRET(siret) != null) {
+            message = "Erreur - Un client de type entreprise existe déja avec le même siret.";
+        } else {
+            backOfficeSession.modificationEntreprise(entr, siret, nomEntreprise, EnumFormEntreprise.valueOf(formeEntreprise), contactEntreprise, tphContactEntreprise, 
+                tphClient, emailClient, adresseClient, Integer.parseInt(niveauClient));
+        }   
+        
+        message = "Modification réussie !";
+        request.setAttribute("message", message);
+        
+        ident = (Identification) session.getAttribute("identification");
+        if (ident.getTypeUser().equalsIgnoreCase("employe")) {
+            listeParticulier = backOfficeSession.getListeParticuliersActifsParCourtier((Employe) session.getAttribute("employe"));
+                    request.setAttribute("ListeDesParticuliers", listeParticulier);
+                    listeEntreprise = backOfficeSession.getListeEntreprisesActivesParCourtier((Employe) session.getAttribute("employe"));
+                    request.setAttribute("ListeDesEntreprises", listeEntreprise);
+                    request.setAttribute("message", message);
+            jspClient = "/BackOffice/GestionDesClients/gestionClientsCourtier.jsp";
+        } else if (ident.getTypeUser().equalsIgnoreCase("client")) {
+            request.setAttribute("message", message);
+            jspClient = "/FrontOffice/Accueil.jsp";    
+        }
+    }
 }

@@ -29,9 +29,9 @@
             if (ident.getTypeUser().equalsIgnoreCase("employe")) { %> 
                 <jsp:useBean id="clientSelectionne" scope="session" class="com.bourse.entities.Client"></jsp:useBean>
                 <%@include  file="../../jsp_commun/menuBackOffice.jsp" %>
-                <% client = (Client) session.getAttribute("clientSelectionne"); // Client à recuperer si le user est un employe
+                <% client = (Client) session.getAttribute("clientSelectionne");
             } else {
-                client = (Client) session.getAttribute("client");   // Ou si c'est un client
+                client = (Client) session.getAttribute("client");
                 %>
                 <%@include  file="../../jsp_commun/menuFrontOffice.jsp" %>
             <% } %>

@@ -65,7 +65,7 @@
                                             <% if (typeRechClient.equalsIgnoreCase("gestion")) {%>
                                             <td ><a href="controllerBackOffice?action=archiverClient&idClient=<%= part.getId()%>"> <span class="glyphicon glyphicon-trash"></span> Archiver </a>
                                             </td>
-                                            <td ><a href="controllerBackOffice?action=formModifierClient&idClient=<%= part.getId()%>">Modifier </a>
+                                            <td ><a href="controllerCommun?action=formModifierClient&idClient=<%= part.getId()%>">Modifier </a>
                                             </td>
                                             <td ><a href="controllerCommun?action=afficherPortefeuillesClient&idClient=<%= part.getId()%>">Gestion Portefeuilles </a>
                                             </td>
