@@ -86,7 +86,6 @@
                             </fieldset>
                         </div>
                     </div>
-                    <iframe width="800" height="600" src="https://app.powerbi.com/view?r=eyJrIjoiMTYzNzBiMTUtNWMzNC00ZTZjLTg2OTctZDIzYjQ4OGVlYWE1IiwidCI6IjAwMzJhZjMyLTBhZTAtNDMwMC1iZjY3LTgwOWM2MjA4NGU2NiIsImMiOjh9" frameborder="0" allowFullScreen="true"></iframe>
                     <%@include  file="../../jsp_commun/footer.jsp" %>
                 </div>
                 <%@include  file="../../jsp_commun/userEncours.jsp" %>

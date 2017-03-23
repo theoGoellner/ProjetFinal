@@ -38,7 +38,7 @@ public class controllerCommun extends HttpServlet {
     private String jspClient;
     private String message = "";
     
-    private static final int DUREESESSIONVALIDE = 600;
+    private static final int DUREESESSIONVALIDE = 300;
     private static final int NBR_TENTATIVES_MAX = 3;
     
     private Identification ident = null;
